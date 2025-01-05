@@ -35,7 +35,7 @@ export default function RegisterForm() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Looking for?</label>
                         <div className="flex items-center space-x-4">
-                            <Card className={`w-full p-4 ${selectedRole === 'user' ? 'border-blue-500 bg-blue-50' : 'border-gray-400'}`}>
+                            <Card className={`w-full p-4 ${selectedRole === 'user' ? 'border-orange-400 bg-orange-50' : 'border-gray-400'}`}>
                                 <label className="flex items-center text-gray-800 dark:text-white cursor-pointer">
                                     <input
                                         type="radio"
@@ -51,7 +51,7 @@ export default function RegisterForm() {
                                     </span>
                                 </label>
                             </Card>
-                            <Card className={`w-full p-4 ${selectedRole === 'admin' ? 'border-blue-400 bg-blue-50' : 'border-gray-400'}`}>
+                            <Card className={`w-full p-4 ${selectedRole === 'admin' ? 'border-orange-400 bg-orange-50' : 'border-gray-400'}`}>
                                 <label className="flex items-center text-gray-800 dark:text-white cursor-pointer">
                                     <input
                                         type="radio"
@@ -146,7 +146,7 @@ export default function RegisterForm() {
                     </div>
                     <Button
                         type="submit"
-                        className="w-full rounded-full h-12 text-white bg-orange-500 hover:bg-orange-500/90"
+                        className="w-full rounded-full h-12"
                     >
                         Register
                     </Button>

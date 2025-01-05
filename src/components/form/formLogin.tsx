@@ -23,10 +23,12 @@ export default function LoginForm() {
                 <div className="space-y-2">
                     <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Welcome back!</h1>
                     <p className="text-gray-800 dark:text-white">
-                        Start your journey with one click, explore the beautiful world!{' '}
+                        Start your journey with one click, explore the beautiful world! Don't have an account?{' '}
+                        <Link href="/register" className="text-orange-500 hover:underline">
+                            Register
+                        </Link>
                     </p>
                 </div>
-
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Email Address</label>
