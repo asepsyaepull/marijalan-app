@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import HeroSection from "./home/heroHome";
-import PartnerLogos from "./home/partnerLogos";
-import DestinationCard from "./home/destinationCard";
-import HowItWorks from "./home/howItWorks";
+import Navbar from "@/components/navbar";
+import HeroSection from "@/components/home/heroHome";
+import PartnerLogos from "@/components/home/partnerLogos";
+import DestinationCard from "@/components/home/destinationCard";
+import HowItWorks from "@/components/home/howItWorks";
 
 const destinations = [
   {
@@ -23,6 +24,7 @@ const destinations = [
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <Navbar />
       <HeroSection />
       <PartnerLogos />
 
