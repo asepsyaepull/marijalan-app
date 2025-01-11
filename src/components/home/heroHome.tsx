@@ -1,43 +1,60 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { Card } from '../ui/card';
+import { Skeleton } from '../ui/skeleton';
 
 const featuredDestinations = [
     {
         id: 1,
-        image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21',
+        image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         title: 'New York City',
         subtitle: 'Highlights',
     },
     {
         id: 2,
-        image: 'https://images.unsplash.com/photo-1602940659805-770d1b3b9911',
+        image: 'https://images.unsplash.com/photo-1602940659805-770d1b3b9911?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         title: 'New York City',
         subtitle: 'Highlights',
     },
     {
         id: 3,
-        image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21',
+        image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D--00888',
         title: 'New York City',
         subtitle: 'Highlights',
     },
 ];
 
 export default function HeroSection() {
+    const [loading, setLoading] = useState(true);
+    const [imageError, setImageError] = useState(false);
+
+    useEffect(() => {
+        // Simulate data fetching
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
     return (
         <section className="relative px-4 md:px-14 py-8">
             {/* Main Hero */}
             <div className="relative w-full h-[400px] md:h-[600px] rounded-3xl overflow-hidden">
-                <Image
-                    src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2368&auto=format&fit=crop"
-                    alt="Tropical paradise"
-                    fill
-                    priority
-                    className="object-cover"
-                />
+                {loading ? (
+                    <Skeleton className="w-full h-full" />
+                ) : (
+                        <Image
+                            src={imageError ? '/default-image.png' : 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2368&auto=format&fit=crop'}
+                            alt="Tropical paradise"
+                            fill
+                            priority
+                            className={`object-cover ${imageError ? 'object-scale-down bg-gray-100' : ''}`}
+                            onError={() => setImageError(true)}
+                        />
+                )}
 
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -90,12 +107,17 @@ export default function HeroSection() {
                                 className="overflow-hidden group rounded-xl"
                             >
                                 <div className="relative h-48 w-full">
-                                    <Image
-                                        src={destination.image}
-                                        alt={destination.title}
-                                        fill
-                                        className="object-cover transition-transform group-hover:scale-105 rounded-xl"
-                                    />
+                                    {loading ? (
+                                        <Skeleton className="w-full h-full" />
+                                    ) : (
+                                            <Image
+                                                src={imageError ? '/default-image.png' : destination.image}
+                                                alt={destination.title}
+                                                fill
+                                                className={`object-cover transition-transform group-hover:scale-105 rounded-xl ${imageError ? 'object-none bg-gray-100' : ''}`}
+                                                onError={() => setImageError(true)}
+                                            />
+                                    )}
                                 </div>
                                 <div className="p-4">
                                     <h3 className="font-semibold text-gray-900 dark:text-white">
