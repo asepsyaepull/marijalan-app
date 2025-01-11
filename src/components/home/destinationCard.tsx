@@ -1,5 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type DestinationCardProps = {
     image: string;
@@ -9,15 +11,30 @@ type DestinationCardProps = {
 };
 
 export default function DestinationCard({ image, title, location, price }: DestinationCardProps) {
+    const [loading, setLoading] = useState(true);
+    const [imageError, setImageError] = useState(false);
+
+    useEffect(() => {
+        // Simulate data fetching
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
     return (
         <Card className="group overflow-hidden">
             <div className="relative h-[200px] w-full">
-                <Image
-                    src={image}
-                    alt={title}
-                    fill
-                    className="object-cover transition-transform group-hover:scale-105"
-                />
+                {loading ? (
+                    <Skeleton className="w-full h-full" />
+                ) : (
+                    <Image
+                        src={imageError ? '/default-image.png' : image}
+                        alt={title}
+                        fill
+                        className={`object-cover transition-transform group-hover:scale-105 ${imageError ? 'object-none bg-gray-100' : ''}`}
+                        onError={() => setImageError(true)}
+                    />
+                )}
             </div>
             <div className="p-4">
                 <h3 className="font-semibold text-lg">{title}</h3>

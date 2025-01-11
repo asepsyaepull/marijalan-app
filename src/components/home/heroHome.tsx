@@ -40,7 +40,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative px-4 md:px-14 py-8">
+        <section className="relative px-4 md:px-14 py-4 md:py-8">
             {/* Main Hero */}
             <div className="relative w-full h-[400px] md:h-[600px] rounded-3xl overflow-hidden">
                 {loading ? (
