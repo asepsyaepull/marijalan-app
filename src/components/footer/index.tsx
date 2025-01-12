@@ -4,8 +4,8 @@ import FooterSocial from './footer-social';
 
 export default function Footer() {
     return (
-        <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-            <div className="container mx-auto px-4 py-12">
+        <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 py-8 px-4 md:px-10">
+            <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
                     <div className="space-y-4">
                         <Logo />

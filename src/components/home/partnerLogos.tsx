@@ -11,9 +11,9 @@ const partners = [
 
 export default function PartnerLogos() {
     return (
-        <section className="py-10">
-            <div className="container mx-auto px-8">
-                <div className="flex flex-wrap justify-between items-center md:mx-auto gap-8 md:gap-24 overflow-x-auto scrollbar-hide">
+        <section className="py-8 px-4 md:px-10">
+            <div className="container max-w-7xl mx-auto">
+                <div className="flex flex-wrap justify-between items-center md:mx-auto gap-8 md:gap-20 overflow-x-auto scrollbar-hide">
                     {partners.map((partner) => (
                         <div key={partner.name} className="w-36 h-10 grayscale hover:grayscale-0 transition-all">
                             <Image

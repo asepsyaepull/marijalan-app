@@ -40,9 +40,9 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative px-4 md:px-14 py-4 md:py-8">
+        <section className="relative p-4 md:py-8 max-w-7xl mx-auto ">
             {/* Main Hero */}
-            <div className="relative w-full h-[400px] md:h-[600px] rounded-3xl overflow-hidden">
+            <div className="relative w-full h-[360px] md:h-[512px] rounded-3xl overflow-hidden">
                 {loading ? (
                     <Skeleton className="w-full h-full" />
                 ) : (
@@ -60,8 +60,8 @@ export default function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 
                 {/* Hero Content */}
-                <div className="absolute bottom-4 p-8 md:px-10">
-                    <div className="max-w-4xl space-y-4">
+                <div className="absolute bottom-2 p-6 md:px-10">
+                    <div className="max-w-4xl space-y-1 md:space-y-4">
                         <span className="inline-block text-white/90 font-medium text-sm md:text-base">
                             #exploretheworld
                         </span>
@@ -75,7 +75,7 @@ export default function HeroSection() {
             {/* Featured Destinations */}
             <div className=" relative w-full bg-gray-50 dark:bg-slate-900 rounded-3xl overflow-hidden">
                 {/* Main Content */}
-                <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8 p-4 md:px-10">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8 py-4 px-6 md:px-10">
                     <div className="space-y-4 max-w-4xl">
                         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white">
                             World Together
