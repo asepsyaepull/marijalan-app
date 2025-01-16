@@ -1,9 +1,11 @@
-import Navbar from "@/components/navbar";
+'use client';
+
 import HeroSection from "@/components/home/heroHome";
 import PartnerLogos from "@/components/home/partnerLogos";
 import HowItWorks from "@/components/home/howItWorks";
 import ExclusiveDeals from "@/components/home/exclusiveDeals";
 import Destinations from "@/components/home/destinations";
+import Category from "@/components/home/category";
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
       <HeroSection />
       <PartnerLogos />
       <ExclusiveDeals />
+      <Category />
       <Destinations />
       <HowItWorks />
     </div>

@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['images.unsplash.com', 's3-alpha-sig.figma.com', 'via.placeholder.com'],
+    domains: ['images.unsplash.com', 's3-alpha-sig.figma.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,10 +12,6 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 's3-alpha-sig.figma.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'via.placeholder.com',
       },
     ],
   },
