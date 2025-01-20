@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       {pageProps?.pathname !== "/login" && pageProps?.pathname !== "/register" && <Navbar />}
       <Component {...pageProps} />
-      {pageProps?.pathname !== "/login" && pageProps?.pathname !== "/register" && <Footer />}
+      {pageProps?.pathname !== "/login" && pageProps?.pathname == "/register" && <Footer />}
     </ThemeProvider>
   );
 }

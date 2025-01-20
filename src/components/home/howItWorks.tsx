@@ -39,7 +39,7 @@ export default function HowItWorks() {
                     {/* Left Content */}
                     <div className="bg-white dark:bg-slate-900 py-10 px-10 space-y-8">
                         <div className="space-y-4">
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                                 How it works?
                             </h2>
                             <p className="text-gray-600 dark:text-gray-300">

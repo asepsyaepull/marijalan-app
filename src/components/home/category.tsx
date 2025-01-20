@@ -1,6 +1,7 @@
 'use client';
 
 import CategoryCard, {CategoryType} from '../card/categoryCard';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 
 const categories: CategoryType[] = [
     {
@@ -31,6 +32,13 @@ const categories: CategoryType[] = [
         flag: '🇨🇦',
         description: 'When it comes to planning a dream vacation, some destinations stand out as top recommendations for travelers worldwide.',
     },
+    {
+        id: 5,
+        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2940&auto=format&fit=crop',
+        country: 'UAE',
+        flag: '🇦🇪',
+        description: 'Experience the future in Dubai with its stunning architecture and luxury experiences.',
+    },
 ];
 
 export default function Category() {
@@ -40,22 +48,37 @@ export default function Category() {
                 <div className="space-y-8">
                     {/* Header */}
                     <div className="space-y-4">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                            Top-Recommended<br />Destinations
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                            Category
                         </h2>
                         <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
-                            Discover our handpicked selection of the most extraordinary destinations that promise unforgettable experiences.
+                            Come on, discover the iconic attractions around you! There are plenty of discounts waiting.
                         </p>
                     </div>
 
                     {/* Recommendations Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {categories.map((category) => (
-                            <CategoryCard
-                                key={category.id}
-                                category={category}
-                            />
-                        ))}
+                    <div className="grid grid-cols-1 gap-6">
+                        <Carousel
+                            opts={{
+                                align: "start",
+                            }}
+                            className="w-full"
+                        >
+                            <CarouselContent>
+                                {categories.map((category) => (
+                                    <CarouselItem key={category.id} className="basis-1/3 md:basis-1/4">
+                                        <div className="p-1">
+                                            <CategoryCard
+                                                key={category.id}
+                                                category={category}
+                                            />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious />
+                            <CarouselNext />
+                        </Carousel>
                     </div>
                 </div>
             </div>

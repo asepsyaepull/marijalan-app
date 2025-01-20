@@ -35,7 +35,7 @@ export default function ExclusiveDeals() {
                 <div className="space-y-8">
                     {/* Header */}
                     <div className="flex justify-between items-center">
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                             Exclusive deals just for you!
                         </h2>
                         <Button variant="ghost" className="text-orange-500">
