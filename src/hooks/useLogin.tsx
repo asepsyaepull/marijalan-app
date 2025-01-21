@@ -3,6 +3,7 @@ import axios from "axios";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { FormEvent, useState, useEffect } from "react";
+import { useToast } from "./use-toast";
 
 interface LoginState {
     role: string | null;
@@ -19,11 +20,13 @@ const useLogin = () => {
     });
 
     const router = useRouter();
+    const { toast } = useToast();
 
     useEffect(() => {
         if (loginState.shouldRedirect && loginState.role) {
             const handleRedirect = async () => {
                 const path = loginState.role === "admin" ? "/dashboard" : "/";
+                await new Promise((resolve) => setTimeout(resolve, 2000)); // Add a 2-second delay
                 await router.push(path);
                 window.location.reload();
             };
@@ -64,9 +67,21 @@ const useLogin = () => {
                 role: role,
                 shouldRedirect: true,
             });
+
+            toast({
+                title: "Login Successful",
+                description: "You have been logged in successfully.",
+            });
         } catch (e: any) {
             setSuccess(false);
             setError(e.response?.data?.message || "An error occurred");
+
+            toast({
+                variant: "destructive",
+                title: "Login Failed",
+                description: e.response?.data?.message || "An error occurred during login.",
+            });
+
             setLoginState({
                 role: null,
                 shouldRedirect: false,

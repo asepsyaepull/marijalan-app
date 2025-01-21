@@ -14,16 +14,7 @@ export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { success, error, isLoading, handleLogin } = useLogin();
-    const { toast } = useToast()
-
-    useEffect(() => {
-        if (success) {
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 2000);
-        }
-    }, [success]);
+    const { isLoading, handleLogin } = useLogin();
 
     return (
         <div className="w-full max-w-md mx-auto p-8">
@@ -92,24 +83,10 @@ export default function LoginForm() {
 
                     <Button
                         type="submit"
-                        onClick={() => {
-                            if (error) {
-                                toast({
-                                    variant: "destructive",
-                                    title: "Uh oh! Something went wrong.",
-                                    description: error,
-                                });
-                            } else if (success) {
-                                toast({
-                                    title: "Success!",
-                                    description: "You have successfully logged in.",
-                                });
-                            }
-                        }}
                         className="w-full rounded-full h-12 text-white bg-orange-500 hover:bg-orange-500/90"
                         disabled={isLoading}
                     >
-                        Login
+                        {isLoading ? 'Loading...' : 'Login'}
                     </Button>
                     {/* <div className="relative"></div>
                         <div className="absolute inset-0 flex items-center"></div>

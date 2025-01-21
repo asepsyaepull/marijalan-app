@@ -44,16 +44,19 @@ const UseLogout = () => {
             if (response.data?.code === "200") {
                 setSuccess(true);
                 deleteCookie("token");
-                reloadPage();
                 toast({
                     title: "Success Logout",
+                    description: "You have been logged out successfully.",
                 });
+                await new Promise((resolve) => setTimeout(resolve, 2000)); // Add a 2-second delay
+                reloadPage();
             }
         } catch (err: any) {
             setError(err.response.data?.message);
             toast({
                 variant: "destructive",
-                title: errorLogout,
+                title: "Logout Failed",
+                description: errorLogout || "An error occurred during logout.",
             });
         } finally {
             setIsLoading(false);
