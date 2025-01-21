@@ -1,21 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
+import useLogin from '@/hooks/useLogin';
+import { useToast } from '@/hooks/use-toast';
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Handle login logic here
-    };
+    const { success, error, isLoading, handleLogin } = useLogin();
+    const { toast } = useToast()
+
+    useEffect(() => {
+        if (success) {
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        }
+    }, [success]);
 
     return (
         <div className="w-full max-w-md mx-auto p-8">
@@ -29,13 +37,14 @@ export default function LoginForm() {
                         </Link>
                     </p>
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Email Address</label>
                         <Input
                             type="email"
-                            placeholder="e.g. jhondoe@gmail.com"
+                            name="email"
                             value={email}
+                            placeholder="e.g. jhondoe@gmail.com"
                             onChange={(e) => setEmail(e.target.value)}
                             className="h-12 border-gray-400 text-gray-700 dark:text-white"
                             required
@@ -46,8 +55,9 @@ export default function LoginForm() {
                         <div className="relative">
                             <Input
                                 type={showPassword ? 'text' : 'password'}
-                                placeholder="Password"
+                                name="password"
                                 value={password}
+                                placeholder="Password"
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="h-12 pr-10 border-gray-400 text-gray-700 dark:text-white"
                                 required
@@ -82,15 +92,30 @@ export default function LoginForm() {
 
                     <Button
                         type="submit"
+                        onClick={() => {
+                            if (error) {
+                                toast({
+                                    variant: "destructive",
+                                    title: "Uh oh! Something went wrong.",
+                                    description: error,
+                                });
+                            } else if (success) {
+                                toast({
+                                    title: "Success!",
+                                    description: "You have successfully logged in.",
+                                });
+                            }
+                        }}
                         className="w-full rounded-full h-12 text-white bg-orange-500 hover:bg-orange-500/90"
+                        disabled={isLoading}
                     >
                         Login
                     </Button>
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
+                    {/* <div className="relative"></div>
+                        <div className="absolute inset-0 flex items-center"></div>
                             <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
                         </div>
-                        <div className="relative flex justify-center text-sm">
+                        <div className="relative flex justify-center text-sm"></div>
                             <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">Or continue with</span>
                         </div>
                     </div>
@@ -113,7 +138,7 @@ export default function LoginForm() {
                         >
                             <img src="https://www.apple.com/favicon.ico" alt="Apple" className="w-5 h-5" />
                         </button>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </div>

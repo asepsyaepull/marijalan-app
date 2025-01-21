@@ -5,21 +5,21 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Eye, EyeOff, User, Users } from 'lucide-react';
 import { Card } from '../ui/card';
-import { Checkbox } from '@radix-ui/react-checkbox';
+import useRegister from '@/hooks/useRegister';
+import { useToast } from '@/hooks/use-toast';
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordRepeat, setpasswordRepeat] = useState('');
     const [phone, setPhone] = useState('');
     const [selectedRole, setSelectedRole] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Handle login logic here
-    };
+    const { toast } = useToast();
+
+    const { success, error, isLoading, handleRegister } = useRegister();
 
     return (
         <div className="w-full max-w-md mx-auto p-8">
@@ -31,15 +31,16 @@ export default function RegisterForm() {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleRegister} className="space-y-4">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Looking for?</label>
                         <div className="flex items-center space-x-4">
                             <Card className={`w-full p-4 ${selectedRole === 'user' ? 'border-orange-400 bg-orange-50' : 'border-gray-400'}`}>
                                 <label className="flex items-center text-gray-800 dark:text-white cursor-pointer">
                                     <input
+                                        id='role'
+                                        name='role'
                                         type="radio"
-                                        name="role"
                                         value="user"
                                         className="h-4 w-4 border-gray-400 text-gray-700 dark:text-white"
                                         onChange={() => setSelectedRole('user')}
@@ -54,8 +55,9 @@ export default function RegisterForm() {
                             <Card className={`w-full p-4 ${selectedRole === 'admin' ? 'border-orange-400 bg-orange-50' : 'border-gray-400'}`}>
                                 <label className="flex items-center text-gray-800 dark:text-white cursor-pointer">
                                     <input
+                                        id='role'
+                                        name='role'
                                         type="radio"
-                                        name="role"
                                         value="admin"
                                         className="h-4 w-4 border-gray-400 text-gray-700 dark:text-white"
                                         onChange={() => setSelectedRole('admin')}
@@ -72,6 +74,8 @@ export default function RegisterForm() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Email Address</label>
                         <Input
+                            id='email'
+                            name='email'
                             type="email"
                             placeholder="e.g. jhondoe@gmail.com"
                             value={email}
@@ -83,6 +87,8 @@ export default function RegisterForm() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Full Name</label>
                         <Input
+                            id='name'
+                            name='name'
                             type="name"
                             placeholder="e.g Jhon Doe"
                             value={name}
@@ -96,6 +102,8 @@ export default function RegisterForm() {
                             <label className="text-sm font-medium text-gray-800 dark:text-white">Password</label>
                             <div className="relative">
                                 <Input
+                                    id='password'
+                                    name='password'
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder="Password"
                                     value={password}
@@ -116,10 +124,12 @@ export default function RegisterForm() {
                             <label className="text-sm font-medium text-gray-800 dark:text-white">Confirm Password</label>
                             <div className="relative">
                                 <Input
+                                    id='passwordRepeat'
+                                    name='passwordRepeat'
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder="Confirm Password"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    value={passwordRepeat}
+                                    onChange={(e) => setpasswordRepeat(e.target.value)}
                                     className="h-12 pr-10 border-gray-400 text-gray-700 dark:text-white"
                                     required
                                 />
@@ -136,7 +146,9 @@ export default function RegisterForm() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Phone Number</label>
                         <Input
-                            type="number"
+                            id='phone'
+                            name='phone'
+                            type="tel"
                             placeholder="e.g 08111xxx"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
@@ -146,9 +158,24 @@ export default function RegisterForm() {
                     </div>
                     <Button
                         type="submit"
+                        disabled={isLoading}
                         className="w-full rounded-full h-12"
+                        onClick={() => {
+                            if (error) {
+                                toast({
+                                    variant: "destructive",
+                                    title: "Uh oh! Something went wrong.",
+                                    description: error,
+                                });
+                            } else if (success) {
+                                toast({
+                                    title: "Success!",
+                                    description: "You have successfully registered.",
+                                });
+                            }
+                        }}
                     >
-                        Register
+                        {isLoading ? "Registering..." : "Register"}
                     </Button>
                     <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
                         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
