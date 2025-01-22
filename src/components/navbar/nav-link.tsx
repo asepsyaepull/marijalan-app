@@ -11,7 +11,7 @@ import Cart from './cart'; // Import Cart component
 
 const links = [
     { href: '/', label: 'Home' },
-    { href: '/destination', label: 'Destination' },
+    { href: '/experience', label: 'Experience' },
     { href: '/promos', label: 'Promos' },
 ];
 
