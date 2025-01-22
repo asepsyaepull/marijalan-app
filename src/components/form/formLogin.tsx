@@ -7,7 +7,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
 import useLogin from '@/hooks/useLogin';
-import { useToast } from '@/hooks/use-toast';
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,6 +31,7 @@ export default function LoginForm() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Email Address</label>
                         <Input
+                            id='id'
                             type="email"
                             name="email"
                             value={email}
@@ -45,6 +45,7 @@ export default function LoginForm() {
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Password</label>
                         <div className="relative">
                             <Input
+                                id='id'
                                 type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 value={password}

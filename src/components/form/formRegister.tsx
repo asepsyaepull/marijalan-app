@@ -147,7 +147,7 @@ export default function RegisterForm() {
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Phone Number</label>
                         <Input
                             id='phone'
-                            name='phone'
+                            name='phoneNumber'
                             type="tel"
                             placeholder="e.g 08111xxx"
                             value={phone}
