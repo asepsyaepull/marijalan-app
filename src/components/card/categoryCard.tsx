@@ -1,33 +1,35 @@
 'use client';
 
-import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 
-export type CategoryType = {
+export interface CategoryType {
     id: string;
-    imageUrl: string;
     name: string;
-    description?: string;
-};
+    imageUrl: string;
+}
 
-type CategoryCardProps = {
-    category: CategoryType;
-};
-
-export default function CategoryCard({ category }: CategoryCardProps) {
+export default function CategoryCard({ category }: { category: CategoryType }) {
     const [imageError, setImageError] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     return (
         <div className="group relative rounded-2xl overflow-hidden">
             {/* Background Image */}
             <div className="relative aspect-[4/3] w-full">
+                {loading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+                        <div className="w-16 h-16 border-4 border-gray-300 border-t-transparent border-t-4 rounded-full animate-spin"></div>
+                    </div>
+                )}
                 <Image
                     src={imageError ? '/default-image.png' : category.imageUrl}
                     alt={category.name}
                     fill
                     className={`object-cover transition-transform group-hover:scale-105 ${imageError ? 'object-none bg-gray-100' : ''}`}
                     onError={() => setImageError(true)}
+                    onLoadingComplete={() => setLoading(false)}
                 />
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -44,15 +46,6 @@ export default function CategoryCard({ category }: CategoryCardProps) {
                     <ArrowUpRight className="w-4 h-4" />
                 </button>
             </div>
-
-            {/* Description (if provided) */}
-            {category.description && (
-                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-6">
-                    <p className="text-white text-center">
-                        {category.description}
-                    </p>
-                </div>
-            )}
         </div>
     );
 }
