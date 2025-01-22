@@ -4,8 +4,9 @@ import HeroSection from "@/components/home/heroHome";
 import PartnerLogos from "@/components/home/partnerLogos";
 import HowItWorks from "@/components/home/howItWorks";
 import ExclusiveDeals from "@/components/home/exclusiveDeals";
-import Destinations from "@/components/home/destinations";
 import Category from "@/components/home/category";
+import Experience from "@/components/home/experience";
+import { BannerSection } from "@/components/home/banner";
 
 export default function Home() {
   return (
@@ -14,7 +15,8 @@ export default function Home() {
       <PartnerLogos />
       <ExclusiveDeals />
       <Category />
-      <Destinations />
+      <Experience />
+      <BannerSection />
       <HowItWorks />
     </div>
   );
