@@ -39,7 +39,7 @@ export default function BannerCard({ banner }: BannerCardProps) {
                     onLoadingComplete={() => setLoading(false)}
                 />
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+                {/* <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" /> */}
             </div>
 
             {/* Content */}

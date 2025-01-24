@@ -1,3 +1,4 @@
+import React from "react"
 import {
     Carousel,
     CarouselContent,
@@ -7,16 +8,21 @@ import {
 } from "@/components/ui/carousel"
 import useBanner from "@/hooks/useBanner"
 import BannerCard from "../card/bannerCard"
+import Autoplay from "embla-carousel-autoplay"
+
 
 export function BannerSection() {
-    const { data: banners, isLoading, error } = useBanner();
-
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading banners</div>;
+    const { data: banners } = useBanner();
+    const plugin = React.useRef(
+        Autoplay({ delay: 2000, stopOnInteraction: true })
+    )
 
     return (
-        <section className="relative p-4 md:py-8 max-w-7xl mx-auto">
+        <section className="relative p-4 md:py-10 max-w-7xl px-4 mx-auto">
             <Carousel
+                plugins={[plugin.current]}
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
                 opts={{
                     align: "start",
                     loop: true,
