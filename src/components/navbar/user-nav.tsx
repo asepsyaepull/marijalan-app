@@ -13,25 +13,37 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUser } from '@/context/UserContext';
 
 export default function UserNav() {
+    const { user, loading } = useUser();
     const { isLoading, handleLogout } = useLogout();
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                    <Avatar className="h-10 w-10 object-cover">
-                        <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop" alt="User" />
-                        <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
+                    {loading ? (
+                        <div className="h-10 w-10 rounded-full bg-gray-200 animate-pulse"></div>
+                    ) : (
+                        <Avatar className="h-10 w-10 object-cover">
+                            <AvatarImage
+                                src={user?.profilePictureUrl || "/default-image.png"}
+                                alt={user?.name || "User"}
+                                onError={(e) => {
+                                    e.currentTarget.src = "/default-image.png";
+                                }}
+                            />
+                            <AvatarFallback>{user?.name?.charAt(0) || "A"}</AvatarFallback>
+                        </Avatar>
+                    )}
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end">
                 <DropdownMenuLabel>
                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium">John Doe</p>
-                        <p className="text-xs text-muted-foreground">john@example.com</p>
+                        <p className="text-sm font-medium">{user?.name || "Guest"}</p>
+                        <p className="text-xs text-muted-foreground">{user?.email || "guest@example.com"}</p>
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
