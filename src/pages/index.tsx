@@ -7,10 +7,11 @@ import ExclusiveDeals from "@/components/home/exclusiveDeals";
 import Category from "@/components/home/category";
 import Experience from "@/components/home/experience";
 import { BannerSection } from "@/components/home/banner";
+import Layout from "@/components/layout";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <Layout>
       <HeroSection />
       <PartnerLogos />
       <ExclusiveDeals />
@@ -18,6 +19,6 @@ export default function Home() {
       <Experience />
       <BannerSection />
       <HowItWorks />
-    </div>
+    </Layout>
   );
 }

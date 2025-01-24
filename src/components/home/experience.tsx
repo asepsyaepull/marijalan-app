@@ -24,7 +24,7 @@ export default function Experience() {
         : experiences.filter(exp => exp.category.name === activeCategory);
 
     return (
-        <section className="py-6 px-4 md:px-8 lg:px-12">
+        <section className="py-10 px-4 md:px-8 lg:px-12">
             <div className="max-w-7xl px-4 md:mx-auto">
                 <div className="space-y-8">
                     {/* Header */}
