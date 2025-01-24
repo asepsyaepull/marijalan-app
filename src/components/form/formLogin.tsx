@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import useLogin from '@/hooks/useLogin';
 
 export default function LoginForm() {
@@ -87,7 +87,7 @@ export default function LoginForm() {
                         className="w-full rounded-full h-12 text-white bg-orange-500 hover:bg-orange-500/90"
                         disabled={isLoading}
                     >
-                        {isLoading ? 'Loading...' : 'Login'}
+                        {isLoading ? <><Loader2 className="animate-spin" /> Loading...</> : 'Login'}
                     </Button>
                     {/* <div className="relative"></div>
                         <div className="absolute inset-0 flex items-center"></div>
