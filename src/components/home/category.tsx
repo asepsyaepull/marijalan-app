@@ -16,8 +16,8 @@ export default function Category() {
     }
 
     return (
-        <section className="py-16 px-4 md:px-8 lg:px-12">
-            <div className="max-w-7xl mx-auto">
+        <section className="py-10 px-4 md:px-8 lg:px-12">
+            <div className="max-w-7xl px-4 mx-auto">
                 <div className="space-y-8">
                     {/* Header */}
                     <div className="space-y-4">
