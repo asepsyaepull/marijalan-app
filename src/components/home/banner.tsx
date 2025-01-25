@@ -1,46 +1,57 @@
-import React from "react"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel"
-import useBanner from "@/hooks/useBanner"
-import BannerCard from "../card/bannerCard"
-import Autoplay from "embla-carousel-autoplay"
+'use client';
 
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import useBanner from '@/hooks/useBanner';
+import BannerCard from '../card/bannerCard';
 
 export function BannerSection() {
-    const { data: banners } = useBanner();
-    const plugin = React.useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true })
-    )
+    const { data: banners, isLoading, error } = useBanner();
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
+    };
+
+    const handlePrevious = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + banners.length) % banners.length);
+    };
+
+    if (isLoading) {
+        return <Skeleton className="w-full h-64" />;
+    }
+
+    if (error) {
+        return <p className="text-red-500">Failed to load banners</p>;
+    }
 
     return (
         <section className="relative p-4 md:py-10 max-w-7xl px-4 mx-auto">
-            <Carousel
-                plugins={[plugin.current]}
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
-                opts={{
-                    align: "start",
-                    loop: true,
-                }}
-                className="w-full"
-            >
-                <CarouselContent>
-                    {banners.map((banner) => (
-                        <CarouselItem key={banner.id} className="w-full md:w-1/2 lg:w-1/3">
-                            <BannerCard banner={banner} />
-                        </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <div className="absolute bottom-4 right-20 flex gap-0">
-                    <CarouselPrevious className="relative h-8 w-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm" />
-                    <CarouselNext className="relative h-8 w-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm" />
-                </div>
-            </Carousel>
+            <div className="relative w-full h-fit">
+                {banners.length > 0 ? (
+                    <BannerCard banner={banners[currentIndex]} />
+                ) : (
+                    <Skeleton className="w-full h-64" />
+                )}
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white rounded-full"
+                    onClick={handlePrevious}
+                >
+                    <ChevronLeft className="h-6 w-6" />
+                </Button>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white rounded-full"
+                    onClick={handleNext}
+                >
+                    <ChevronRight className="h-6 w-6" />
+                </Button>
+            </div>
         </section>
     );
 }
