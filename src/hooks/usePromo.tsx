@@ -15,6 +15,7 @@ export interface PromoItem {
     updatedAt: string;
 }
 
+
 interface ApiResponse {
     status: string;
     message: string;
