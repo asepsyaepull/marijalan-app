@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import ExperienceCard from '../card/experienceCard';
 import useExperience from '@/hooks/useExperience';
+import { useRouter } from 'next/router';
 
 export default function Experience() {
     const { data: experiences, isLoading, error } = useExperience();
     const [activeCategory, setActiveCategory] = useState('All');
+    const router = useRouter();
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -57,13 +60,37 @@ export default function Experience() {
                     </div>
 
                     {/* Experiences Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {filteredExperiences.map((experience) => (
-                            <ExperienceCard
-                                key={experience.id}
-                                experience={experience}
-                            />
-                        ))}
+                    <div className="grid grid-cols-1 gap-6">
+                        <Carousel
+                            opts={{
+                                align: "start",
+                            }}
+                            className="w-full"
+                        >
+                            <CarouselContent>
+                                {filteredExperiences.map((experience) => (
+                                    <CarouselItem key={experience.id} className="basis-1/3 md:basis-1/4">
+                                        <div className="p-1 h-full">
+                                            <ExperienceCard
+                                                key={experience.id}
+                                                experience={experience}
+                                            />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious />
+                            <CarouselNext />
+                        </Carousel>
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <Button
+                            variant="default"
+                            className="rounded-lg w-24 md:w-52 bg-orange-50 text-orange-500 hover:bg-orange-500 hover:text-white"
+                            onClick={() => router.push('/experience')}
+                        >
+                            Explore More →
+                        </Button>
                     </div>
                 </div>
             </div>
