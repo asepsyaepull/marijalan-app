@@ -2,42 +2,32 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'; // Import Link from next/link
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
+import useExperience from '@/hooks/useExperience';
 
-const featuredDestinations = [
-    {
-        id: 1,
-        image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        title: 'New York City',
-        subtitle: 'Highlights',
-    },
-    {
-        id: 2,
-        image: 'https://images.unsplash.com/photo-1602940659805-770d1b3b9911?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        title: 'New York City',
-        subtitle: 'Highlights',
-    },
-    {
-        id: 3,
-        image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D--00888',
-        title: 'New York City',
-        subtitle: 'Highlights',
-    },
-];
 
 export default function HeroSection() {
     const [loading, setLoading] = useState(true);
-    const [imageError, setImageError] = useState(false);
+    const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
+    const { data: experiences, isLoading } = useExperience();
 
     useEffect(() => {
-        // Simulate data fetching
-        setTimeout(() => {
+        if (!isLoading) {
             setLoading(false);
-        }, 2000);
-    }, []);
+        }
+    }, [isLoading]);
+
+    const handleImageError = (id: string) => {
+        setImageError((prev) => ({ ...prev, [id]: true }));
+    };
+
+    const topExperiences = experiences
+        ? experiences.sort((a, b) => b.rating - a.rating).slice(0, 3)
+        : [];
 
     return (
         <section className="relative p-4 md:py-8 max-w-7xl mx-auto ">
@@ -47,12 +37,12 @@ export default function HeroSection() {
                     <Skeleton className="w-full h-full" />
                 ) : (
                         <Image
-                            src={imageError ? '/default-image.png' : 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2368&auto=format&fit=crop'}
+                            src={imageError['hero'] ? '/default-image.png' : 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2368&auto=format&fit=crop'}
                             alt="Tropical paradise"
                             fill
                             priority
-                            className={`object-cover ${imageError ? 'object-scale-down bg-gray-100' : ''}`}
-                            onError={() => setImageError(true)}
+                            className={`object-cover ${imageError['hero'] ? 'object-scale-down bg-gray-100' : ''}`}
+                            onError={() => handleImageError('hero')}
                         />
                 )}
 
@@ -99,36 +89,38 @@ export default function HeroSection() {
                         </div>
                     </div>
 
-                    {/* Featured Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full md:w-1/2">
-                        {featuredDestinations.map((destination) => (
-                            <Card
-                                key={destination.id}
-                                className="overflow-hidden group rounded-xl"
-                            >
-                                <div className="relative h-48 w-full">
-                                    {loading ? (
-                                        <Skeleton className="w-full h-full" />
-                                    ) : (
-                                            <Image
-                                                src={imageError ? '/default-image.png' : destination.image}
-                                                alt={destination.title}
-                                                fill
-                                                className={`object-cover transition-transform group-hover:scale-105 rounded-xl ${imageError ? 'object-none bg-gray-100' : ''}`}
-                                                onError={() => setImageError(true)}
-                                            />
-                                    )}
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="font-semibold text-gray-900 dark:text-white">
-                                        {destination.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                                        {destination.subtitle}
-                                    </p>
-                                </div>
-                            </Card>
-                        ))}
+                    {/* Top Experience Card */}
+                    <div className='flex flex-col w-full md:w-1/2 gap-2'>
+                        <span className='text-sm font-bold'>#3 Top Experience</span>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
+                            {topExperiences.map((experience) => (
+                                <Link href={`/experience/${experience.id}`} key={experience.id}>
+                                    <Card className="overflow-hidden group rounded-xl">
+                                        <div className="relative h-48 w-full">
+                                            {loading ? (
+                                                <Skeleton className="w-full h-full" />
+                                            ) : (
+                                                <Image
+                                                    src={imageError[experience.id] ? '/default-image.png' : experience.imageUrls[0]}
+                                                    alt={experience.title}
+                                                    fill
+                                                    className={`object-cover transition-transform group-hover:scale-105 rounded-xl ${imageError[experience.id] ? 'object-none bg-gray-100' : ''}`}
+                                                    onError={() => handleImageError(experience.id)}
+                                                />
+                                            )}
+                                        </div>
+                                        <div className="p-4">
+                                            <h3 className="font-semibold text-gray-900 dark:text-white">
+                                                {experience.title}
+                                            </h3>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                                                <span className='text-yellow-400'>★</span> {experience.rating} ({experience.total_reviews} reviews)
+                                            </p>
+                                        </div>
+                                    </Card>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
