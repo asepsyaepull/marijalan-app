@@ -1,12 +1,13 @@
 import { FC } from 'react';
+import Image from 'next/image';
 import iconLogo from '/public/iconLogo.svg';
 import textLogo from '/public/textLogo.svg';
 
 const Logo: FC = () => {
     return (
         <div className="flex items-center gap-2">
-            <img src="/iconLogo.svg" alt="Logo" className="h-6" />
-            <img src="/textLogo.svg" alt="Logo" className="h-8 filter dark:invert" />
+            <Image src="/iconLogo.svg" alt="Logo" width={24} height={24} />
+            <Image src="/textLogo.svg" alt="Logo" width={32} height={32} className="filter dark:invert" />
         </div>
     );
 };

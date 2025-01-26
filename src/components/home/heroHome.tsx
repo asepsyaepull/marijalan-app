@@ -73,6 +73,7 @@ export default function HeroSection() {
                         <p className="text-gray-600 dark:text-gray-300">
                             We always make our customer happy by providing as many choices as possible
                         </p>
+                        <p>Don&apos;t miss out on our latest updates</p>
                         <div className="flex flex-wrap gap-2">
                             <Button
                                 variant="default"
