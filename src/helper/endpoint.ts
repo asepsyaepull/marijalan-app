@@ -48,11 +48,11 @@ export const END_POINT = {
 
   GET_PAYMENT_METHOD: "/payment-methods",
 
-  CREATE_TRANSAKSI: "/create-transaction",
-  MY_TRANSAKSI: "/my-transactions",
-  MY_TRANSAKSI_BY_ID: "/transaction",
-  ALL_TRANSAKSI: "/all-transactions",
-  CANCEL_TRANSAKSI: "/cancel-transaction",
+  CREATE_TRANSACTION: "/create-transaction",
+  MY_TRANSACTION: "/my-transactions",
+  MY_TRANSACTION_BY_ID: "/transaction",
+  ALL_TRANSACTION: "/all-transactions",
+  CANCEL_TRANSACTION: "/cancel-transaction",
   UPDATE_PAYMENT_PROOF: "/update-transaction-proof-payment",
-  UPDATE_TRANSAKSI_STATUS: "/update-transaction-status",
+  UPDATE_TRANSACTION_STATUS: "/update-transaction-status",
 };
