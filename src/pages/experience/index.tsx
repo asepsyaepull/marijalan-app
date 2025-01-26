@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import useExperience from '@/hooks/useExperience';
-import ExperienceCard from '@/components/card/experienceCard';
+import ExperienceCard, { ExperienceType } from '@/components/card/experienceCard';
 import { BreadcrumbExperience } from './BreadcrumbExperience';
 import Layout from '@/components/layout';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 export default function ExperiencePage() {
     const { data: experiences, isLoading, error } = useExperience();
     const [activeCategory, setActiveCategory] = useState('All');
+    const [searchQuery, setSearchQuery] = useState('');
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -19,11 +22,19 @@ export default function ExperiencePage() {
         return <div>Error: {error}</div>;
     }
 
+    const searchExperience = (experiences: ExperienceType[]) => {
+        return experiences.filter(
+            (dest) =>
+                dest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                dest.address.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    };
+
     const categories = ['All', ...new Set(experiences.map(exp => exp.category.name))];
 
     const filteredExperiences = activeCategory === 'All'
-        ? experiences
-        : experiences.filter(exp => exp.category.name === activeCategory);
+        ? searchExperience(experiences)
+        : searchExperience(experiences).filter(exp => exp.category.name === activeCategory);
 
     return (
         <Layout>
@@ -37,11 +48,25 @@ export default function ExperiencePage() {
                                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                                     Explore the world for relax!
                                 </h2>
-                                <p className="text-gray-600 dark:text-gray-300 max-w-5xl">
+                                <p className="text-gray-600 dark:text-gray-300 max-w-3xl">
                                     All-inclusive vacations and flights to the Caribbean, Indonesian, and more than 1,300 destinations worldwide. Now with Xplore Vacations.
                                 </p>
                             </div>
+                            {/* Search Bar */}
+                            <div className="max-w-2xl mb-12 min-w-96">
+                                <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                    <Input
+                                        type="text"
+                                        placeholder="Search Experience..."
+                                        className="pl-10 h-12"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                            </div>
                         </div>
+
 
                         {/* Categories */}
                         <div className="flex flex-wrap gap-3">
