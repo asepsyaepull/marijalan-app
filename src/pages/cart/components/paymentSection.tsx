@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 import usePayment from '@/hooks/payment/usePayment';
 import CreateTransaction from './paymentButton';
-import { PaymentMethod } from '../../../hooks/transactions/useGetTransactionsId';
 
 type PaymentSectionProps = {
     subtotal: number;

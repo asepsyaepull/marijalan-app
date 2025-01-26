@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import useGetTransactions from '@/hooks/transactions/useGetTransactions';
-import { formatToIDR } from '@/helper/convertIDR';
 import { FORMAT_DATE } from '@/helper/convertTime';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState, useEffect } from 'react';
@@ -35,7 +34,7 @@ export default function OrderCard({ id }: { id: string }) {
     const order = data.find(order => order.id === id);
     if (!order) return <div>Order not found</div>;
 
-    const { invoiceId, status, totalAmount, payment_method, orderDate, expiredDate, transaction_items } = order;
+    const { invoiceId, status, totalAmount, orderDate, expiredDate, transaction_items } = order;
     const originalPrice = transaction_items.reduce((acc, item) => acc + item.price, 0);
     const quantity = transaction_items.reduce((acc, item) => acc + item.quantity, 0);
 

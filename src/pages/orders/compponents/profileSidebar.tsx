@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Settings, FileText, LogOut, Instagram, Facebook, Twitter } from 'lucide-react';
 import { useUser } from '@/context/UserContext';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function ProfileSidebar() {
     const { user, loading } = useUser();

@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { BreadcrumbCart } from './BreadcrumbCart';
 
 export default function CartPage() {
-    const { data: items, isLoadingCart, errorCart, refreshCart } = useGetCart();
+    const { data: items, errorCart, refreshCart } = useGetCart();
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [subtotal, setSubtotal] = useState(0);
     const [discount] = useState(0); // Example discount

@@ -19,7 +19,7 @@ export default function OrderDetail() {
 
     if (!data) return <div>Order not found</div>;
 
-    const { invoiceId, status, totalAmount, payment_method, orderDate, expiredDate, transaction_items } = data;
+    const { invoiceId, status, totalAmount, payment_method, orderDate, transaction_items } = data;
 
     return (
         <Layout>
