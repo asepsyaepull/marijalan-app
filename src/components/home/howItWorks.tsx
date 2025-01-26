@@ -34,8 +34,8 @@ const steps = [
 export default function HowItWorks() {
     return (
         <section className="relative py-10 px-4 md:px-12">
-            <div className="max-w-7xl px-4 mx-auto border border-gray-200 dark:border-gray-700 rounded-3xl overflow-hidden">
-                <div className="grid md:grid-cols-2">
+            <div className="max-w-7xl px-4 mx-auto">
+                <div className="grid md:grid-cols-2 border border-gray-200 dark:border-gray-700 rounded-3xl overflow-hidden">
                     {/* Left Content */}
                     <div className="bg-white dark:bg-slate-900 py-10 px-10 space-y-8">
                         <div className="space-y-4">
