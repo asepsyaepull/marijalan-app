@@ -14,6 +14,7 @@ export default function HeroLoginSection() {
                 <p className="text-white/80 text-lg max-w-md">
                     We always make our customer happy by providing as many choices as possible
                 </p>
+                <p>Don&apos;t have an account? Sign up</p>
             </div>
         </div>
     );

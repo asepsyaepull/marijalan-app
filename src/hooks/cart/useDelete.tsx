@@ -43,10 +43,10 @@ const useDeleteCart = () => {
                 variant: "destructive",
             });
             return false;
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast({
                 title: "Error",
-                description: error.response?.data?.message || "Failed to remove item",
+                description: (error as any).response?.data?.message || "Failed to remove item",
                 variant: "destructive",
             });
             return false;

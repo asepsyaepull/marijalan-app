@@ -8,6 +8,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Image from 'next/image';
 
 // Sample cart items - in a real app, this would come from your cart state management
 const cartItems = [
@@ -57,7 +58,7 @@ export default function Cart() {
                             className="flex items-start gap-3 px-4 py-3 cursor-default"
                         >
                             <div className="relative h-16 w-16 flex-shrink-0 rounded-md overflow-hidden">
-                                <img
+                                <Image
                                     src={item.image}
                                     alt={item.title}
                                     className="h-full w-full object-cover"

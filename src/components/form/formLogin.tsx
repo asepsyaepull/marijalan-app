@@ -21,7 +21,7 @@ export default function LoginForm() {
                 <div className="space-y-2">
                     <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Welcome back!</h1>
                     <p className="text-gray-800 dark:text-white">
-                        Start your journey with one click, explore the beautiful world! Don't have an account?{' '}
+                        Start your journey with one click, explore the beautiful world! Don&apos;t have an account?{' '}
                         <Link href="/register" className="text-orange-500 hover:underline">
                             Register
                         </Link>

@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import iconLogo from '/public/iconLogo.svg';
-import textLogo from '/public/textLogo.svg';
 
 const Logo: FC = () => {
     return (
