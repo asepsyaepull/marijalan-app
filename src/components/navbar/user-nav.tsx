@@ -26,14 +26,16 @@ import {
     AlertDialogAction
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function UserNav() {
     const { user, loading } = useUser();
     const { isLoading, handleLogout } = useLogout();
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const router = useRouter();
 
-    const handleLogoutClick = (e: Event) => {
+    const handleLogoutClick  = async (e: Event) => {
         e.preventDefault();
         setIsAlertOpen(true);
     };
@@ -42,6 +44,10 @@ export default function UserNav() {
         setIsAlertOpen(false);
         setIsDropdownOpen(false);
         await handleLogout();
+    };
+
+    const handleOrdersClick = () => {
+        router.push('/orders');
     };
 
     return (
@@ -78,9 +84,9 @@ export default function UserNav() {
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onSelect={handleOrdersClick}>
                             <CreditCard className="mr-2 h-4 w-4" />
-                            <span>Billing</span>
+                            <span>My Orders</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <Settings className="mr-2 h-4 w-4" />
