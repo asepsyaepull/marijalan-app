@@ -18,24 +18,33 @@ import {
     AlertDialogAction
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
+import useAddCart from '@/hooks/cart/useAddCart';
 
 export default function QuickInfo() {
     const { data, isLoading, error } = useExperienceId();
     const { user } = useUser();
-    const router = useRouter(); // Initialize useRouter
+    const router = useRouter();
     const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const { addToCart, isLoading: isAddingToCart } = useAddCart();
 
     const handleConfirmLogin = async () => {
         setIsAlertOpen(false);
         router.push('/login');
     };
 
-    const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!user) {
             e.preventDefault();
             setIsAlertOpen(true);
         } else {
-            router.push('/cart');
+            try {
+                if (data) {
+                    await addToCart(data.id);
+                }
+                router.push('/cart');
+            } catch (err) {
+                console.error(err);
+            }
         }
     };
 
@@ -72,7 +81,10 @@ export default function QuickInfo() {
                 {/* Location */}
                 <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Location</p>
-                    <p className="font-medium">{data?.city}, {data?.province}</p>
+                    <div className="flex items-center gap-1">
+                        <MapPin className="w-4 h-4" />
+                        <p className="font-medium">{data?.city}, {data?.province}</p>
+                    </div>
                 </div>
 
                 {/* Rating */}
@@ -98,10 +110,10 @@ export default function QuickInfo() {
 
                 {/* Action Buttons */}
                 <div className="space-y-3">
-                    <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleAddToCart}>
+                    <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Book Now
                     </Button>
-                    <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10" onClick={handleAddToCart}>
+                    <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Add to Cart
                     </Button>
                 </div>
