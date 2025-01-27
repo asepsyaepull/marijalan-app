@@ -1,6 +1,5 @@
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import axios from "axios";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export interface GetTransactionItem {
@@ -47,9 +46,7 @@ const useTransactionsId = (id: string) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const router = useRouter();
-
-    const getTransaksi = async (id: string) => {
+    const getTransaction = async (id: string) => {
         setIsLoading(true);
         setError(null);
 
@@ -79,10 +76,10 @@ const useTransactionsId = (id: string) => {
     };
 
     useEffect(() => {
-        if (router.isReady && router.query.transaksi) {
-            getTransaksi(router.query.transaksi as string);
+        if (id) {
+            getTransaction(id);
         }
-    }, [router.isReady, router.query.transaksi]);
+    }, [id]);
 
     return { data, isLoading, error };
 };
