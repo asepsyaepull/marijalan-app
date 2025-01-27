@@ -46,7 +46,7 @@ const useGetTransactions = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const getTransaksiList = async () => {
+    const getTransactionList = async () => {
         setIsLoading(true);
         setError(null);
         const token = document.cookie
@@ -75,7 +75,7 @@ const useGetTransactions = () => {
     };
 
     useEffect(() => {
-        getTransaksiList();
+        getTransactionList();
     }, []);
 
     return { data, isLoading, error };
