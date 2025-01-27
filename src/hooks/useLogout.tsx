@@ -6,7 +6,7 @@ import { useState } from "react";
 import { deleteCookie } from "cookies-next";
 import { useToast } from "./use-toast";
 
-const UseLogout = () => {
+const useLogout = () => {
     const [success, setSuccess] = useState(false);
     const [errorLogout, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -70,4 +70,4 @@ const UseLogout = () => {
     };
 };
 
-export default UseLogout;
+export default useLogout;
