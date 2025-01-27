@@ -1,9 +1,8 @@
 'use client';
 
-import { LogOut, User, Settings, CreditCard } from 'lucide-react';
+import { User, Settings, CreditCard } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import useLogout from '@/hooks/useLogout';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,35 +13,18 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/context/UserContext';
-import {
-    AlertDialog,
-    AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogCancel,
-    AlertDialogAction
-} from '@/components/ui/alert-dialog';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import LogoutButtons from './logout-button';
 
 export default function UserNav() {
     const { user, loading } = useUser();
-    const { isLoading, handleLogout } = useLogout();
-    const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const router = useRouter();
 
-    const handleLogoutClick  = async (e: Event) => {
-        e.preventDefault();
-        setIsAlertOpen(true);
-    };
-
-    const handleConfirmLogout = async () => {
-        setIsAlertOpen(false);
+    const handleLogoutClick = () => {
         setIsDropdownOpen(false);
-        await handleLogout();
+        
     };
 
     const handleOrdersClick = () => {
@@ -50,7 +32,6 @@ export default function UserNav() {
     };
 
     return (
-        <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
             <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -93,33 +74,10 @@ export default function UserNav() {
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                        className="text-red-600 focus:text-red-600"
-                        onSelect={handleLogoutClick}
-                        disabled={isLoading}
-                    >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>{isLoading ? 'Logging out...' : 'Log out'}</span>
+                <DropdownMenuItem onSelect={handleLogoutClick}>
+                    <LogoutButtons />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
-            </DropdownMenu>
-
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        Are you sure you want to log out?
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>
-                        Cancel
-                    </AlertDialogCancel>
-                    <AlertDialogAction onClick={handleConfirmLogout}>
-                        Log out
-                    </AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+        </DropdownMenu>
     );
 }
