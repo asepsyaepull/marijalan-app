@@ -103,7 +103,7 @@ export default function QuickInfo() {
                 <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Price</p>
                     <div className="flex items-baseline gap-2">
-                        <p className="text-2xl font-bold text-orange-500">Rp{data?.price_discount.toLocaleString()}</p>
+                        <p className="text-2xl font-bold text-orange-500">Rp{data?.price.toLocaleString()}</p>
                         <span className="text-sm text-gray-600 dark:text-gray-400">/pax</span>
                     </div>
                 </div>
