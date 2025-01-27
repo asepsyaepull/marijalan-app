@@ -12,7 +12,7 @@ interface CancelTrasanctionResponse {
 const UseCancelTransaction = () => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const cancelTransaksi = async (transaksiId: string) => {
+    const cancelTransaction = async (transactionId: string) => {
         try {
             setIsLoading(true);
             const token = document.cookie
@@ -21,7 +21,7 @@ const UseCancelTransaction = () => {
                 ?.split("=")[1];
 
             const response = await axios.post<CancelTrasanctionResponse>(
-                `${BASE_URL.API}${END_POINT.CANCEL_TRANSAKSI}/${transaksiId}`,
+                `${BASE_URL.API}${END_POINT.CANCEL_TRANSACTION}/${transactionId}`,
                 {},
                 {
                     headers: {
@@ -35,7 +35,6 @@ const UseCancelTransaction = () => {
                     title: "Success",
                     description: response.data.message,
                 });
-                // router.push("/user/transaksi");
                 window.location.reload();
             } else {
                 toast({
@@ -55,7 +54,7 @@ const UseCancelTransaction = () => {
             setIsLoading(false);
         }
     };
-    return { cancelTransaksi, isLoading };
+    return { cancelTransaction, isLoading };
 };
 
 export default UseCancelTransaction;
