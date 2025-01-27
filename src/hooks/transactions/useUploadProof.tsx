@@ -15,7 +15,7 @@ const useUploadUrlProof = () => {
     const router = useRouter();
 
     const uploadProofPayment = async (
-        transaksiId: string,
+        transactionId: string,
         proofPaymentUrl: string
     ) => {
         try {
@@ -26,7 +26,7 @@ const useUploadUrlProof = () => {
                 ?.split("=")[1];
 
             const response = await axios.post<UploadProofResponse>(
-                `${BASE_URL.API}${END_POINT.UPDATE_PAYMENT_PROOF}/${transaksiId}`,
+                `${BASE_URL.API}${END_POINT.UPDATE_PAYMENT_PROOF}/${transactionId}`,
                 {
                     proofPaymentUrl: proofPaymentUrl,
                 },
@@ -43,7 +43,7 @@ const useUploadUrlProof = () => {
                     title: "Success",
                     description: "Proof of payment uploaded successfully",
                 });
-                router.push("/user/transaksi");
+                router.push("/orders");
                 return true;
             } else {
                 throw new Error(response.data.message);
