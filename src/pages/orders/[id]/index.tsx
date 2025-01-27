@@ -1,38 +1,57 @@
-import Image from "next/image"
 import { ArrowLeft, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import Layout from "@/components/layout"
-import ProfileSidebar from "../compponents/profileSidebar"
 import useTransactionsId from "@/hooks/transactions/useGetTransactionsId"
 import { useRouter } from "next/router"
 import { Skeleton } from "@/components/ui/skeleton"
-import { FORMAT_DATE } from "@/helper/convertTime"
+import { Card } from '@/components/ui/card';
+import Image from "next/image"
+import ProfileSidebar from "../compponents/profileSidebar"
+import OrderCard from "../compponents/orderCard"
+import CancelButton from "./components/cancelButton"
+import UploadProofPaymentDialog from "./components/uploadProof"
+import { useState } from "react"
 
 export default function OrderDetail() {
     const router = useRouter();
     const { id } = router.query;
     const { data, isLoading, error } = useTransactionsId(id as string);
+    const [selectedTransactionId, setSelectedTransactionId] = useState<string>("");
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [imageError, setImageError] = useState(false);
+
+    const handleUploadClick = (transactionId: string) => {
+        setSelectedTransactionId(transactionId);
+        setIsDialogOpen(true);
+    };
+
+    const handleCopy = () => {
+        if (data) {
+            navigator.clipboard.writeText(data.payment_method.virtual_account_number);
+            alert("Account number copied to clipboard");
+        }
+    };
 
     if (isLoading) return <Skeleton className="w-full h-full" />;
     if (error) return <div>Error loading order data</div>;
 
-    if (!data) return <div>Order not found</div>;
+    if (!data) return <div>Order Data not Found</div>;
 
-    const { invoiceId, status, totalAmount, payment_method, orderDate, transaction_items } = data;
+    const totalPayment = data.transaction_items.reduce((acc, item) => acc + (item.quantity * item.price_discount), 0);
+    const isPending = data.status.toLowerCase() === "pending";
 
     return (
         <Layout>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
-                <div className="max-w-7xl px-4 md:mx-auto">
+                <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         {/* Sidebar */}
-                        <div>
+                        <div className="lg:col-span-1">
                             <ProfileSidebar />
                         </div>
 
                         {/* Main Content */}
-                        <main className="flex-1 p-6">
+                        <main className="lg:col-span-3 p-6">
                             {/* Header */}
                             <div className="flex items-center space-x-4 mb-6">
                                 <Button variant="ghost" size="icon" className="rounded-full" onClick={() => router.back()}>
@@ -43,32 +62,8 @@ export default function OrderDetail() {
 
                             {/* Order Details */}
                             <Card className="p-6 space-y-6">
-                                <div>
-                                    <h2 className="text-lg font-semibold mb-4">Order items</h2>
-                                    <div className="bg-white rounded-lg border p-4">
-                                        <div className="flex flex-col md:flex-row gap-4">
-                                            <Image
-                                                src={transaction_items[0].imageUrls[0]}
-                                                alt={transaction_items[0].title}
-                                                width={200}
-                                                height={150}
-                                                className="rounded-lg object-cover"
-                                            />
-                                            <div className="flex-1 space-y-2">
-                                                <p className="text-sm text-gray-500">{invoiceId}</p>
-                                                <h3 className="text-lg font-semibold">{transaction_items[0].title}</h3>
-                                                <p className="text-sm text-gray-500">{FORMAT_DATE(orderDate)}</p>
-                                                <div className="flex justify-between items-center">
-                                                    <div>
-                                                        <p className="text-sm text-gray-500 line-through">Rp{transaction_items[0].price.toLocaleString()}</p>
-                                                        <p className="text-lg font-semibold">{transaction_items[0].quantity} x Rp{totalAmount.toLocaleString()}</p>
-                                                    </div>
-                                                    <span className="px-3 py-1 bg-orange-100 text-orange-500 rounded-full text-sm">{status}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {/* Order Card */}
+                                <OrderCard id={data.id} />
 
                                 {/* Transfer Details */}
                                 <div>
@@ -76,13 +71,13 @@ export default function OrderDetail() {
                                     <div className="bg-orange-50 p-4 rounded-lg">
                                         <div className="flex items-center justify-between mb-4">
                                             <div className="flex items-center space-x-2">
-                                                <Image src={payment_method.imageUrl} alt={payment_method.name} width={40} height={40} className="rounded" />
-                                                <span className="font-medium">{payment_method.name}</span>
+                                                <Image src={data.payment_method.imageUrl} alt={data.payment_method.name} width={40} height={40} className="rounded" />
+                                                <span className="font-medium">{data.payment_method.name}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between bg-white p-3 rounded-lg">
-                                            <span className="font-mono text-lg">{payment_method.virtual_account_number}</span>
-                                            <Button variant="secondary" size="sm">
+                                            <span className="font-mono text-lg">{data.payment_method.virtual_account_number}</span>
+                                            <Button variant="secondary" size="sm" onClick={handleCopy}>
                                                 <Copy className="h-4 w-4 mr-2" />
                                                 Copy
                                             </Button>
@@ -94,17 +89,47 @@ export default function OrderDetail() {
                                 <div>
                                     <h2 className="text-lg font-semibold mb-4">Total Payment</h2>
                                     <div className="bg-gray-50 p-4 rounded-lg">
-                                        <span className="text-xl font-semibold">Rp{totalAmount.toLocaleString()}</span>
+                                        <span className="text-xl font-semibold">Rp{totalPayment.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    {/* Payment Proof */}
+                                    <h2 className="text-lg font-semibold mb-4">Payment Proof</h2>
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+                                            <Image
+                                                src={imageError ? '/default-image.png' : (data.proofPaymentUrl || '/default-image.png')}
+                                                alt="Payment Proof"
+                                                fill
+                                                className={`object-cover transition-transform ${imageError ? 'object-none bg-gray-100' : ''}`}
+                                                onError={() => setImageError(true)}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                    <Button variant="outline" className="flex-1">
-                                        Cancel Order
-                                    </Button>
-                                    <Button className="flex-1 bg-orange-500 hover:bg-orange-600">Upload Payment Proof</Button>
-                                </div>
+                                {isPending && (
+                                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                                        <CancelButton
+                                            transactionId={data.id}
+                                            invoiceId={data.invoiceId}
+                                            className="flex-1" />
+
+                                        <Button
+                                            className="flex-1 bg-orange-500 hover:bg-orange-600"
+                                            onClick={() => handleUploadClick(data.id)}
+                                        >
+                                            Upload Payment Proof
+                                        </Button>
+
+                                        <UploadProofPaymentDialog
+                                            isOpen={isDialogOpen}
+                                            onOpenChange={setIsDialogOpen}
+                                            transactionId={selectedTransactionId}
+                                        />
+                                    </div>
+                                )}
                             </Card>
                         </main>
                     </div>
