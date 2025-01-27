@@ -110,13 +110,13 @@ export default function OrderItems({ items, selectedItems, setSelectedItems, set
                         <p className="text-sm text-gray-500 dark:text-gray-400">{item.activity.city}</p>
                         <div className="mt-2">
                             <span className="text-lg font-bold text-orange-500">
-                                Rp{item.activity.price.toLocaleString()}
+                                {item.activity.price !== undefined && (
+                                    <span className="text-lg font-bold text-orange-500">
+                                        Rp{item.activity.price.toLocaleString()}
+                                    </span>
+                                )}
                             </span>
-                            {item.activity.price_discount && (
-                                <span className="ml-2 text-sm text-gray-500 line-through">
-                                    Rp{item.activity.price_discount.toLocaleString()}
-                                </span>
-                            )}
+                            
                         </div>
                     </div>
 
