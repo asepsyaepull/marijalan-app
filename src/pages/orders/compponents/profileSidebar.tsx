@@ -6,6 +6,7 @@ import { Settings, FileText, LogOut, Instagram, Facebook, Twitter } from 'lucide
 import { useUser } from '@/context/UserContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
+import LogoutButton from '@/components/navbar/logout-button';
 
 export default function ProfileSidebar() {
     const { user, loading } = useUser();
@@ -57,10 +58,8 @@ export default function ProfileSidebar() {
                     <FileText className="w-5 h-5" />
                     <span>Terms & Conditions</span>
                 </Link>
-                <button className="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-red-600">
-                    <LogOut className="w-5 h-5" />
-                    <span>Logout</span>
-                </button>
+                <LogoutButton 
+                    className="flex text-md items-center gap-3 p-3 rounded-lg hover:text-red-700 hover:bg-gray-100 dark:hover:bg-gray-700" />
             </nav>
 
             {/* Footer */}
