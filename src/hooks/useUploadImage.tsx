@@ -9,7 +9,7 @@ interface UploadImageResponse {
     url: string;
 }
 
-const UseUploadImage = () => {
+const useUploadImage = () => {
     const [uploadProgress, setUploadProgress] = useState(0);
 
     const uploadImage = async (file: File): Promise<string> => {
@@ -52,4 +52,4 @@ const UseUploadImage = () => {
     return { uploadImage, uploadProgress };
 };
 
-export default UseUploadImage;
+export default useUploadImage;
