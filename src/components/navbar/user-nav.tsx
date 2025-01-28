@@ -27,6 +27,10 @@ export default function UserNav() {
         
     };
 
+    const handleProfileClick = () => {
+        router.push('/profile');
+    };
+
     const handleOrdersClick = () => {
         router.push('/orders');
     };
@@ -60,11 +64,11 @@ export default function UserNav() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleOrdersClick}>
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={handleOrdersClick}>
+                    <DropdownMenuItem onClick={handleOrdersClick}>
                             <CreditCard className="mr-2 h-4 w-4" />
                             <span>My Orders</span>
                         </DropdownMenuItem>
