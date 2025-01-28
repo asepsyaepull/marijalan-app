@@ -62,25 +62,10 @@ const DeleteCartButton: React.FC<DeleteCartButtonProps> = ({
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={handleDeleteItem}
-                            disabled={isLoading}
-                            className={`bg-red-500 hover:bg-red-600 focus:ring-red-500 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
-                                }`}
-                        >
-                            {isLoading ? (
-                                <>
-                                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                                    Removing...
-                                </>
-                            ) : (
-                                <>
-                                    <Trash2 className="h-4 w-4 mr-2" />
-                                    Remove Item
-                                </>
-                            )}
-                        </AlertDialogAction>
+                        <Button variant="outline" onClick={() => setIsAlertOpen(false)}>Cancel</Button>
+                        <Button variant="destructive" onClick={handleDeleteItem} disabled={isLoading}>
+                            {isLoading ? 'Deleting...' : 'Delete'}
+                        </Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
