@@ -9,28 +9,25 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
-
-// Sample cart items - in a real app, this would come from your cart state management
-const cartItems = [
-    {
-        id: 1,
-        title: 'Trip to Bali',
-        description: 'June 12 - June 18',
-        price: 2100,
-        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2938&auto=format&fit=crop',
-    },
-    {
-        id: 2,
-        title: 'Paris Adventure',
-        description: 'July 5 - July 12',
-        price: 2500,
-        image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2946&auto=format&fit=crop',
-    },
-];
+import useGetCart from '@/hooks/cart/useGetCart';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from 'react';
+import DeleteCartButton from '@/pages/cart/components/deleteButton';
 
 export default function Cart() {
+    const { data: cartItems, isLoadingCart, errorCart, refreshCart } = useGetCart();
+    const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
+
+    if (isLoadingCart) {
+        return <Skeleton className="w-full h-full" />;
+    }
+
+    if (errorCart) {
+        return <div>Error: {errorCart}</div>;
+    }
+
     const itemCount = cartItems.length;
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const total = cartItems.reduce((sum, item) => sum + item.activity.price * item.quantity, 0);
 
     return (
         <DropdownMenu>
@@ -59,25 +56,25 @@ export default function Cart() {
                         >
                             <div className="relative h-16 w-16 flex-shrink-0 rounded-md overflow-hidden">
                                 <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    className="h-full w-full object-cover"
+                                    src={imageError[item.id] ? '/default-image.png' : Array.isArray(item.activity.imageUrls) ? item.activity.imageUrls[0] : item.activity.imageUrls}
+                                    alt={item.activity.title}
+                                    width={64}
+                                    height={64}
+                                    className={`h-full w-full object-cover transition-transform ${imageError[item.id] ? 'object-none bg-gray-100' : ''}`}
+                                    onError={() => setImageError(prev => ({ ...prev, [item.id]: true }))}
                                 />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium">{item.title}</p>
-                                <p className="text-xs text-muted-foreground">{item.description}</p>
+                                <p className="text-sm font-medium">{item.activity.title}</p>
+                                <p className="text-xs text-muted-foreground">{item.activity.description}</p>
                                 <p className="text-sm font-medium text-orange-500 mt-1">
-                                    ${item.price.toLocaleString()}
+                                    Rp{item.activity.price.toLocaleString()}
                                 </p>
                             </div>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-8 w-8 text-muted-foreground hover:text-red-600"
-                            >
-                                <Trash2 className="h-4 w-4" />
-                            </Button>
+                            <DeleteCartButton
+                                cartId={item.id}
+                                refreshCart={refreshCart}
+                            />
                         </DropdownMenuItem>
                     ))}
                 </div>
@@ -86,7 +83,7 @@ export default function Cart() {
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-sm font-medium">Total</span>
                             <span className="text-sm font-medium">
-                                ${total.toLocaleString()}
+                                Rp{total.toLocaleString()}
                             </span>
                         </div>
                         <Button className="w-full bg-orange-500 hover:bg-orange-500/90">
