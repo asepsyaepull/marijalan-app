@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import OrderTabs from './compponents/orderTab';
-import ProfileSidebar from './compponents/profileSidebar';
-import OrderCard from './compponents/orderCard';
+import OrderTabs from './components/orderTab';
+import OrderCard from './components/orderCard';
 import useGetTransactions from '@/hooks/transactions/useGetTransactions';
 import Layout from '@/components/layout';
+import ProfileSidebar from '@/components/profileSidebar/profileSidebar';
 
 export default function OrdersPage() {
     const [activeTab, setActiveTab] = useState('All');
