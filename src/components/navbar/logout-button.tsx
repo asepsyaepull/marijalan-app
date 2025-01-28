@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -34,6 +34,15 @@ export default function LogoutButton({ className }: LogoutButtonProps) {
         await handleLogout();
     };
 
+    // Ensure modal is closed properly
+    useEffect(() => {
+        if (!isAlertOpen) {
+            document.body.style.overflow = 'auto';
+        } else {
+            document.body.style.overflow = 'hidden';
+        }
+    }, [isAlertOpen]);
+
     return (
         <>
             <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
@@ -56,7 +65,7 @@ export default function LogoutButton({ className }: LogoutButtonProps) {
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={isLoading} onClick={() => setIsAlertOpen(false)}>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleConfirmLogout}
                             disabled={isLoading}
