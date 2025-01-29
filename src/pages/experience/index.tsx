@@ -4,15 +4,17 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import useExperience from '@/hooks/useExperience';
 import ExperienceCard, { ExperienceType } from '@/components/card/experienceCard';
-import { BreadcrumbExperience } from './BreadcrumbExperience';
 import Layout from '@/components/layout';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { CustomBreadcrumb } from '@/components/ui/custom-breadcrumb';
+import { useBreadcrumb } from '@/hooks/useBreadcrumb';
 
 export default function ExperiencePage() {
     const { data: experiences, isLoading, error } = useExperience();
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
+    const breadcrumbItems = useBreadcrumb();
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -39,8 +41,8 @@ export default function ExperiencePage() {
     return (
         <Layout>
             <section className="p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
-            <BreadcrumbExperience />
-                <div className="max-w-7xl px-4 md:mx-auto">
+                <CustomBreadcrumb items={breadcrumbItems} className="max-w-7xl px-4 md:mx-auto" />
+                <div className="max-w-7xl px-4 mx-auto">
                     <div className="space-y-8">
                         {/* Header */}
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -53,20 +55,19 @@ export default function ExperiencePage() {
                                 </p>
                             </div>
                             {/* Search Bar */}
-                            <div className="max-w-2xl mb-12 min-w-96">
+                            <div className="w-full md:max-w-md lg:max-w-lg mb-12">
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
                                     <Input
                                         type="text"
                                         placeholder="Search Experience..."
-                                        className="pl-10 h-12"
+                                        className="pl-10 h-12 w-full"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
                             </div>
                         </div>
-
 
                         {/* Categories */}
                         <div className="flex flex-wrap gap-3">
@@ -86,7 +87,7 @@ export default function ExperiencePage() {
                         </div>
 
                         {/* Experiences Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                             {filteredExperiences.map((experience) => (
                                 <ExperienceCard
                                     key={experience.id}
