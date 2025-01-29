@@ -2,7 +2,7 @@ import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export interface PromoItem {
+interface PromoItem {
     id: string;
     imageUrl: string;
     title: string;
