@@ -11,6 +11,8 @@ import OrderCard from "../components/orderCard"
 import CancelButton from "./components/cancelButton"
 import UploadProofPaymentDialog from "./components/uploadProof"
 import { useState } from "react"
+import { CustomBreadcrumb } from "@/components/ui/custom-breadcrumb"
+import { useBreadcrumb } from "@/hooks/useBreadcrumb"
 
 export default function OrderDetail() {
     const router = useRouter();
@@ -19,6 +21,8 @@ export default function OrderDetail() {
     const [selectedTransactionId, setSelectedTransactionId] = useState<string>("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [imageError, setImageError] = useState(false);
+    const breadcrumbItems = useBreadcrumb();
+
 
     const handleUploadClick = (transactionId: string) => {
         setSelectedTransactionId(transactionId);
@@ -43,6 +47,8 @@ export default function OrderDetail() {
     return (
         <Layout>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
+                {/* Breadcrumb */}
+                <CustomBreadcrumb items={breadcrumbItems} className="max-w-7xl px-4 md:mx-auto" />
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         {/* Sidebar */}
@@ -51,7 +57,7 @@ export default function OrderDetail() {
                         </div>
 
                         {/* Main Content */}
-                        <main className="lg:col-span-3 p-6">
+                        <main className="lg:col-span-3 space-y-6">
                             {/* Header */}
                             <div className="flex items-center space-x-4 mb-6">
                                 <Button variant="ghost" size="icon" className="rounded-full" onClick={() => router.back()}>

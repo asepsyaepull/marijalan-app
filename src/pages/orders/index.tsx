@@ -6,11 +6,15 @@ import OrderCard from './components/orderCard';
 import useGetTransactions from '@/hooks/transactions/useGetTransactions';
 import Layout from '@/components/layout';
 import ProfileSidebar from '@/components/profileSidebar/profileSidebar';
+import { useBreadcrumb } from '@/hooks/useBreadcrumb';
+import { CustomBreadcrumb } from '@/components/ui/custom-breadcrumb';
 
 export default function OrdersPage() {
     const [activeTab, setActiveTab] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
     const { data, isLoading, error } = useGetTransactions();
+    const breadcrumbItems = useBreadcrumb();
+
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading orders</div>;
@@ -24,6 +28,8 @@ export default function OrdersPage() {
     return (
         <Layout>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
+                {/* Breadcrumb */}
+                <CustomBreadcrumb items={breadcrumbItems} className="max-w-7xl px-4 md:mx-auto" />
                 <div className="max-w-7xl px-4 md:mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         {/* Sidebar */}
