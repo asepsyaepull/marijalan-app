@@ -5,7 +5,8 @@ import PaymentSection from './components/paymentSection';
 import Layout from '@/components/layout';
 import useGetCart from '@/hooks/cart/useGetCart';
 import { useState, useEffect } from 'react';
-import { BreadcrumbCart } from './BreadcrumbCart';
+import { CustomBreadcrumb } from '@/components/ui/custom-breadcrumb';
+import { useBreadcrumb } from '@/hooks/useBreadcrumb';
 
 export default function CartPage() {
     const { data: items, errorCart, refreshCart } = useGetCart();
@@ -13,6 +14,7 @@ export default function CartPage() {
     const [subtotal, setSubtotal] = useState(0);
     const [discount] = useState(0); // Example discount
     const [total, setTotal] = useState(0);
+    const breadcrumbItems = useBreadcrumb();
 
     useEffect(() => {
         const newSubtotal = items
@@ -29,7 +31,7 @@ export default function CartPage() {
     return (
         <Layout>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
-                <BreadcrumbCart />
+                <CustomBreadcrumb items={breadcrumbItems} className="max-w-7xl px-4 md:mx-auto" />
                 <div className="max-w-7xl px-4 md:mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Order Summary */}
