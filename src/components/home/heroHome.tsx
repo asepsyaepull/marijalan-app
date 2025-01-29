@@ -73,7 +73,6 @@ export default function HeroSection() {
                         <p className="text-gray-600 dark:text-gray-300">
                             We always make our customer happy by providing as many choices as possible
                         </p>
-                        <p>Don&apos;t miss out on our latest updates</p>
                         <div className="flex flex-wrap gap-2">
                             <Button
                                 variant="default"
@@ -96,7 +95,7 @@ export default function HeroSection() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
                             {topExperiences.map((experience) => (
                                 <Link href={`/experience/${experience.id}`} key={experience.id}>
-                                    <Card className="overflow-hidden group rounded-xl">
+                                    <Card className="overflow-hidden group rounded-xl h-full">
                                         <div className="relative h-48 w-full">
                                             {loading ? (
                                                 <Skeleton className="w-full h-full" />
