@@ -11,14 +11,18 @@ import {
 import QuickInfo from './components/quickInfo';
 import useExperienceId from '@/hooks/useExperienceId';
 import Layout from '@/components/layout';
-import { BreadcrumbExperienceDetail } from './components/BreadcrumbExperienceDetail';
 import Gallery from './components/gallery';
 import { Progress } from "@radix-ui/react-progress";
+import QuickInfoFloatingButton from "./components/quickInfoFloatingButton";
+import { CustomBreadcrumb } from "@/components/ui/custom-breadcrumb";
+import { useBreadcrumb } from "@/hooks/useBreadcrumb";
 
 export default function ExperienceDetail() {
     const { data, isLoading, error } = useExperienceId();
-
     const [progress, setProgress] = React.useState(13);
+    const [isMobile, setIsMobile] = React.useState(false);
+    const breadcrumbItems = useBreadcrumb();
+
     const createMarkup = (htmlContent: string) => {
         return { __html: htmlContent };
     };
@@ -26,7 +30,20 @@ export default function ExperienceDetail() {
     React.useEffect(() => {
         const timer = setTimeout(() => setProgress(66), 500)
         return () => clearTimeout(timer)
-    }, [])
+    }, []);
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1024);
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     if (isLoading) {
         return (
@@ -44,7 +61,7 @@ export default function ExperienceDetail() {
         <Layout>
             <div className="p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
                 {/* Breadcrumb */}
-                <BreadcrumbExperienceDetail />
+                <CustomBreadcrumb items={breadcrumbItems} className="max-w-7xl px-4 md:mx-auto" />
                 <div className="max-w-7xl px-4 md:mx-auto">
                     {/* Title Section */}
                     <div className="mt-6 mb-8">
@@ -90,7 +107,7 @@ export default function ExperienceDetail() {
                                     <MapPin className="h-5 w-5 text-gray-500 mt-1" />
                                     <p className="text-gray-600">{data?.address}</p>
                                 </div>
-                                <div className="mt-4" dangerouslySetInnerHTML={createMarkup(
+                                <div className="mt-4 w-full h-fit overflow-auto" dangerouslySetInnerHTML={createMarkup(
                                     data?.location_maps || '')}>
                                 </div>
                             </div>
@@ -112,7 +129,7 @@ export default function ExperienceDetail() {
                                         </AccordionContent>
                                     </AccordionItem>
                                     <AccordionItem value="tour-end">
-                                        <AccordionTrigger>When and where does the tour end?</AccordionTrigger>
+                                        <AccordionTrigger className="text-start">When and where does the tour end?</AccordionTrigger>
                                         <AccordionContent>
                                             The tour ends back at your hotel or a designated drop-off point in Bali.
                                         </AccordionContent>
@@ -122,10 +139,11 @@ export default function ExperienceDetail() {
                         </div>
 
                         {/* Quick Information Sidebar */}
-                        <QuickInfo />
+                        {!isMobile && <QuickInfo />}
                     </div>
                 </div>
             </div>
+            {isMobile && <QuickInfoFloatingButton />}
         </Layout>
     );
 }
