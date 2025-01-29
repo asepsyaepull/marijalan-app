@@ -59,34 +59,35 @@ export default function Experience() {
                         ))}
                     </div>
 
-                    {/* Experiences Grid */}
-                    <div className="grid grid-cols-1 gap-6">
+                    {/* Experiences Carousel */}
+                    <div className="relative">
                         <Carousel
                             opts={{
                                 align: "start",
+                                containScroll: "trimSnaps",
+                                slidesToScroll: 1,
                             }}
                             className="w-full"
                         >
-                            <CarouselContent>
-                                {filteredExperiences.map((experience) => (
-                                    <CarouselItem key={experience.id} className="basis-1/3 md:basis-1/4">
-                                        <div className="p-1 h-full">
-                                            <ExperienceCard
-                                                key={experience.id}
-                                                experience={experience}
-                                            />
-                                        </div>
+                            <CarouselContent className="flex gap-2 md:gap-4 px-4">
+                                {filteredExperiences.slice(0, 5).map((experience) => (
+                                    <CarouselItem key={experience.id} className="pl-1 md:basis-1/2 lg:basis-1/4">
+                                        <ExperienceCard
+                                            key={experience.id}
+                                            experience={experience}
+                                        />
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                            <CarouselPrevious />
-                            <CarouselNext />
+                            <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2" />
+                            <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2" />
                         </Carousel>
                     </div>
+
                     <div className="flex justify-center items-center">
                         <Button
                             variant="default"
-                            className="rounded-lg w-24 md:w-52 bg-orange-50 text-orange-500 hover:bg-orange-500 hover:text-white"
+                            className="rounded-lg w-40 md:w-52 bg-orange-50 text-orange-500 hover:bg-orange-500 hover:text-white"
                             onClick={() => router.push('/experience')}
                         >
                             Explore More →
