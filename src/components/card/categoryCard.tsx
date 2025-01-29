@@ -42,9 +42,6 @@ export default function CategoryCard({ category }: { category: CategoryType }) {
                         {category.name}
                     </span>
                 </div>
-                <button className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-                    <ArrowUpRight className="w-4 h-4" />
-                </button>
             </div>
         </div>
     );

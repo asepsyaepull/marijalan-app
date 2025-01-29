@@ -57,7 +57,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
     return (
         <Link href={`/experience/${experience.id}`} className="group">
-            <div className="group rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all h-full">
+            <div className="group rounded-2xl overflow-hidden border border-gray-100 bg-white dark:bg-gray-800 transition-all h-full">
                 <div className="relative h-48 w-full">
                     {loading ? (
                         <Skeleton className="w-full h-full" />

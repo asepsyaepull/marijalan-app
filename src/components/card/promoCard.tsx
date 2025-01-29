@@ -17,11 +17,12 @@ export interface PromoItem {
 
 type PromoCardProps = {
     promo: PromoItem;
+    onClick: () => void; 
 };
 
-export default function PromoCard({ promo }: PromoCardProps) {
+export default function PromoCard({ promo, onClick }: PromoCardProps) {
     return (
-        <div className="relative group rounded-2xl overflow-hidden">
+        <div className="relative group rounded-2xl overflow-hidden cursor-pointer" onClick={onClick}>
             {/* Background Image */}
             <div className="relative h-[200px] w-full">
                 <Image
@@ -39,7 +40,7 @@ export default function PromoCard({ promo }: PromoCardProps) {
                 <div>
                     {promo.title && (
                         <span className="inline-block px-3 py-1 bg-white/90 rounded-full text-sm font-medium text-gray-900 mb-2">
-                            {promo.title}
+                        {promo.title}
                         </span>
                     )}
                     <h3 className="text-xl font-bold text-white">
