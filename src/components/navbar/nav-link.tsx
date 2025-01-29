@@ -1,115 +1,106 @@
-'use client';
+"use client"
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { getCookie } from 'cookies-next'; // Import cookies-next
-import UserNav from './user-nav'; // Import UserNav component
-import Cart from './cart'; // Import Cart component
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Menu, LogIn, UserPlus } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { getCookie } from "cookies-next"
+import UserNav from "./user-nav"
+import Cart from "./cart"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+
+interface NavLinksProps {
+    className?: string;
+}
 
 const links = [
-    { href: '/', label: 'Home' },
-    { href: '/experience', label: 'Experience' },
-    { href: '/promos', label: 'Promos' },
-];
+    { href: "/", label: "Home" },
+    { href: "/experience", label: "Experience"},
+    { href: "/promos", label: "Promos" },
+]
 
-export default function NavLinks() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const pathname = usePathname();
+export default function NavLinks({ className }: NavLinksProps) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const pathname = usePathname()
 
     useEffect(() => {
-        // Check if the user is logged in
-        const token = getCookie('token'); // Get token from cookies
-        if (token) {
-            setIsLoggedIn(true);
-        }
-    }, []);
+        const token = getCookie("token")
+        setIsLoggedIn(!!token)
+    }, [])
+
+    interface NavItemProps {
+        href: string;
+        label: string;
+    }
+
+    const NavItem = ({ href, label }: NavItemProps) => (
+        <Link
+            href={href}
+            className={cn(
+                "flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors",
+                pathname === href
+                    ? "text-orange-500 bg-orange-50 dark:bg-orange-900/20"
+                    : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800",
+            )}
+        >
+            <span>{label}</span>
+        </Link>
+    )
 
     return (
         <>
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-                {links.map(({ href, label }) => (
-                    <Link
-                        key={href}
-                        href={href}
-                        className={cn(
-                            'text-sm font-medium transition-colors hover:text-orange-500',
-                            pathname === href
-                                ? 'text-orange-500'
-                                : 'text-gray-700 dark:text-gray-200'
-                        )}
-                    >
-                        {label}
-                    </Link>
+            <nav className={cn(className, "hidden md:flex items-center space-x-4")}>
+                {links.map((link) => (
+                    <NavItem key={link.href} {...link} />
                 ))}
             </nav>
 
             {/* Mobile Navigation */}
-            <div className="md:hidden">
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="p-2 text-gray-700 dark:text-gray-200"
-                    aria-label="Toggle menu"
-                >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-
-                <div
-                    className={cn(
-                        'fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800 shadow-lg transform transition-transform',
-                        isOpen ? 'translate-x-0' : 'translate-x-full'
-                    )}
-                >
-                    <nav className="flex flex-col p-4">
-                        {links.map(({ href, label }) => (
-                            <Link
-                                key={href}
-                                href={href}
-                                className={cn(
-                                    'px-4 py-2 text-sm font-medium transition-colors',
-                                    pathname === href
-                                        ? 'text-orange-500'
-                                        : 'text-gray-700 dark:text-gray-200'
-                                )}
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {label}
-                            </Link>
+            <Sheet>
+                <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon" className="md:hidden absolute left-4">
+                        <Menu size={24} />
+                        <span className="sr-only">Open menu</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                    <SheetHeader>
+                        <SheetTitle>Menu</SheetTitle>
+                    </SheetHeader>
+                    <nav className="flex flex-col space-y-4 mt-4">
+                        {links.map((link) => (
+                            <NavItem key={link.href} {...link} />
                         ))}
-                        <div className="mt-4 p-4 border-t border-gray-200 dark:border-gray-800">
-                            <div className="flex flex-col gap-2">
-                                {isLoggedIn ? (
-                                    <>
-                                        <Cart />
-                                        <UserNav />
-                                    </>
-                                ) : (
-                                    <>
-                                        <Link
-                                            href="/login"
-                                            className="w-full px-4 py-2 text-sm font-medium text-center text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                                            onClick={() => setIsOpen(false)}
-                                        >
+                        <div className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                            {isLoggedIn ? (
+                                <div className="space-y-4">
+                                    <Cart />
+                                    <UserNav />
+                                </div>
+                            ) : (
+                                    <div className="space-y-4">
+                                        <Link href="/login" passHref>
+                                            <Button variant="outline" className="w-full justify-start">
+                                                <LogIn className="mr-2 h-4 w-4" />
                                             Login
+                                            </Button>
                                         </Link>
-                                        <Link
-                                            href="/register"
-                                            className="w-full px-4 py-2 text-sm font-medium text-center text-white bg-primary rounded-md"
-                                            onClick={() => setIsOpen(false)}
-                                        >
+                                        <Link href="/register" passHref>
+                                            <Button className="w-full justify-start bg-orange-500 hover:bg-orange-600">
+                                                <UserPlus className="mr-2 h-4 w-4" />
                                             Register
+                                            </Button>
                                         </Link>
-                                    </>
-                                )}
-                            </div>
+                                    </div>
+                            )}
                         </div>
                     </nav>
-                </div>
-            </div>
+                </SheetContent>
+            </Sheet>
         </>
-    );
+    )
 }
+

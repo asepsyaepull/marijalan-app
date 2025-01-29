@@ -4,7 +4,11 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+    className?: string;
+}
+
+export default function ThemeToggle({ className }: ThemeToggleProps) {
     const { theme, setTheme } = useTheme();
 
     return (
@@ -12,7 +16,8 @@ export default function ThemeToggle() {
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="text-gray-700 dark:text-gray-200"
+            className={`p-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-200 ${className}`}
+
         >
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

@@ -24,18 +24,19 @@ export default function Navbar() {
         <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
             <div className="max-w-7xl px-4 md:mx-auto">
                 <div className="flex h-16 items-center justify-between">
-                    <Logo />
+                    <Logo className="flex-shrink-0 w-24 md:w-32" />
                     <div className="flex items-center gap-2 md:gap-8">
-                        <div className="md:hidden flex items-center gap-4">
-                            <ThemeToggle />
+                        <div className="flex items-center gap-2">
+                            <ThemeToggle className="md:hidden" />
+                            {isLoggedIn && <Cart className="md:hidden" />}
                         </div>
-                        <NavLinks />
+                        <NavLinks className="hidden md:flex" />
                     </div>
-                    <div className="hidden md:flex items-center gap-4">
-                        <ThemeToggle />
+                    <div className="flex items-center gap-4">
+                        <ThemeToggle className="hidden md:flex" />
+                        {isLoggedIn && <Cart className="hidden md:flex" />}
                         {isLoggedIn ? (
                             <>
-                                <Cart />
                                 <UserNav />
                             </>
                         ) : (
