@@ -5,20 +5,27 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react';
 import useLogin from '@/hooks/useLogin';
+import { useRouter } from 'next/router';
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const { isLoading, handleLogin } = useLogin();
+    const router = useRouter()
 
     return (
         <div className="w-full max-w-md mx-auto p-8">
             <div className="space-y-6">
                 <div className="space-y-2">
+                    <div className="flex items-center space-x-3 mb-6">
+                        <Button variant="ghost" size="icon" className="rounded-full" onClick={() => router.back()}>
+                            <ArrowLeft className="h-4 w-4" />
+                        </Button>
+                        <h1 className="text-lg font-semibold">Back</h1>
+                    </div>
                     <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Welcome back!</h1>
                     <p className="text-gray-800 dark:text-white">
                         Start your journey with one click, explore the beautiful world! Don&apos;t have an account?{' '}

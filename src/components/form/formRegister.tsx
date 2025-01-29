@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Eye, EyeOff, User, Users } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, User, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import useRegister from '@/hooks/useRegister';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/router';
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,8 @@ export default function RegisterForm() {
     const [passwordRepeat, setpasswordRepeat] = useState('');
     const [phone, setPhone] = useState('');
     const [selectedRole, setSelectedRole] = useState('');
+    const router = useRouter()
+
 
     const { toast } = useToast();
 
@@ -25,6 +28,12 @@ export default function RegisterForm() {
         <div className="w-full max-w-md mx-auto p-8">
             <div className="space-y-6">
                 <div className="space-y-2">
+                    <div className="flex items-center space-x-3 mb-6">
+                        <Button variant="ghost" size="icon" className="rounded-full" onClick={() => router.back()}>
+                            <ArrowLeft className="h-4 w-4" />
+                        </Button>
+                        <h1 className="text-lg font-semibold">Back</h1>
+                    </div>
                     <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Register an account</h1>
                     <p className="text-gray-800 dark:text-white">
                         Start your journey with one click, explore the beautiful world!{' '}
