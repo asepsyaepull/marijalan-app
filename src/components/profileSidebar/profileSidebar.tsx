@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Settings, FileText, LogOut, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Settings, FileText, Instagram, Facebook, Twitter } from 'lucide-react';
 import { useUser } from '@/context/UserContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
