@@ -26,11 +26,15 @@ const PaymentMethod = () => {
                 }
             );
             setData(response.data.data);
-        } catch (error: any) {
-            setError(
-                error.response?.data?.message ||
-                "An error occurred while fetching users."
-            );
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                setError(
+                    error.response?.data?.message ||
+                    "An error occurred while fetching users."
+                );
+            } else {
+                setError("An unexpected error occurred.");
+            }
         } finally {
             setIsLoading(false);
         }
