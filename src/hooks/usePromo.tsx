@@ -42,8 +42,12 @@ const usePromo = () => {
             const promoData = await fetchPromoData();
             setData(promoData);
             setError(null);
-        } catch (err:any) {
-            setError(err.message);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.message);
+            } else {
+                setError("An unexpected error occurred");
+            }
         } finally {
             setIsLoading(false);
         }
