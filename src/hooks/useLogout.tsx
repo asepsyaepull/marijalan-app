@@ -8,7 +8,6 @@ import { useToast } from "./use-toast";
 
 const useLogout = () => {
     const [success, setSuccess] = useState(false);
-    const [errorLogout, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const { toast } = useToast();
@@ -53,14 +52,17 @@ const useLogout = () => {
             }
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data?.message || "An error occurred during logout.");
                 toast({
                     variant: "destructive",
                     title: "Logout Failed",
                     description: err.response?.data?.message || "An error occurred during logout.",
                 });
             } else {
-                setError("An unexpected error occurred");
+                toast({
+                    variant: "destructive",
+                    title: "Logout Failed",
+                    description: "An unexpected error occurred.",
+                });
             }
         } finally {
             setIsLoading(false);
