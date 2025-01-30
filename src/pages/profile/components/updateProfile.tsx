@@ -117,10 +117,13 @@ const UpdateProfile = () => {
                 await refreshUserData();
             }
         } catch (err: unknown) {
+            const errorMessage = axios.isAxiosError(err) && err.response?.data?.message
+                ? err.response.data.message
+                : "Failed to update profile";
             toast({
                 variant: "destructive",
                 title: "Error",
-                description: (err as any).response?.data?.message || "Failed to update profile",
+                description: errorMessage,
             });
         } finally {
             setIsLoading(false);
