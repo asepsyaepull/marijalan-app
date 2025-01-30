@@ -15,7 +15,6 @@ const UpdateProfile = () => {
     const { user, refreshUserData } = useUser();
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState(0);
     const { uploadImage } = useUploadImage();
 
     const [formData, setFormData] = useState<{
@@ -75,7 +74,6 @@ const UpdateProfile = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        setUploadProgress(0);
 
         try {
             let imageUrl = formData.profilePictureUrl;
@@ -118,15 +116,14 @@ const UpdateProfile = () => {
                 });
                 await refreshUserData();
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             toast({
                 variant: "destructive",
                 title: "Error",
-                description: err.response?.data?.message || "Failed to update profile",
+                description: (err as any).response?.data?.message || "Failed to update profile",
             });
         } finally {
             setIsLoading(false);
-            setUploadProgress(0);
         }
     };
 
