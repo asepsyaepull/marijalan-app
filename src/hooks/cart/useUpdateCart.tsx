@@ -61,13 +61,20 @@ const useUpdateCart = () => {
                 variant: "destructive",
             });
             return false;
-        } catch (error: any) {
-            toast({
-                title: "Error",
-                description:
-                    error.response?.data?.message || "Failed to update cart quantity",
-                variant: "destructive",
-            });
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast({
+                    title: "Error",
+                    description: error.response?.data?.message || "Failed to update cart quantity",
+                    variant: "destructive",
+                });
+            } else {
+                toast({
+                    title: "Error",
+                    description: "An unexpected error occurred",
+                    variant: "destructive",
+                });
+            }
             return false;
         } finally {
             setIsLoading(false);
