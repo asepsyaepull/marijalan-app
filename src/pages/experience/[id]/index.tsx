@@ -84,7 +84,7 @@ export default function ExperienceDetail() {
 
                             {/* Experience Description */}
                             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
-                                <h2 className="text-xl font-semibold mb-4">What You'll Experience</h2>
+                                <h2 className="text-xl font-semibold mb-4">What You will Experience</h2>
                                 <p className="text-gray-600 dark:text-gray-300">
                                     {data?.description}
                                 </p>
@@ -92,7 +92,7 @@ export default function ExperienceDetail() {
 
                             {/* What's Included */}
                             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
-                                <h2 className="text-xl font-semibold mb-4">What's included</h2>
+                                <h2 className="text-xl font-semibold mb-4">Whats included</h2>
                                 <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
                                     {data?.facilities.split(',').map((facility, index) => (
                                         <li key={index}>{facility}</li>
