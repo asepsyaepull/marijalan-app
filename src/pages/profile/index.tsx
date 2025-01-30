@@ -1,7 +1,5 @@
 "use client"
 
-import { ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import ProfileSidebar from "@/components/profileSidebar/profileSidebar"
 import Layout from "@/components/layout"
 import UpdateProfile from "./components/updateProfile"
