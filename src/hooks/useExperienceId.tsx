@@ -50,11 +50,15 @@ const useExperienceId = () => {
                 }
             );
             setData(response.data.data);
-        } catch (error: any) {
-            setError(
-                error.response?.data?.message ||
-                "An error occurred while fetching the experience."
-            );
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                setError(
+                    error.response?.data?.message ||
+                    "An error occurred while fetching the experience."
+                );
+            } else {
+                setError("An unexpected error occurred");
+            }
         } finally {
             setIsLoading(false);
         }
