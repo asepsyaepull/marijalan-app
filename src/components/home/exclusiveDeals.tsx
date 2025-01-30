@@ -32,7 +32,11 @@ export default function ExclusiveDeals() {
                     {/* Promo Cards Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {promos.slice(0, 3).map((promo) => (
-                            <PromoCard key={promo.id} promo={promo} />
+                            <PromoCard 
+                                key={promo.id} 
+                                promo={promo} 
+                                onClick={() => console.log(`Promo ${promo.id} clicked`)} 
+                            />
                         ))}
                     </div>
                 </div>
