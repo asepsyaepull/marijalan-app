@@ -64,7 +64,7 @@ export default function UserNav() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={handleOrdersClick}>
+                    <DropdownMenuItem onClick={handleProfileClick}>
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
                         </DropdownMenuItem>
