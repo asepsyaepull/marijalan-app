@@ -51,13 +51,17 @@ const useLogout = () => {
                 await new Promise((resolve) => setTimeout(resolve, 2000)); // Add a 2-second delay
                 reloadPage();
             }
-        } catch (err: any) {
-            setError(err.response.data?.message);
-            toast({
-                variant: "destructive",
-                title: "Logout Failed",
-                description: errorLogout || "An error occurred during logout.",
-            });
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "An error occurred during logout.");
+                toast({
+                    variant: "destructive",
+                    title: "Logout Failed",
+                    description: err.response?.data?.message || "An error occurred during logout.",
+                });
+            } else {
+                setError("An unexpected error occurred");
+            }
         } finally {
             setIsLoading(false);
         }
