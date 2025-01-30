@@ -1,6 +1,6 @@
 'use client';
 
-import { ShoppingCart, Trash2 } from 'lucide-react';
+import { ShoppingCart} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -13,14 +13,13 @@ import useGetCart from '@/hooks/cart/useGetCart';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import DeleteCartButton from '@/pages/cart/components/deleteButton';
 
 interface CartProps {
     className?: string;
 }
 
 export default function Cart({ className }: CartProps) {
-    const { data: cartItems, isLoadingCart, errorCart, refreshCart } = useGetCart();
+    const { data: cartItems, isLoadingCart, errorCart } = useGetCart();
     const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
     const router = useRouter();
 
