@@ -29,11 +29,15 @@ const useBanner = () => {
                 }
             );
             setData(response.data.data);
-        } catch (error: any) {
-            setError(
-                error.response?.data?.message ||
-                "An error occurred while fetching banners."
-            );
+        } catch (error: unknown) { // Update the type of error to unknown
+            if (axios.isAxiosError(error)) {
+                setError(
+                    error.response?.data?.message ||
+                    "An error occurred while fetching banners."
+                );
+            } else {
+                setError("An unexpected error occurred.");
+            }
         } finally {
             setIsLoading(false);
         }
