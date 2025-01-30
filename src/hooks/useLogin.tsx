@@ -72,16 +72,20 @@ const useLogin = () => {
                 title: "Login Successful",
                 description: "You have been logged in successfully.",
             });
-        } catch (e: any) {
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                setError(e.response?.data?.message || "An error occurred");
+
+                toast({
+                    variant: "destructive",
+                    title: "Login Failed",
+                    description: e.response?.data?.message || "An error occurred during login.",
+                });
+            } else {
+                setError("An unexpected error occurred");
+            }
+
             setSuccess(false);
-            setError(e.response?.data?.message || "An error occurred");
-
-            toast({
-                variant: "destructive",
-                title: "Login Failed",
-                description: e.response?.data?.message || "An error occurred during login.",
-            });
-
             setLoginState({
                 role: null,
                 shouldRedirect: false,
