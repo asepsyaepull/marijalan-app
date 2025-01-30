@@ -11,6 +11,7 @@ import PromoCard, { PromoItem } from '@/components/card/promoCard';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog'; // Import Dialog components
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image'; // Import Image component
 
 export default function PromosPage() {
     const { data, isLoading, error, } = usePromo();
@@ -101,7 +102,7 @@ export default function PromosPage() {
                         <DialogHeader>
                             <DialogTitle className="text-2xl font-bold text-orange-500">{selectedPromo.title}</DialogTitle>
                             {selectedPromo.imageUrl && (
-                                <img src={selectedPromo.imageUrl} alt={selectedPromo.title} className="w-full h-auto rounded-lg mt-4" />
+                                <Image src={selectedPromo.imageUrl} alt={selectedPromo.title} className="w-full h-auto rounded-lg mt-4" width={500} height={300} />
                             )}
                             <DialogDescription className="text-gray-600 dark:text-gray-300">
                                 {selectedPromo.description}
