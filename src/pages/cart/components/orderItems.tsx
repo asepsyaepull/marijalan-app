@@ -41,7 +41,7 @@ export default function OrderItems({ items, selectedItems, setSelectedItems, set
             .reduce((sum, item) => sum + (item.activity.price * item.quantity), 0);
         setSubtotal(newSubtotal);
         setTotal(newSubtotal - discount);
-    }, [items, selectedItems, discount]);
+    }, [items, selectedItems, discount, setSubtotal, setTotal]);
 
     const handleQuantityChange = async (id: string, quantity: number) => {
         try {
