@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import useUploadUrlProof from "@/hooks/transactions/useUploadProof";
 import UseUploadImage from "@/hooks/useUploadImage";
+import Image from 'next/image';
 
 interface UploadProofPaymentDialogProps {
     isOpen: boolean;
@@ -112,10 +113,12 @@ const UploadProofPaymentDialog = ({
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <div className="col-span-4 flex justify-center">
                                     <div className="relative">
-                                        <img
+                                        <Image
                                             src={formData.proofPaymentUrl}
                                             alt="Proof Payment Preview"
                                             className="w-32 h-32 rounded-lg object-cover"
+                                            width={128}
+                                            height={128}
                                         />
                                         {uploadProgress > 0 && uploadProgress < 100 && (
                                             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg">
