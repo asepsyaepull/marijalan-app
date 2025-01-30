@@ -53,8 +53,12 @@ const useExperience = () => {
                 },
             });
             setData(response.data.data);
-        } catch (err: any) {
-            setError(err.response?.data?.message || "An error occurred");
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "An error occurred");
+            } else {
+                setError("An unexpected error occurred");
+            }
         } finally {
             setIsLoading(false);
         }
