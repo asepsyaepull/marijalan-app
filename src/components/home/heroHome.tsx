@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'; // Import Link from next/link
+import Link from 'next/link'; 
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 import { Card } from '../ui/card';
@@ -56,7 +56,7 @@ export default function HeroSection() {
                             #exploretheworld
                         </span>
                         <h1 className="text-4xl md:text-7xl font-bold text-white">
-                            Let's Travel The Beautiful
+                            Let&#39;s Travel The Beautiful
                         </h1>
                     </div>
                 </div>
