@@ -1,8 +1,6 @@
 import { useState } from "react";
 import {
     AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
     AlertDialogFooter,
@@ -10,10 +8,9 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Loader2, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import useDeleteCart from "@/hooks/cart/useDelete";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import useGetCart from "@/hooks/cart/useGetCart";
 
 interface DeleteCartButtonProps {
     cartId: string;
@@ -34,8 +31,8 @@ const DeleteCartButton: React.FC<DeleteCartButtonProps> = ({
             setIsAlertOpen(false);
             onSuccess?.();
             refreshCart();
-        } catch (error: any) {
-            console.error("Failed to delete cart item:", error.message);
+        } catch (error: unknown) {
+            console.error("Failed to delete cart item:", (error as Error).message);
             setIsAlertOpen(false);
         }
     };
