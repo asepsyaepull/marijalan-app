@@ -15,6 +15,7 @@ import useCreateTransaction from "@/hooks/cart/useCreateTransaction";
 interface CreateTransactionProps {
     cartIds: string[];
     paymentMethodId: string;
+    className?: string;
 }
 
 const CreateTransaction: React.FC<CreateTransactionProps> = ({
@@ -33,7 +34,7 @@ const CreateTransaction: React.FC<CreateTransactionProps> = ({
 
     return (
         <>
-            <Button className="w-full mt-6" onClick={() => setIsAlertOpen(true)}>
+            <Button className="w-full" onClick={() => setIsAlertOpen(true)}>
                 Proceed to Payment
             </Button>
 

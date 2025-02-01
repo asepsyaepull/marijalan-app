@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 import usePayment from '@/hooks/payment/usePayment';
 import CreateTransaction from './paymentButton';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type PaymentSectionProps = {
     subtotal: number;
@@ -21,9 +22,20 @@ export default function PaymentSection({ subtotal, discount, total, refreshCart,
     const { ListPayment: paymentMethods, isLoading, error } = usePayment();
     const [selectedPayment, setSelectedPayment] = useState('');
     const [couponCode, setCouponCode] = useState('');
+    const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="space-y-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <Skeleton key={index} className="flex flex-col gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg animate-pulse">
+                        <Skeleton className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4" />
+                        <Skeleton className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
+                        <Skeleton className="h-8 w-8 bg-gray-300 dark:bg-gray-700 rounded" />
+                    </Skeleton>
+                ))}
+            </div>
+        );
     }
 
     if (error) {
@@ -59,6 +71,7 @@ export default function PaymentSection({ subtotal, discount, total, refreshCart,
                         <div
                             key={method.id}
                             className="flex items-center justify-between p-4 border rounded-lg hover:border-orange-500 cursor-pointer"
+                            onClick={() => setSelectedPayment(method.id)}
                         >
                             <div className="flex items-center gap-2">
                                 <RadioGroupItem value={method.id} id={method.id} />
@@ -66,10 +79,11 @@ export default function PaymentSection({ subtotal, discount, total, refreshCart,
                             </div>
                             <div className="relative w-12 h-8">
                                 <Image
-                                    src={method.imageUrl}
+                                    src={imageError[method.id] ? '/default-image.png' : method.imageUrl}
                                     alt={method.name}
                                     fill
                                     className="object-contain"
+                                    onError={() => setImageError(prev => ({ ...prev, [method.id]: true }))}
                                 />
                             </div>
                         </div>
@@ -96,21 +110,43 @@ export default function PaymentSection({ subtotal, discount, total, refreshCart,
                 </div>
             </div>
 
-            {selectedItems.length > 0 &&
-                selectedPayment.length > 0 ? (
-                <CreateTransaction
-                    cartIds={selectedItems}
-                    paymentMethodId={selectedPayment}
-                />
-            ) : (
-                <Button
-                    variant="default"
-                    className="w-full text-white bg-orange-500 hover:bg-orange-600"
-                    disabled
-                >
-                    Select Item dan PaymentMethod
-                </Button>
-            )}
+            <div className="hidden md:block">
+                {selectedItems.length > 0 && selectedPayment.length > 0 ? (
+                    <CreateTransaction
+                        cartIds={selectedItems}
+                        paymentMethodId={selectedPayment}
+                    />
+                ) : (
+                    <Button
+                        variant="default"
+                        className="w-full text-white bg-orange-500 hover:bg-orange-600"
+                        disabled
+                    >
+                        Select Item dan PaymentMethod
+                    </Button>
+                )}
+            </div>
+
+            <div className="block md:hidden fixed bottom-0 left-0 right-0 p-4 space-y-4 bg-white dark:bg-gray-800 shadow-lg">
+                <div className="flex justify-between font-bold text-lg">
+                    <span>Total Payment</span>
+                    <span className="text-orange-500">Rp{total.toLocaleString()}</span>
+                </div>
+                {selectedItems.length > 0 && selectedPayment.length > 0 ? (
+                    <CreateTransaction
+                        cartIds={selectedItems}
+                        paymentMethodId={selectedPayment}
+                    />
+                ) : (
+                    <Button
+                        variant="default"
+                        className="w-full text-white bg-orange-500 hover:bg-orange-600"
+                        disabled
+                    >
+                        Select Item dan PaymentMethod
+                    </Button>
+                )}
+            </div>
         </div>
     );
 }
