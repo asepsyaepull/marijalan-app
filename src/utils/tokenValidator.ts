@@ -1,11 +1,25 @@
 import axios, { AxiosError } from "axios";
 import { API_KEY, BASE_URL, END_POINT } from "../helper/endpoint";
-import { ApiResponse } from "../types/api";
 
 interface ValidationResponse {
   isValid: boolean;
   role?: string;
   error?: string;
+}
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  profilePictureUrl: string;
+  phoneNumber: string;
+}
+
+export interface ApiResponse {
+  code: string;
+  status: string;
+  message: string;
+  data: UserData;
 }
 
 export async function validateToken(
@@ -23,9 +37,9 @@ export async function validateToken(
     );
 
     return {
-      isValid: response.data?.code === "200",
-      role: response.data?.data?.role,
-      error: response.data?.code !== "200" ? "Invalid token" : undefined,
+      isValid: response.data.code === "200",
+      role: response.data.data.role,
+      error: response.data.code !== "200" ? "Invalid token" : undefined,
     };
   } catch (error) {
     if (error instanceof AxiosError) {
