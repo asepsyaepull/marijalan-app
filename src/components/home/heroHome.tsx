@@ -8,12 +8,13 @@ import { Play } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import useExperience from '@/hooks/useExperience';
-
+import { useRouter } from 'next/router'; // Import useRouter from next/router
 
 export default function HeroSection() {
     const [loading, setLoading] = useState(true);
     const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
     const { data: experiences, isLoading } = useExperience();
+    const router = useRouter(); // Initialize useRouter
 
     useEffect(() => {
         if (!isLoading) {
@@ -77,14 +78,9 @@ export default function HeroSection() {
                             <Button
                                 variant="default"
                                 className="rounded-full"
+                                onClick={() => router.push('/experience')} // Navigate to experience page on click
                             >
                                 Explore More
-                            </Button>
-                            <Button
-                                variant="outline"
-                                className="rounded-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
-                            >
-                                Our Gallery <Play className="ml-2 h-4 w-4" />
                             </Button>
                         </div>
                     </div>
