@@ -59,7 +59,7 @@ export default function ExperienceDetail() {
 
     return (
         <Layout>
-            <div className="p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
+            <div className="p-2 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
                 {/* Breadcrumb */}
                 <CustomBreadcrumb items={breadcrumbItems} className="max-w-7xl px-4 md:mx-auto" />
                 <div className="max-w-7xl px-4 md:mx-auto">

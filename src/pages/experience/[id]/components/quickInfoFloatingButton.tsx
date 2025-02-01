@@ -38,7 +38,7 @@ export default function QuickInfoFloatingButton() {
                 if (data) {
                     await addToCart(data.id);
                 }
-                router.push('/cart');
+                // router.push('/cart');
             } catch (err) {
                 console.error(err);
             }
@@ -55,7 +55,7 @@ export default function QuickInfoFloatingButton() {
 
     return (
         <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 shadow-lg border-t border-gray-200 dark:border-gray-700">
-            <div className="flex flex-col justify-between space-y-3">
+            <div className="flex flex-col justify-between space-y-2">
                 {/* Price */}
                 <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Price</p>
@@ -66,7 +66,7 @@ export default function QuickInfoFloatingButton() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 py-2">
                     <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Book Now
                     </Button>
