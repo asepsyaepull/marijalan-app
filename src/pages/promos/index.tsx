@@ -8,10 +8,10 @@ import { CustomBreadcrumb } from '@/components/ui/custom-breadcrumb';
 import { useBreadcrumb } from '@/hooks/useBreadcrumb';
 import usePromo from '@/hooks/usePromo';
 import PromoCard, { PromoItem } from '@/components/card/promoCard';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog'; // Import Dialog components
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image'; // Import Image component
+import PromoDetailDialog from '@/components/dialog/PromoDetailDialog'; // Import PromoDetailDialog component
 
 export default function PromosPage() {
     const { data, isLoading, error, } = usePromo();
@@ -41,14 +41,6 @@ export default function PromosPage() {
     };
 
     const filteredPromos = searchPromo(data as PromoItem[]);
-
-    const copyToClipboard = () => {
-        if (selectedPromo) {
-            navigator.clipboard.writeText(selectedPromo.promo_code);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        }
-    };
 
     return (
         <Layout>
@@ -95,59 +87,7 @@ export default function PromosPage() {
                 </div>
             </section>
 
-            {/* Dialog */}
-            {selectedPromo && (
-                <Dialog open={!!selectedPromo} onOpenChange={() => setSelectedPromo(null)}>
-                    <DialogContent className="sm:max-w-[425px] md:max-w-xl">
-                        <DialogHeader>
-                            <DialogTitle className="text-2xl font-bold text-orange-500">{selectedPromo.title}</DialogTitle>
-                            {selectedPromo.imageUrl && (
-                                <Image src={selectedPromo.imageUrl} alt={selectedPromo.title} className="w-full h-auto rounded-lg mt-4" width={500} height={300} />
-                            )}
-                            <DialogDescription className="text-gray-600 dark:text-gray-300">
-                                {selectedPromo.description}
-                            </DialogDescription>
-                        </DialogHeader>
-                        <Separator className="my-4" />
-                        <div className="space-y-4">
-                            <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
-                                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Promo Code</p>
-                                <div className="flex items-center justify-between mt-1">
-                                    <code className="text-lg font-bold text-orange-600 dark:text-orange-400">{selectedPromo.promo_code}</code>
-                                    <Button size="sm" variant="ghost" onClick={copyToClipboard}>
-                                        {copied ? "Copied!" : <Copy size={16} />}
-                                    </Button>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Discount</p>
-                                    <p className="text-lg font-bold text-green-600 dark:text-green-400">
-                                        Rp{selectedPromo.promo_discount_price.toFixed(2)}
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Minimum Claim</p>
-                                    <p className="text-lg font-bold text-gray-700 dark:text-gray-200">
-                                        Rp{selectedPromo.minimum_claim_price.toFixed(2)}
-                                    </p>
-                                </div>
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Terms and Conditions</p>
-                                <p className="text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 p-3 rounded-md">
-                                    <div dangerouslySetInnerHTML={createMarkup(selectedPromo.terms_condition || '')} />
-                                </p>
-                            </div>
-                        </div>
-                        <DialogClose asChild>
-                            <Button variant="outline" className="w-full mt-4">
-                                Close
-                            </Button>
-                        </DialogClose>
-                    </DialogContent>
-                </Dialog>
-            )}
+            <PromoDetailDialog promo={selectedPromo} onClose={() => setSelectedPromo(null)} open={!!selectedPromo} />
         </Layout>
     );
 }
