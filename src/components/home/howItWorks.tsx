@@ -42,7 +42,7 @@ export default function HowItWorks() {
     };
 
     return (
-        <section className="relative py-8 md:py-10 px-4 md:px-12">
+        <section className="relative py-8 mb-10 md:py-10 px-4 md:px-12">
             <div className="max-w-7xl md:px-4 mx-auto">
                 <div className="grid md:grid-cols-2 border border-gray-200 dark:border-gray-700 rounded-3xl overflow-hidden">
                     {/* Left Content */}
