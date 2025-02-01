@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link'; 
 import { Button } from '@/components/ui/button';
-import { Play } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import useExperience from '@/hooks/useExperience';
