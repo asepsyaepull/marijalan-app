@@ -5,8 +5,9 @@ import PromoCard from '../card/promoCard';
 import usePromo from '@/hooks/usePromo';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { PromoItem } from '@/components/card/promoCard'; // Import PromoItem type
-import PromoDetailDialog from '@/components/dialog/PromoDetailDialog'; // Import PromoDetailDialog component
+import { PromoItem } from '@/components/card/promoCard'; 
+import PromoDetailDialog from '@/components/dialog/PromoDetailDialog'; 
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ExclusiveDeals() {
     const router = useRouter();
@@ -14,7 +15,13 @@ export default function ExclusiveDeals() {
     const [selectedPromo, setSelectedPromo] = useState<PromoItem | null>(null);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <section className="py-10 px-4 md:px-8 lg:px-12">
+                <div className="max-w-7xl px-4 mx-auto">
+                    <Skeleton className="w-full h-64" />
+                </div>
+            </section>
+        );
     }
 
     if (error) {
@@ -22,7 +29,7 @@ export default function ExclusiveDeals() {
     }
 
     return (
-        <section className="py-10 px-4 md:px-8 lg:px-12">
+        <section className="py-8 md:py-10 px-4 md:px-8 lg:px-12">
             <div className="max-w-7xl px-4 mx-auto">
                 <div className="space-y-8">
                     {/* Header */}

@@ -6,6 +6,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import ExperienceCard from '../card/experienceCard';
 import useExperience from '@/hooks/useExperience';
 import { useRouter } from 'next/router';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Experience() {
     const { data: experiences, isLoading, error } = useExperience();
@@ -13,7 +14,13 @@ export default function Experience() {
     const router = useRouter();
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <section className="py-10 px-4 md:px-8 lg:px-12">
+                <div className="max-w-7xl px-4 mx-auto">
+                    <Skeleton className="w-full h-64" />
+                </div>
+            </section>
+        );
     }
 
     if (error) {
@@ -27,7 +34,7 @@ export default function Experience() {
         : experiences.filter(exp => exp.category.name === activeCategory);
 
     return (
-        <section className="py-10 px-4 md:px-8 lg:px-12">
+        <section className="py-8 md:py-10 px-4 md:px-8 lg:px-12">
             <div className="max-w-7xl px-4 md:mx-auto">
                 <div className="space-y-8">
                     {/* Header */}

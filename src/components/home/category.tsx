@@ -3,12 +3,19 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import CategoryCard from '../card/categoryCard';
 import useCategory from '@/hooks/useCategory';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Category() {
     const { data: categories, isLoading, error } = useCategory();
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <section className="py-10 px-4 md:px-8 lg:px-12">
+                <div className="max-w-7xl px-4 md:mx-auto">
+                    <Skeleton className="w-full h-64" />
+                </div>
+            </section>
+        );
     }
 
     if (error) {
@@ -16,7 +23,7 @@ export default function Category() {
     }
 
     return (
-        <section className="py-10 px-4 md:px-8 lg:px-12">
+        <section className="py-8 md:py-10 px-4 md:px-8 lg:px-12">
             <div className="max-w-7xl px-4 md:mx-auto">
                 <div className="space-y-8">
                     {/* Header */}

@@ -32,9 +32,18 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+    const handleGetStarted = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = '/register';
+        } else {
+            window.location.href = '/';
+        }
+    };
+
     return (
-        <section className="relative py-10 px-4 md:px-12">
-            <div className="max-w-7xl px-4 mx-auto">
+        <section className="relative py-8 md:py-10 px-4 md:px-12">
+            <div className="max-w-7xl md:px-4 mx-auto">
                 <div className="grid md:grid-cols-2 border border-gray-200 dark:border-gray-700 rounded-3xl overflow-hidden">
                     {/* Left Content */}
                     <div className="bg-white dark:bg-slate-900 py-10 px-10 space-y-8">
@@ -75,7 +84,7 @@ export default function HowItWorks() {
                     </div>
 
                     {/* Right Image */}
-                    <div className="relative h-64 md:h-auto rounded-r-3xl overflow-hidden">
+                    <div className="relative h-auto rounded-r-3xl overflow-hidden">
                         <Image
                             src="https://images.unsplash.com/photo-1504542982118-59308b40fe0c?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="Travel experience"
@@ -96,6 +105,7 @@ export default function HowItWorks() {
                             </Button>
                             <Button
                                 className="rounded-full bg-white hover:bg-white/90 text-gray-900"
+                                onClick={handleGetStarted}
                             >
                                 Get Started
                             </Button>
