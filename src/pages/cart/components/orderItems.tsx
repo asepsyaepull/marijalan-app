@@ -79,15 +79,15 @@ export default function OrderItems({ items, selectedItems, setSelectedItems, set
             <div className="space-y-4">
                 {Array.from({ length: 3 }).map((_, index) => (
                     <div key={index} className="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg animate-pulse">
-                        <div className="w-24 h-24 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                        <Skeleton className="w-24 h-24 rounded-lg" />
                         <div className="flex-1 space-y-4 py-1">
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4"></div>
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2"></div>
+                            <Skeleton className="h-4 rounded w-3/4" />
+                            <Skeleton className="h-4 rounded w-1/2" />
                         </div>
                         <div className="flex md:items-center gap-2">
-                            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-700 rounded"></div>
-                            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-700 rounded"></div>
-                            <div className="h-8 w-8 bg-gray-300 dark:bg-gray-700 rounded"></div>
+                            <Skeleton className="h-8 w-8 rounded" />
+                            <Skeleton className="h-8 w-8 rounded" />
+                            <Skeleton className="h-8 w-8 rounded" />
                         </div>
                     </div>
                 ))}
