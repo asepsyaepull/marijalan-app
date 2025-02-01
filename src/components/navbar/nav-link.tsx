@@ -10,7 +10,7 @@ import UserNav from "./user-nav"
 import Cart from "./cart"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import Logo from "../logo"
+import Image from "next/image"
 
 interface NavLinksProps {
     className?: string;
@@ -66,8 +66,9 @@ export default function NavLinks({ className }: NavLinksProps) {
                 </SheetTrigger>
                 <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                     <SheetHeader>
-                        <SheetTitle>
-                            <Logo className="w-20" />
+                        <SheetTitle className="flex space-x-2">
+                            <Image src="/iconLogo.svg" alt="Logo" width={40} height={40} />
+                            <Image src="/textLogo.svg" alt="Logo" width={108} height={108} className="filter dark:invert" />
                         </SheetTitle>
                     </SheetHeader>
                     <nav className="flex flex-col space-y-4 mt-8">

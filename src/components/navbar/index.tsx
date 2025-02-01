@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
     return (
         <nav className="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-md">
             <div className="max-w-7xl px-4 md:mx-auto flex items-center justify-between py-4">
-                <Logo className="flex-shrink-0 w-20 pl-12 md:w-32" />
+                <Logo className="flex-shrink-0 w-20 pl-12 md:pl-0 md:w-32" />
                 <div className="flex-1 flex items-center justify-center">
                     <NavLinks className="hidden md:flex" />
                 </div>

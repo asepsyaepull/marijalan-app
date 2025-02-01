@@ -16,6 +16,7 @@ import { useUser } from '@/context/UserContext';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import LogoutButtons from './logout-button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function UserNav() {
     const { user, loading } = useUser();
@@ -40,7 +41,7 @@ export default function UserNav() {
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     {loading ? (
-                        <div className="h-10 w-10 rounded-full bg-gray-200 animate-pulse"></div>
+                        <Skeleton className="h-10 w-10 rounded-full" />
                     ) : (
                         <Avatar className="h-10 w-10 object-cover">
                             <AvatarImage

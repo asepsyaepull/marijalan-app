@@ -44,7 +44,7 @@ export default function Cart({ className }: CartProps) {
                         )}
                     </Button>
                 </SheetTrigger>
-                <SheetContent side={isMobile ? "bottom" : "right"} className="w-full h-screen border-gray-100 p-0 sm:w-full md:w-96 overflow-auto">
+                <SheetContent side={isMobile ? "bottom" : "right"} className="w-full h-full border-gray-100 p-0 sm:w-full md:w-96 overflow-auto">
                     <SheetHeader className='sticky top-0 bg-white dark:bg-slate-900 border-b border-gray-100 px-4 md:px-6 py-4 shadow-sm justify-between items-start z-10 flex flex-row'>
                         <div className='flex flex-col items-start'>
                             <SheetTitle>My Cart</SheetTitle>
