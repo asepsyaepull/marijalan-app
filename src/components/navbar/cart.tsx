@@ -1,13 +1,8 @@
 'use client';
 
-import { ShoppingCart} from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import Image from 'next/image';
 import useGetCart from '@/hooks/cart/useGetCart';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -34,10 +29,12 @@ export default function Cart({ className }: CartProps) {
     const itemCount = cartItems.length;
     const total = cartItems.reduce((sum, item) => sum + item.activity.price * item.quantity, 0);
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     return (
         <div className={className}>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+            <Sheet>
+                <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="relative">
                         <ShoppingCart className="h-5 w-5 text-gray-700 dark:text-gray-200" />
                         {itemCount > 0 && (
@@ -46,20 +43,25 @@ export default function Cart({ className }: CartProps) {
                             </span>
                         )}
                     </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80">
-                    <div className="flex items-center justify-between px-4 py-2 border-b">
-                        <h2 className="font-semibold">Shopping Cart</h2>
-                        <span className="text-sm text-muted-foreground">
-                            {itemCount} items
-                        </span>
-                    </div>
-                    <div className="max-h-96 overflow-y-auto">
+                </SheetTrigger>
+                <SheetContent side={isMobile ? "bottom" : "right"} className="w-full h-screen border-gray-100 p-0 sm:w-full md:w-96 overflow-auto">
+                    <SheetHeader className='sticky top-0 bg-white dark:bg-slate-900 border-b border-gray-100 px-4 md:px-6 py-4 shadow-sm justify-between items-start z-10 flex flex-row'>
+                        <div className='flex flex-col items-start'>
+                            <SheetTitle>My Cart</SheetTitle>
+                            <SheetDescription>{itemCount} items</SheetDescription>
+                        </div>
+                        <SheetClose asChild>
+                            <Button variant="ghost" size="icon">
+                                <span className="sr-only">Close</span>
+                                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </Button>
+                        </SheetClose>
+                    </SheetHeader>
+                    <div className="h-full p-4 md:p-6 overflow-y-auto bg-white dark:bg-slate-800">
                         {cartItems.map((item) => (
-                            <DropdownMenuItem
-                                key={item.id}
-                                className="flex items-start gap-3 px-4 py-3 cursor-default"
-                            >
+                            <div key={item.id} className="flex items-start gap-3 py-4 ">
                                 <div className="relative h-16 w-16 flex-shrink-0 rounded-md overflow-hidden">
                                     <Image
                                         src={imageError[item.id] ? '/default-image.png' : Array.isArray(item.activity.imageUrls) ? item.activity.imageUrls[0] : item.activity.imageUrls}
@@ -77,15 +79,11 @@ export default function Cart({ className }: CartProps) {
                                         Rp{item.activity.price.toLocaleString()}
                                     </p>
                                 </div>
-                                {/* <DeleteCartButton
-                                    cartId={item.id}
-                                    refreshCart={refreshCart}
-                                /> */}
-                            </DropdownMenuItem>
+                            </div>
                         ))}
                     </div>
                     {itemCount > 0 ? (
-                        <div className="p-4 border-t">
+                        <div className="sticky bottom-0 bg-white dark:bg-slate-900 p-4 md:p-6 border-t border-gray-100 shadow-md shadow-top-md">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-sm font-medium">Total</span>
                                 <span className="text-sm font-medium">
@@ -104,8 +102,8 @@ export default function Cart({ className }: CartProps) {
                             Your cart is empty
                         </div>
                     )}
-                </DropdownMenuContent>
-            </DropdownMenu>
+                </SheetContent>
+            </Sheet>
         </div>
     );
 }

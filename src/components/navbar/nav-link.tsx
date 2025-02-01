@@ -10,6 +10,7 @@ import UserNav from "./user-nav"
 import Cart from "./cart"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import Logo from "../logo"
 
 interface NavLinksProps {
     className?: string;
@@ -17,25 +18,13 @@ interface NavLinksProps {
 
 const links = [
     { href: "/", label: "Home" },
-    { href: "/experience", label: "Experience"},
+    { href: "/experience", label: "Experience" },
     { href: "/promos", label: "Promos" },
 ]
 
-export default function NavLinks({ className }: NavLinksProps) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+const NavItem = ({ href, label }: { href: string; label: string }) => {
     const pathname = usePathname()
-
-    useEffect(() => {
-        const token = getCookie("token")
-        setIsLoggedIn(!!token)
-    }, [])
-
-    interface NavItemProps {
-        href: string;
-        label: string;
-    }
-
-    const NavItem = ({ href, label }: NavItemProps) => (
+    return (
         <Link
             href={href}
             className={cn(
@@ -48,6 +37,15 @@ export default function NavLinks({ className }: NavLinksProps) {
             <span>{label}</span>
         </Link>
     )
+}
+
+export default function NavLinks({ className }: NavLinksProps) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useEffect(() => {
+        const token = getCookie("token")
+        setIsLoggedIn(!!token)
+    }, [])
 
     return (
         <>
@@ -68,9 +66,11 @@ export default function NavLinks({ className }: NavLinksProps) {
                 </SheetTrigger>
                 <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                     <SheetHeader>
-                        <SheetTitle>Menu</SheetTitle>
+                        <SheetTitle>
+                            <Logo className="w-20" />
+                        </SheetTitle>
                     </SheetHeader>
-                    <nav className="flex flex-col space-y-4 mt-4">
+                    <nav className="flex flex-col space-y-4 mt-8">
                         {links.map((link) => (
                             <NavItem key={link.href} {...link} />
                         ))}
@@ -81,20 +81,20 @@ export default function NavLinks({ className }: NavLinksProps) {
                                     <UserNav />
                                 </div>
                             ) : (
-                                    <div className="space-y-4">
-                                        <Link href="/login" passHref>
-                                            <Button variant="outline" className="w-full justify-start">
-                                                <LogIn className="mr-2 h-4 w-4" />
+                                <div className="space-y-4">
+                                    <Link href="/login" passHref>
+                                        <Button variant="outline" className="w-full justify-start">
+                                            <LogIn className="mr-2 h-4 w-4" />
                                             Login
-                                            </Button>
-                                        </Link>
-                                        <Link href="/register" passHref>
-                                            <Button className="w-full justify-start bg-orange-500 hover:bg-orange-600">
-                                                <UserPlus className="mr-2 h-4 w-4" />
+                                        </Button>
+                                    </Link>
+                                    <Link href="/register" passHref>
+                                        <Button className="w-full justify-start bg-orange-500 hover:bg-orange-600">
+                                            <UserPlus className="mr-2 h-4 w-4" />
                                             Register
-                                            </Button>
-                                        </Link>
-                                    </div>
+                                        </Button>
+                                    </Link>
+                                </div>
                             )}
                         </div>
                     </nav>

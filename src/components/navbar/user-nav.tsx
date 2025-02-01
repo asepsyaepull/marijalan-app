@@ -24,7 +24,7 @@ export default function UserNav() {
 
     const handleLogoutClick = () => {
         setIsDropdownOpen(false);
-        
+        // Add logout logic here
     };
 
     const handleProfileClick = () => {
@@ -36,52 +36,52 @@ export default function UserNav() {
     };
 
     return (
-            <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                        {loading ? (
-                            <div className="h-10 w-10 rounded-full bg-gray-200 animate-pulse"></div>
-                        ) : (
-                            <Avatar className="h-10 w-10 object-cover">
-                                <AvatarImage
-                                    src={user?.profilePictureUrl || "/default-image.png"}
-                                    alt={user?.name || "User"}
-                                    onError={(e) => {
-                                        e.currentTarget.src = "/default-image.png";
-                                    }}
-                                />
-                                <AvatarFallback>{user?.name?.charAt(0) || "A"}</AvatarFallback>
-                            </Avatar>
-                        )}
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end">
-                    <DropdownMenuLabel>
-                        <div className="flex flex-col space-y-1">
-                            <p className="text-sm font-medium">{user?.name || "Guest"}</p>
-                            <p className="text-xs text-muted-foreground">{user?.email || "guest@example.com"}</p>
-                        </div>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
+        <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    {loading ? (
+                        <div className="h-10 w-10 rounded-full bg-gray-200 animate-pulse"></div>
+                    ) : (
+                        <Avatar className="h-10 w-10 object-cover">
+                            <AvatarImage
+                                src={user?.profilePictureUrl || "/default-image.png"}
+                                alt={user?.name || "User"}
+                                onError={(e) => {
+                                    e.currentTarget.src = "/default-image.png";
+                                }}
+                            />
+                            <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                    )}
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end">
+                <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium">{user?.name || "Guest"}</p>
+                        <p className="text-xs text-muted-foreground">{user?.email || "guest@example.com"}</p>
+                    </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
                     <DropdownMenuItem onClick={handleProfileClick}>
-                            <User className="mr-2 h-4 w-4" />
-                            <span>Profile</span>
-                        </DropdownMenuItem>
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Profile</span>
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleOrdersClick}>
-                            <CreditCard className="mr-2 h-4 w-4" />
-                            <span>My Orders</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Settings className="mr-2 h-4 w-4" />
-                            <span>Settings</span>
-                        </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
+                        <CreditCard className="mr-2 h-4 w-4" />
+                        <span>My Orders</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={handleLogoutClick}>
                     <LogoutButtons />
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
         </DropdownMenu>
     );
 }

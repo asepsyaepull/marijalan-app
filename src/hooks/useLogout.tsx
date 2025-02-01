@@ -11,9 +11,14 @@ const useLogout = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const { toast } = useToast();
+
     const reloadPage = () => {
         window.location.reload();
     };
+
+    // const directHome = () => {
+    //     window.location.href = "/";
+    // }
 
     const handleLogout = async () => {
         setIsLoading(true);
