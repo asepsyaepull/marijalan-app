@@ -72,8 +72,8 @@ const PromoDetailDialog: React.FC<PromoDetailDialogProps> = ({ promo, onClose, o
                 <div className="space-y-4">
                     <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
                         <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Promo Code</p>
-                        <div className="flex items-center justify-between mt-1">
-                            <code className="text-lg font-bold text-orange-600 dark:text-orange-400">{promo.promo_code}</code>
+                        <div className="flex items-center justify-between bg-white p-3 rounded-lg">
+                            <code className="font-mono text-lg font-bold text-orange-600 dark:text-orange-400">{promo.promo_code}</code>
                             <Button size="sm" variant="ghost" onClick={copyToClipboard}>
                                 {copied ? "Copied!" : <Copy size={16} />}
                             </Button>
@@ -83,13 +83,13 @@ const PromoDetailDialog: React.FC<PromoDetailDialogProps> = ({ promo, onClose, o
                         <div>
                             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Discount</p>
                             <p className="text-lg font-bold text-green-600 dark:text-green-400">
-                                Rp{promo.promo_discount_price.toFixed(2)}
+                                Rp{promo.promo_discount_price.toLocaleString()}
                             </p>
                         </div>
                         <div>
                             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Minimum Claim</p>
                             <p className="text-lg font-bold text-gray-700 dark:text-gray-200">
-                                Rp{promo.minimum_claim_price.toFixed(2)}
+                                Rp{promo.minimum_claim_price.toLocaleString()}
                             </p>
                         </div>
                     </div>
