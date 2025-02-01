@@ -8,6 +8,7 @@ import Category from "@/components/home/category";
 import Experience from "@/components/home/experience";
 import { BannerSection } from "@/components/home/banner";
 import Layout from "@/components/layout";
+import CTASection from "@/components/home/cta";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Experience />
       <BannerSection />
       <HowItWorks />
+      <CTASection />
     </Layout>
   );
 }
