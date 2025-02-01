@@ -27,7 +27,7 @@ export default function CTASection() {
                     {/* Left column - Text content */}
                     <div className="text-white space-y-4 md:space-y-6 max-w-xl">
                         <h2 className="text-3xl md:text-5xl font-bold leading-tight">Get 5% off your 1st app booking</h2>
-                        <p className="text-md md:text-lg opacity-90">Booking's better on the app. Use promo code "TourBooking" to save!</p>
+                        <p className="text-md md:text-lg opacity-90">Booking&apos;s better on the app. Use promo code &quot;TourBooking&quot; to save!</p>
                         <p className="text-md md:text-lg">Get a magic link sent to your email</p>
 
                         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
