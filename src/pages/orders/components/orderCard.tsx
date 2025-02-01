@@ -25,7 +25,19 @@ export default function OrderCard({ id }: { id: string }) {
     const { data, isLoading, error } = useGetTransactions();
     const [imageError, setImageError] = useState(false);
 
-    if (isLoading) return <Skeleton className="w-full h-full" />;
+    if (isLoading) {
+        return (
+            <div className="w-full h-full p-4 bg-white dark:bg-gray-800 rounded-lg animate-pulse">
+                <Skeleton className="w-24 h-24 rounded-lg" />
+                <div className="flex-1 space-y-4 py-1">
+                    <Skeleton className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4" />
+                    <Skeleton className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
+                    <Skeleton className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/4" />
+                </div>
+            </div>
+        );
+    }
+
     if (error) return <div>Error loading order data</div>;
 
     const order = data.find(order => order.id === id);
@@ -37,8 +49,8 @@ export default function OrderCard({ id }: { id: string }) {
     return (
         <Link href={`/orders/${id}`}>
             <div className="bg-white dark:bg-gray-800 border border-gray-100 hover:shadow-md rounded-lg p-4 my-2 cursor-pointer">
-                <div className="flex gap-4">
-                    <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+                <div className="flex flex-col md:flex-row gap-4">
+                    <div className="relative w-full md:w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
                         <Image
                             src={imageError ? '/default-image.png' : transaction_items[0].imageUrls[0]}
                             alt={transaction_items[0].title}
@@ -48,22 +60,27 @@ export default function OrderCard({ id }: { id: string }) {
                         />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-start">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                             <div>
+                                <div className="flex md:flex-row justify-between md:items-center gap-4 mt-4 md:mt-0">
                                 <p className="text-sm text-gray-500">{invoiceId}</p>
+                                    <Badge className={`${getStatusColor(status)} block md:hidden`}>
+                                        {status}
+                                    </Badge>
+                                </div>
                                 <h3 className="font-medium text-gray-900 dark:text-white mt-1">{transaction_items[0].title}</h3>
                                 <p className="text-sm text-gray-500 mt-1">Order Date: {FORMAT_DATE(orderDate)}</p>
                                 <p className="text-sm text-gray-500 mt-1">Expired: {FORMAT_DATE(expiredDate)}</p>
                             </div>
-                            <div className="flex flex-col items-end gap-4">
-                                <Badge className={getStatusColor(status)}>
+
+
+                            <div className="flex flex-col gap-8 items-end h-full">
+                                <Badge className={`${getStatusColor(status)} hidden md:block`}>
                                     {status}
                                 </Badge>
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-lg font-bold text-orange-500">
-                                        {quantity} x Rp{transaction_items[0].price.toLocaleString()}
-                                    </span>
-                                </div>
+                                <span className="text-lg font-bold text-orange-500">
+                                    {quantity} x Rp{transaction_items[0].price.toLocaleString()}
+                                </span>
                             </div>
                         </div>
                     </div>

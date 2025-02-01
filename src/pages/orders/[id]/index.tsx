@@ -23,6 +23,9 @@ export default function OrderDetail() {
     const [imageError, setImageError] = useState(false);
     const breadcrumbItems = useBreadcrumb();
 
+    const handleBack = () => {
+        router.back();
+    };
 
     const handleUploadClick = (transactionId: string) => {
         setSelectedTransactionId(transactionId);
@@ -36,7 +39,37 @@ export default function OrderDetail() {
         }
     };
 
-    if (isLoading) return <Skeleton className="w-full h-full" />;
+    if (isLoading) {
+        return (
+            <Layout>
+                <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                            <div className="lg:col-span-1">
+                                <Skeleton className="h-64 w-full" />
+                            </div>
+                            <main className="lg:col-span-3 space-y-6">
+                                <div className="flex items-center space-x-4 mb-6">
+                                    <Skeleton className="h-10 w-10 rounded-full" />
+                                    <Skeleton className="h-8 w-48" />
+                                </div>
+                                <Card className="p-6 space-y-6">
+                                    <Skeleton className="h-40 w-full" />
+                                    <Skeleton className="h-10 w-1/2" />
+                                    <Skeleton className="h-20 w-full" />
+                                    <Skeleton className="h-10 w-1/2" />
+                                    <Skeleton className="h-20 w-full" />
+                                    <Skeleton className="h-10 w-1/2" />
+                                    <Skeleton className="h-20 w-full" />
+                                </Card>
+                            </main>
+                        </div>
+                    </div>
+                </div>
+            </Layout>
+        );
+    }
+
     if (error) return <div>Error loading order data</div>;
 
     if (!data) return <div>Order Data not Found</div>;
@@ -52,7 +85,7 @@ export default function OrderDetail() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         {/* Sidebar */}
-                        <div className="lg:col-span-1">
+                        <div className="hidden md:block lg:col-span-1">
                             <ProfileSidebar />
                         </div>
 
@@ -60,7 +93,7 @@ export default function OrderDetail() {
                         <main className="lg:col-span-3 space-y-6">
                             {/* Header */}
                             <div className="flex items-center space-x-4 mb-6">
-                                <Button variant="ghost" size="icon" className="rounded-full" onClick={() => router.back()}>
+                                <Button variant="ghost" size="icon" className="rounded-full" onClick={handleBack}>
                                     <ArrowLeft className="h-6 w-6" />
                                 </Button>
                                 <h1 className="text-xl font-semibold">Order Details</h1>

@@ -15,15 +15,20 @@ export default function OrdersPage() {
     const { data, isLoading, error } = useGetTransactions();
     const breadcrumbItems = useBreadcrumb();
 
-
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading orders</div>;
 
-    const filteredOrders = data.filter(order => {
-        const matchesTab = activeTab === 'All' || order.status === activeTab;
-        const matchesSearch = order.invoiceId.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesTab && matchesSearch;
-    });
+    const searchOrders = (orders: Array<{ invoiceId: string; status: string; id: string; transaction_items: Array<{ title: string }> }>) => {
+        return orders.filter(
+            (order: { invoiceId: string; transaction_items: Array<{ title: string }> }) =>
+                order.invoiceId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                order.transaction_items.some(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+    };
+
+    const filteredOrders = activeTab === 'All'
+        ? searchOrders(data)
+        : searchOrders(data).filter(order => order.status.toLowerCase() === activeTab.toLowerCase());
 
     return (
         <Layout>
@@ -33,7 +38,7 @@ export default function OrdersPage() {
                 <div className="max-w-7xl px-4 md:mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         {/* Sidebar */}
-                        <div>
+                        <div className='hidden lg:block lg:col-span-1'>
                             <ProfileSidebar />
                         </div>
 
