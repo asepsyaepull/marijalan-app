@@ -7,7 +7,7 @@ import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
       <UserProvider>
         <Head>
           <title>Marijalan</title>
