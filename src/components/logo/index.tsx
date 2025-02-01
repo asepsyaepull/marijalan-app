@@ -15,7 +15,7 @@ export default function Logo({ className }: LogoProps) {
     return (
         <div className={`flex items-center gap-1 ${className}`} onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
             <Image src="/iconLogo.svg" alt="Logo" width={40} height={40} />
-            <Image src="/textLogo.svg" alt="Logo" width={108} height={108} className="filter dark:invert" />
+            <Image src="/textLogo.svg" alt="Logo" width={108} height={108} className="hidden md:block filter dark:invert" />
         </div>
     );
 };
