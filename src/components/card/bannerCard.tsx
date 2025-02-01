@@ -39,22 +39,7 @@ export default function BannerCard({ banner }: BannerCardProps) {
                     onLoadingComplete={() => setLoading(false)}
                 />
                 {/* Gradient Overlay */}
-                {/* <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" /> */}
-            </div>
-
-            {/* Content */}
-            <div className="relative h-full max-w-7xl mx-auto px-4 md:px-8 flex items-end py-10">
-                <div className="max-w-2xl space-y-6">
-                    {/* <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-                        {banner.name}
-                    </h1> */}
-                    <Button
-                        size="lg"
-                        className="bg-orange-500 hover:bg-orange-500/90 text-white"
-                    >
-                        See Detail
-                    </Button>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
         </div>
     );
