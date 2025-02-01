@@ -75,14 +75,15 @@ export default function HowItWorks() {
                     </div>
 
                     {/* Right Image */}
-                    <div className="relative h-[500px] md:h-auto rounded-r-3xl overflow-hidden">
+                    <div className="relative h-64 md:h-auto rounded-r-3xl overflow-hidden">
                         <Image
-                            src="https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?q=80&w=2340&auto=format&fit=crop"
+                            src="https://images.unsplash.com/photo-1504542982118-59308b40fe0c?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="Travel experience"
                             fill
                             className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-black/20" />
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-l from-black/30 to-transparent" />
 
                         {/* Action Buttons */}
                         <div className="absolute top-6 right-6 flex gap-4">
