@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import UseUploadImage from "@/hooks/useUploadImage";
 
@@ -55,7 +55,7 @@ const useEditBanner = () => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.response?.data?.message || "Failed to update banner",
+        description: (error as AxiosError<{ message: string }>).response?.data?.message || "Failed to update banner",
       });
       return false;
     } finally {

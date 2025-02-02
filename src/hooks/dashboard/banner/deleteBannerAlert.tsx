@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import { toast } from "@/hooks/use-toast";
 import useBanner from "@/hooks/useBanner";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
 
@@ -74,7 +74,7 @@ const DeleteBannerAlert: React.FC<DeleteButtonProps> = ({
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.response?.data?.message || "Failed to delete banner",
+        description: (error as AxiosError<{ message: string }>).response?.data?.message || "Failed to delete banner",
         variant: "destructive",
       });
       return false;
