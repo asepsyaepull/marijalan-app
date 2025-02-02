@@ -165,11 +165,12 @@ const useAddActivity = () => {
       }
 
       throw new Error(response.data.message || "Failed to add activity");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
       toast({
         variant: "destructive",
         title: "Error",
-        description: (error as AxiosError<{ message: string }>).response?.data?.message || "Failed to add activity",
+        description: (axiosError.response?.data as { message: string })?.message || "Failed to add activity",
       });
       return false;
     }

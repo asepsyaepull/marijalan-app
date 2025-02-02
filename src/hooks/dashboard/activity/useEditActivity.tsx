@@ -65,7 +65,7 @@ const useEditActivity = () => {
       }
 
       throw new Error(response.data.message || "Failed to update activity");
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: "destructive",
         title: "Error",
