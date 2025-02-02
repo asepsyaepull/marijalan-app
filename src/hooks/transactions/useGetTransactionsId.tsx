@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export interface GetTransactionItem {
     id: string;
     userId: string;
+    userName: string;
     paymentMethodId: string;
     invoiceId: string;
     status: string;
@@ -41,7 +42,7 @@ export interface TransactionItem {
     updatedAt: string;
 }
 
-const useTransactionsId = (id: string) => {
+const useTransactionsId = (transactionId: string) => {
     const [data, setData] = useState<GetTransactionItem>();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -80,10 +81,10 @@ const useTransactionsId = (id: string) => {
     };
 
     useEffect(() => {
-        if (id) {
-            getTransaction(id);
+        if (transactionId) {
+            getTransaction(transactionId);
         }
-    }, [id]);
+    }, [transactionId]);
 
     return { data, isLoading, error };
 };
