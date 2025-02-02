@@ -10,9 +10,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import usePromo from "@/components/views/Home/hooks/usePromo";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import { toast } from "@/hooks/use-toast";
+import usePromo from "@/hooks/usePromo";
 import axios from "axios";
 import { Loader2, Trash2 } from "lucide-react";
 import React, { useState } from "react";
@@ -29,7 +29,7 @@ const DeletePromoAlert: React.FC<DeleteButtonProps> = ({
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { mutate: refreshBanner } = usePromo();
+  const { refreshPromo: refreshBanner } = usePromo();
 
   const removeItem = async () => {
     setIsLoading(true);
@@ -87,7 +87,6 @@ const DeletePromoAlert: React.FC<DeleteButtonProps> = ({
     <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
       <AlertDialogTrigger asChild>
         <Button
-          variant="variant"
           size="icon"
           className=" text-red-500 hover:text-red-700 hover:bg-red-50"
         >

@@ -10,9 +10,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import useCategory from "@/components/views/Home/hooks/useCategory";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import { toast } from "@/hooks/use-toast";
+import useCategory from "@/hooks/useCategory";
 import axios from "axios";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -29,7 +29,7 @@ const DeleteCategoryAlert: React.FC<DeleteButtonProps> = ({
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { mutate: refreshCategory } = useCategory();
+  const { refreshCategory } = useCategory();
 
   const removeItem = async () => {
     setIsLoading(true);
@@ -89,7 +89,6 @@ const DeleteCategoryAlert: React.FC<DeleteButtonProps> = ({
     <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
       <AlertDialogTrigger asChild>
         <Button
-          variant="variant"
           size="icon"
           className=" text-red-500 hover:text-red-700 hover:bg-red-50"
         >
