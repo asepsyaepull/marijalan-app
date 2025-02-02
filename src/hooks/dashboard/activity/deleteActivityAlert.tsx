@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import { toast } from "@/hooks/use-toast";
 import useActivity from "@/hooks/useActivity";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
 
@@ -73,12 +73,19 @@ const DeleteActivityAlert: React.FC<DeleteButtonProps> = ({
       });
       return false;
     } catch (error: any) {
-      toast({
-        title: error.response.data.message || "Failed to delete Activity",
-        description:
-          error.response?.data?.errors || "Failed to delete Activity",
-        variant: "destructive",
-      });
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: error.response?.data.message || "Failed to delete Activity",
+          description: error.response?.data?.errors || "Failed to delete Activity",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Failed to delete Activity",
+          description: "An unknown error occurred",
+          variant: "destructive",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import UseUploadImage from "@/hooks/useUploadImage";
 import { useRouter } from "next/router";
@@ -169,7 +169,7 @@ const useAddActivity = () => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.response?.data?.message || "Failed to add activity",
+        description: (error as AxiosError<{ message: string }>).response?.data?.message || "Failed to add activity",
       });
       return false;
     }
