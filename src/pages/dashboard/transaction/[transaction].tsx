@@ -11,7 +11,7 @@ import {
   User,
   FileText,
   History,
-  Image,
+  Image as LucideImage,
 } from "lucide-react";
 import { FORMAT_DATE } from "@/helper/convertTime";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
@@ -20,6 +20,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import UpdateStatusButton from "@/hooks/dashboard/transaksi/updateStatusTransaction";
 import CancelTransaksiButton from "./components/CancelTransaksiButton";
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const StatusBadge = ({ status }: { status: string }) => {
   let badgeStyle = "";
@@ -116,11 +117,13 @@ const DetailTransaction = () => {
                     key={item.id}
                     className="flex flex-col md:flex-row gap-4 pb-4 border-b last:border-0"
                   >
-                    <img
+                    <Image
                       src={item.imageUrls[0] || "/default-image.jpg"}
                       alt={item.title}
                       className="w-full md:w-32 h-32 object-cover rounded-lg"
                       onError={handleImageError}
+                      width={128}
+                      height={128}
                     />
                     <div className="flex-1 space-y-2">
                       <h3 className="font-semibold">{item.title}</h3>
@@ -156,7 +159,7 @@ const DetailTransaction = () => {
               {data.proofPaymentUrl && (
                 <>
                   <div className="flex px-6 py-2 items-center gap-2">
-                    <Image className="h-4 w-4 text-gray-500" />
+                    <LucideImage className="h-4 w-4 text-gray-500" />
                     <span className="text-sm font-semibold">
                       Payment Proof
                     </span>
@@ -164,19 +167,23 @@ const DetailTransaction = () => {
                   <CardContent>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <img
+                        <Image
                           src={data.proofPaymentUrl || "/path/to/default-image.jpg"}
                           alt="Bukti Pembayaran"
                           className="w-32 rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
                           onError={handleImageError}
+                          width={128}
+                          height={128}
                         />
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl">
-                        <img
+                        <Image
                           src={data.proofPaymentUrl || "/path/to/default-image.jpg"}
                           alt="Bukti Pembayaran"
                           className="w-full h-auto"
                           onError={handleImageError}
+                          width={1024}
+                          height={768}
                         />
                       </DialogContent>
                     </Dialog>
@@ -240,11 +247,13 @@ const DetailTransaction = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-                  <img
+                  <Image
                     src={data.payment_method.imageUrl}
                     alt={data.payment_method.name}
                     className="h-8 object-contain"
                     onError={handleImageError}
+                    width={32}
+                    height={32}
                   />
                   <div className="space-y-1">
                     <p className="font-medium">{data.payment_method.name}</p>
