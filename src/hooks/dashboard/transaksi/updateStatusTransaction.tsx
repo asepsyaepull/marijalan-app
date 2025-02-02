@@ -56,13 +56,20 @@ const UpdateStatusButton = ({
         });
         window.location.reload();
       }
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description:
-          error.response?.data?.message || "Failed to update status",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.response?.data?.message || "Failed to update status",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to update status",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
