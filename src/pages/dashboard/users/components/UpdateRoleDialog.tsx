@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Edit, Loader2, Save } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import {
   Select,
   SelectContent,
