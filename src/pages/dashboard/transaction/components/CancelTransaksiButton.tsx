@@ -10,7 +10,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { XCircle } from "lucide-react";
 import UseCancelTransaction from "@/hooks/transactions/useCancelTransaction";
 
 interface CancelTransaksiProps {
