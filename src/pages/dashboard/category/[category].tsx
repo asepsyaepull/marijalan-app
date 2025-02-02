@@ -8,6 +8,7 @@ import { toast } from "@/hooks/use-toast";
 import useCaregoryId from "@/hooks/useCategoryId";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface FormData {
   name: string;
@@ -118,18 +119,20 @@ const EditCategory = () => {
               <Skeleton className="h-[300px] w-full mb-6" />
             ) : (
               <div className="rounded-lg overflow-hidden mb-6">
-                <img
+                <Image
                   src={
                     formData.imageUrl ||
                     data?.imageUrl ||
-                    "https://placehold.co/600x400/png"
+                    "https://placehold.co/600x400/svg"
                   }
-                  alt={formData.name || data?.name}
+                  alt={formData.name || data?.name || "Category Image"}
                   className="w-full h-[300px] object-cover"
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
-                    img.src = "https://placehold.co/600x400/png";
+                    img.src = "https://placehold.co/600x400/svg";
                   }}
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
             )}
@@ -186,7 +189,8 @@ const EditCategory = () => {
               <div className="flex justify-end gap-4 mt-6">
                 <Button
                   type="button"
-                  className="text-black"
+                  variant="outline"
+                  className="text-orange-500 border-orange-500 hover:bg-orange-100 hover:text-orange-600"
                   onClick={handleCancel}
                   disabled={isLoading}
                 >

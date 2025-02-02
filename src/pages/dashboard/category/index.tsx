@@ -9,6 +9,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import useCategory from "@/hooks/useCategory";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 // Definisikan interface untuk tipe data category
 interface Category {
@@ -29,10 +30,12 @@ const CategoryDashboard = () => {
       header: "Image",
       cell: ({ row }) => {
         return (
-          <img
+          <Image
             src={row.original.imageUrl}
             alt={row.original.name}
-            className="w-36 h-20 object-cover rounded"
+            width={144} // equivalent to w-36
+            height={80} // equivalent to h-20
+            className="object-cover rounded"
           />
         );
       },
