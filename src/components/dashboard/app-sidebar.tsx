@@ -19,12 +19,13 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
+import { Separator } from "../ui/separator";
+import { NavMenus } from "./nav-menus";
 
 // This is sample data.
 const data = {
-  projects: [
+  menus: [
     {
       name: "Dashboard",
       url: "/dashboard",
@@ -63,21 +64,24 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+function handleLogoClick() {
+  window.location.href = "/dashboard";
+}
+
+export function AppSidebar({ className, ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar
+      collapsible="icon" {...props}
+      className={`bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 ${className}`}
+      {...props}>
       <SidebarHeader>
-        <Image
-          src="/logo.svg"
-          alt="Profile Preview"
-          width={64}
-          height={64}
-          priority={true}
-          className="w-fit mt-6"
-        />
+        <div className="flex p-2 items-center gap-1" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+          <Image src="/iconLogo.svg" alt="Logo" width={40} height={40} />
+        </div>
+        <Separator />
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
+        <NavMenus menus={data.menus} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
