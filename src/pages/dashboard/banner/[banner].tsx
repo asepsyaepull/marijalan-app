@@ -8,6 +8,7 @@ import { toast } from "@/hooks/use-toast";
 import useBannerId from "@/hooks/useBannerId";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface FormData {
   name: string;
@@ -115,17 +116,19 @@ const EditBanner = () => {
           ) : (
             <div className="max-w-3xl mx-auto">
               <div className="rounded-lg overflow-hidden mb-6">
-                <img
+                <Image
                   src={
                     formData.imageUrl ||
                     data?.imageUrl ||
-                    "https://placehold.co/600x400/png"
+                    "https://placehold.co/600x400/svg"
                   }
-                  alt={formData.name || data?.name}
+                  alt={formData.name || data?.name || "Default Banner Name"}
                   className="w-full h-[300px] object-cover"
+                  width={600}
+                  height={400}
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
-                    img.src = "https://placehold.co/600x400/png";
+                    img.src = "https://placehold.co/600x400/svg";
                   }}
                 />
               </div>

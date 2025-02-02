@@ -9,6 +9,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import useBanner from "@/hooks/useBanner";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 // Definisikan interface untuk tipe data banner
 interface Banner {
@@ -29,10 +30,12 @@ const BannerDashboard = () => {
       header: "Image",
       cell: ({ row }) => {
         return (
-          <img
+          <Image
             src={row.original.imageUrl}
             alt={row.original.name}
-            className="w-36 h-20 object-cover rounded"
+            width={144} // Adjust width as needed
+            height={80} // Adjust height as needed
+            className="object-cover rounded"
           />
         );
       },

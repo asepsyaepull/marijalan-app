@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import useAddBanner from "@/hooks/dashboard/banner/useAddBanner";
 import { useRouter } from "next/router";
 import React from "react";
+import Image from "next/image";
 
 const AddBanner = () => {
   const router = useRouter();
@@ -32,10 +33,12 @@ const AddBanner = () => {
           <div className="max-w-3xl mx-auto">
             {formData.imageUrl ? (
               <div className="rounded-lg overflow-hidden mb-6">
-                <img
+                <Image
                   src={formData.imageUrl}
                   alt="Banner Preview"
                   className="w-full h-[300px] object-cover"
+                  width={500}
+                  height={300}
                 />
               </div>
             ) : (
