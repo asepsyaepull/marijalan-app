@@ -146,12 +146,20 @@ const DialogEditProfile: React.FC<DialogProps> = ({ isOpen, onOpenChange }) => {
                 await refreshUserData();
                 onOpenChange(false);
             }
-        } catch (err: any) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: err.response?.data?.message || "Failed to update profile",
-            });
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                toast({
+                    variant: "destructive",
+                    title: "Error",
+                    description: err.response?.data?.message || "Failed to update profile",
+                });
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Error",
+                    description: "An unexpected error occurred",
+                });
+            }
         } finally {
             setIsLoading(false);
             setUploadProgress(0);
