@@ -94,11 +94,12 @@ const useAddBanner = () => {
       }
 
       throw new Error(response.data.message || "Failed to add banner");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
       toast({
         variant: "destructive",
         title: "Error",
-        description: (error as AxiosError<{ message: string }>).response?.data?.message || "Failed to add banner",
+        description: (axiosError.response?.data as { message: string })?.message || "Failed to add banner",
       });
       return false;
     } finally {
@@ -111,7 +112,7 @@ const useAddBanner = () => {
     try {
       const imageUrl = await uploadImage(file);
       return imageUrl;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error);
       toast({
         variant: "destructive",

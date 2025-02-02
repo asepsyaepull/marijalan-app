@@ -71,7 +71,7 @@ const DeleteBannerAlert: React.FC<DeleteButtonProps> = ({
         variant: "destructive",
       });
       return false;
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: (error as AxiosError<{ message: string }>).response?.data?.message || "Failed to delete banner",

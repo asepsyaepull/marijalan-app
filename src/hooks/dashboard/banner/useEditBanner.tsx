@@ -51,7 +51,7 @@ const useEditBanner = () => {
       }
 
       throw new Error(response.data.message || "Failed to update banner");
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -68,7 +68,7 @@ const useEditBanner = () => {
     try {
       const imageUrl = await uploadImage(file);
       return imageUrl;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error);
 
       toast({
