@@ -17,6 +17,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import useCategory from "@/hooks/useCategory";
 import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
+import Image from "next/image"; // Import Image component
 
 interface FormData {
   categoryId: string;
@@ -244,13 +245,15 @@ const EditActivity = () => {
                     key={index}
                     className="relative rounded-lg overflow-hidden"
                   >
-                    <img
+                    <Image
                       src={url}
                       alt={`Activity Preview ${index + 1}`}
                       className="w-full h-[200px] object-cover"
+                      width={600}
+                      height={400}
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
-                        img.src = "https://placehold.co/600x400/png";
+                        img.src = "https://placehold.co/600x400/svg";
                       }}
                     />
                     <button

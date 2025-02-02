@@ -14,6 +14,7 @@ import useAddActivity from "@/hooks/dashboard/activity/useAddActivity";
 import { useRouter } from "next/router";
 import React from "react";
 import useCategory from "@/hooks/useCategory";
+import Image from "next/image";
 
 const AddActivity = () => {
   const router = useRouter();
@@ -50,10 +51,12 @@ const AddActivity = () => {
                     key={index}
                     className="relative rounded-lg overflow-hidden"
                   >
-                    <img
+                    <Image
                       src={url}
                       alt={`Activity Preview ${index + 1}`}
                       className="w-full h-[200px] object-cover"
+                      layout="fill"
+                      objectFit="cover"
                     />
                     <button
                       type="button"

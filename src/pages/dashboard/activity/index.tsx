@@ -7,6 +7,7 @@ import { Pencil, Plus } from "lucide-react";
 import DeleteActivityAlert from "@/hooks/dashboard/activity/deleteActivityAlert";
 import useActivity from "@/hooks/useActivity";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 // Define your activity type
 interface Activity {
@@ -27,10 +28,12 @@ const columns: ColumnDef<Activity>[] = [
     cell: ({ row }) => {
       const imageUrl = row.original.imageUrls[0];
       return (
-        <img
+        <Image
           src={imageUrl}
           alt={row.original.title}
-          className="w-36 h-20 object-cover rounded"
+          width={144} // Adjust width as needed
+          height={80} // Adjust height as needed
+          className="object-cover rounded"
         />
       );
     },
