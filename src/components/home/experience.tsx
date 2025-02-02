@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import ExperienceCard from '../card/experienceCard';
-import useExperience from '@/hooks/useExperience';
+import useExperience from '@/hooks/useActivity';
 import { useRouter } from 'next/router';
 import { Skeleton } from '@/components/ui/skeleton';
 
