@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
 import UseUploadImage from "@/hooks/useUploadImage";
-import useUploadUrlProof from "@/hooks/transaksi/useUploadUrlProof";
 import { toast } from "@/hooks/use-toast";
+import useUploadUrlProof from "@/hooks/transactions/useUploadProof";
 
 interface UploadProofPaymentDialogProps {
   isOpen: boolean;
@@ -146,8 +146,8 @@ const UploadProofPaymentDialog = ({
             <DialogClose asChild>
               <Button
                 type="button"
-                variant="neutral"
-                className="text-black"
+                variant="outline"
+                className="text-orange-500 hover:text-orange-600 bg-orange-100 hover:bg-orange-200"
                 disabled={isLoading}
               >
                 Cancel
