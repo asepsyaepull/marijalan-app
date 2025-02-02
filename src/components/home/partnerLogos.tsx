@@ -30,7 +30,7 @@ export default function PartnerLogos() {
         <section className="py-10 px-4 md:px-8 lg:px-12">
             <div className="container max-w-7xl mx-auto">
                 <div className="flex flex-row items-center gap-8 md:gap-40 overflow-x-auto scrollbar-hide">
-                    <Marquee pauseOnHover className="[--duration:20s] [--gap:40px]">
+                    <Marquee pauseOnHover className="[--duration:20s] [--gap:20px] md:[--gap:40px]">
                         {firstRow.map((partner) => (
                             <div key={partner.name} className="w-24 h-8 md:w-36 md:h-10 grayscale hover:grayscale-0 transition-all">
                                 <Image
