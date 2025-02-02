@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import useExperience from '@/hooks/useExperience';
+import useExperience from '@/hooks/useActivity';
 import ExperienceCard, { ExperienceType } from '@/components/card/experienceCard';
 import Layout from '@/components/layout';
 import { Search } from 'lucide-react';

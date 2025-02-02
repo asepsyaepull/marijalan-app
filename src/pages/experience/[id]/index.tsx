@@ -9,7 +9,7 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion';
 import QuickInfo from './components/quickInfo';
-import useExperienceId from '@/hooks/useExperienceId';
+import useExperienceId from '@/hooks/useActivityId';
 import Layout from '@/components/layout';
 import Gallery from './components/gallery';
 import { Progress } from "@radix-ui/react-progress";
