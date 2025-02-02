@@ -65,7 +65,7 @@ export default function OrderCard({ id }: { id: string }) {
                                 <div className="flex md:flex-row justify-between md:items-center gap-4 mt-4 md:mt-0">
                                 <p className="text-sm text-gray-500">{invoiceId}</p>
                                     <Badge className={`${getStatusColor(status)} block md:hidden`}>
-                                        {status}
+                                        {status.charAt(0).toUpperCase() + status.slice(1)}
                                     </Badge>
                                 </div>
                                 <h3 className="font-medium text-gray-900 dark:text-white mt-1">{transaction_items[0].title}</h3>
