@@ -94,12 +94,20 @@ const useAddCategory = () => {
       }
 
       throw new Error(response.data.message || "Failed to add Category");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.response?.data?.message || "Failed to add Category",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.response?.data?.message || "Failed to add Category",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to add Category",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);

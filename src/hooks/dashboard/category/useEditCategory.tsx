@@ -54,13 +54,21 @@ const useEditCategory = () => {
       }
 
       throw new Error(response.data.message || "Failed to update Category");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description:
-          error.response?.data?.message || "Failed to update Category",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description:
+            error.response?.data?.message || "Failed to update Category",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to update Category",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);

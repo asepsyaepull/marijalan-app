@@ -71,13 +71,21 @@ const DeleteCategoryAlert: React.FC<DeleteButtonProps> = ({
         variant: "destructive",
       });
       return false;
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description:
-          error.response?.data?.message || "Failed to delete Category",
-        variant: "destructive",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: "Error",
+          description:
+            error.response?.data?.message || "Failed to delete Category",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete Category",
+          variant: "destructive",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);
