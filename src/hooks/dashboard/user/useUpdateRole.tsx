@@ -46,12 +46,20 @@ const UseUpdateRole = () => {
       }
 
       throw new Error(response.data.message || "Failed to update user");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.response?.data?.message || "Failed to update user",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.response?.data?.message || "Failed to update user",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to update user",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);
