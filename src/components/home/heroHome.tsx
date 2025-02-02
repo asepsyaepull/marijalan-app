@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
-import useExperience from '@/hooks/useExperience';
+import useExperience from '@/hooks/useActivity';
 import { useRouter } from 'next/router'; // Import useRouter from next/router
 
 export default function HeroSection() {
