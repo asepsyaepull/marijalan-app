@@ -56,12 +56,20 @@ const useEditPromo = () => {
       }
 
       throw new Error(response.data.message || "Failed to update promo");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.response?.data?.message || "Failed to update promo",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.response?.data?.message || "Failed to update promo",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to update promo",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);

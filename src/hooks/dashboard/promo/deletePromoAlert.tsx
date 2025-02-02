@@ -71,12 +71,20 @@ const DeletePromoAlert: React.FC<DeleteButtonProps> = ({
         variant: "destructive",
       });
       return false;
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.response?.data?.message || "Failed to delete banner",
-        variant: "destructive",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: "Error",
+          description: error.response?.data?.message || "Failed to delete banner",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete banner",
+          variant: "destructive",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);

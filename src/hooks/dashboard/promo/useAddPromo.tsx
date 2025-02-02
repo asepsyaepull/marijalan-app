@@ -111,12 +111,20 @@ const useAddPromo = () => {
       }
 
       throw new Error(response.data.message || "Failed to add Promo");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.response?.data?.message || "Failed to add Promo",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.response?.data?.message || "Failed to add Promo",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to add Promo",
+        });
+      }
       return false;
     } finally {
       setIsLoading(false);
