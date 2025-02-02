@@ -18,6 +18,7 @@ import {
   Users,
   UserCog,
   Loader2,
+  LucideIcon,
 } from "lucide-react";
 
 export function Dashboard() {
@@ -52,7 +53,7 @@ export function Dashboard() {
     label: string,
     count: number,
     isLoading: boolean,
-    Icon: any
+    Icon: LucideIcon
   ) => (
     <CardContent className="p-6">
       <div className="flex items-center justify-between">
