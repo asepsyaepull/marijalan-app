@@ -9,6 +9,7 @@ import usePromoId from "@/hooks/usePromoId";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 interface FormData {
   title: string;
@@ -149,17 +150,19 @@ const EditPromo = () => {
             </div>
             <div className="max-w-3xl mx-auto">
               <div className="rounded-lg overflow-hidden mb-6">
-                <img
+                <Image
                   src={
                     formData.imageUrl ||
                     data?.imageUrl ||
-                    "https://placehold.co/600x400/png"
+                    "https://placehold.co/600x400/svg"
                   }
-                  alt={formData.title || data?.title}
+                  alt={formData.title || data?.title || "Promo Image"}
                   className="w-full h-[300px] object-cover"
+                  width={600}
+                  height={400}
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
-                    img.src = "https://placehold.co/600x400/png";
+                    img.src = "https://placehold.co/600x400/svg";
                   }}
                 />
               </div>
@@ -282,7 +285,8 @@ const EditPromo = () => {
                 <div className="flex justify-end gap-4 mt-6">
                   <Button
                     type="button"
-                    className="text-black"
+                    variant="outline"
+                    className="text-orange-500 border-orange-500 hover:bg-orange-100 hover:text-orange-600"
                     onClick={handleCancel}
                     disabled={isLoading}
                   >

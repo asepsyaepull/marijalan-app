@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import useAddPromo from "@/hooks/dashboard/promo/useAddPromo";
 import { useRouter } from "next/router";
 import React from "react";
+import Image from "next/image";
 
 const AddPromo = () => {
   const router = useRouter();
@@ -33,10 +34,12 @@ const AddPromo = () => {
           <div className="max-w-3xl mx-auto">
             {formData.imageUrl ? (
               <div className="rounded-lg overflow-hidden mb-6">
-                <img
+                <Image
                   src={formData.imageUrl}
                   alt="Promo Preview"
                   className="w-full h-[300px] object-cover"
+                  width={500}
+                  height={300}
                 />
               </div>
             ) : (

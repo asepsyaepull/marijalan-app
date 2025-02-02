@@ -8,6 +8,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import usePromo from "@/hooks/usePromo";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image"; // Import Image component
 
 // Definisikan interface untuk tipe data promo
 interface Promo {
@@ -27,10 +28,12 @@ const PromoDashboard = () => {
       header: "Image",
       cell: ({ row }) => {
         return (
-          <img
+          <Image
             src={row.original.imageUrl}
             alt={row.original.title}
-            className="w-36 h-20 object-cover rounded"
+            width={144} // Adjust width as needed
+            height={80} // Adjust height as needed
+            className="object-cover rounded"
           />
         );
       },
@@ -49,16 +52,6 @@ const PromoDashboard = () => {
         <span className="font-medium">{row.getValue("promo_code")}</span>
       ),
     },
-    // {
-    //   accessorKey: "createdAt",
-    //   header: "Created At",
-    //   cell: ({ row }) => FORMAT_DATE(row.getValue("createdAt")),
-    // },
-    // {
-    //   accessorKey: "updatedAt",
-    //   header: "Updated At",
-    //   cell: ({ row }) => FORMAT_DATE(row.getValue("updatedAt")),
-    // },
     {
       id: "actions",
       header: () => <div className="text-right">Actions</div>,
