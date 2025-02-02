@@ -4,7 +4,7 @@ import { MapPin, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import useExperienceId from '@/hooks/useExperienceId';
+import useExperienceId from '@/hooks/useActivityId';
 import { useUser } from '@/context/UserContext';
 import { useRouter } from 'next/router';
 import {

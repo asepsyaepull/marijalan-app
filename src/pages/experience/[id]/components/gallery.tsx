@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import useExperienceId from '@/hooks/useExperienceId';
+import useExperienceId from '@/hooks/useActivityId';
 
 const dummyImages = [
     'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2938&auto=format&fit=crop',

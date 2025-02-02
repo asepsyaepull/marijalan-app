@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/UserContext';
-import useExperienceId from '@/hooks/useExperienceId';
+import useExperienceId from '@/hooks/useActivityId';
 import useAddCart from '@/hooks/cart/useAddCart';
 import {
     AlertDialog,
