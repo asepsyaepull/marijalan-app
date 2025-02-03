@@ -44,6 +44,7 @@ export const config = {
   matcher: [
     "/cart",
     "/orders",
+    "/orders/:path*",
     "/user",
     "/dashboard",
     "/dashboard/:path*",
