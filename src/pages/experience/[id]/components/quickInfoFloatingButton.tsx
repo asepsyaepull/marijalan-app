@@ -26,7 +26,6 @@ export default function QuickInfoFloatingButton() {
 
     const handleConfirmLogin = async () => {
         setIsAlertOpen(false);
-        const currentPath = router.asPath;
         router.push(`/login?prev=${router.asPath}`);
     };
 
