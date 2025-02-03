@@ -29,7 +29,7 @@ export default function QuickInfo() {
 
     const handleConfirmLogin = async () => {
         setIsAlertOpen(false);
-        router.push('/login');
+        router.push(`/login?prev=${router.asPath}`);
     };
 
     const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {

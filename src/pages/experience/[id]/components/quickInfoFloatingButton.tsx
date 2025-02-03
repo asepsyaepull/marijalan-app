@@ -26,7 +26,8 @@ export default function QuickInfoFloatingButton() {
 
     const handleConfirmLogin = async () => {
         setIsAlertOpen(false);
-        router.push('/login');
+        const currentPath = router.asPath;
+        router.push(`/login?prev=${router.asPath}`);
     };
 
     const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
