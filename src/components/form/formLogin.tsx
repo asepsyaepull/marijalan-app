@@ -16,12 +16,16 @@ export default function LoginForm() {
     const { isLoading, handleLogin } = useLogin();
     const router = useRouter()
 
+    const handleBack = () => {
+        router.back();
+    };
+
     return (
         <div className="w-full max-w-md mx-auto p-8">
             <div className="space-y-6">
                 <div className="space-y-2">
                     <div className="flex items-center space-x-3 mb-6">
-                        <Button variant="ghost" size="icon" className="rounded-full" onClick={() => router.back()}>
+                        <Button variant="ghost" size="icon" className="rounded-full" onClick={handleBack}>
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
                         <h1 className="text-lg font-semibold">Back</h1>
