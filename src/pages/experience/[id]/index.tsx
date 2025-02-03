@@ -19,7 +19,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ExperienceDetail() {
     const { data, isLoading, error } = useExperienceId();
-    const [progress, setProgress] = React.useState(13);
     const [isMobile, setIsMobile] = React.useState(false);
     const breadcrumbItems = useBreadcrumb();
 
@@ -27,10 +26,6 @@ export default function ExperienceDetail() {
         return { __html: htmlContent };
     };
 
-    React.useEffect(() => {
-        const timer = setTimeout(() => setProgress(66), 500)
-        return () => clearTimeout(timer)
-    }, []);
 
     React.useEffect(() => {
         const handleResize = () => {
