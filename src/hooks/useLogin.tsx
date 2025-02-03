@@ -25,7 +25,11 @@ const useLogin = () => {
     useEffect(() => {
         if (loginState.shouldRedirect && loginState.role) {
             const handleRedirect = async () => {
-                const path = loginState.role === "admin" ? "/dashboard" : "/";
+                const query = new URLSearchParams(window.location.search);
+                const prevPath = query.get("prev") || (loginState.role === "admin" ? "/dashboard" : "/");
+                const id = query.get("id");
+                const path = id ? `${prevPath}?id=${id}` : prevPath;
+
                 await new Promise((resolve) => setTimeout(resolve, 2000)); // Add a 2-second delay
                 await router.push(path);
                 window.location.reload();
