@@ -41,13 +41,14 @@ export default function QuickInfo() {
                 if (data) {
                     await addToCart(data.id);
                 }
-                router.push('/cart');
+                // router.push('/cart');
             } catch (err) {
                 console.error(err);
             }
         }
     };
 
+    {/* Skeleton Loading */}
     if (isLoading) {
         return (
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm h-fit sticky top-24 border border-gray-200 dark:border-gray-700">
@@ -113,7 +114,7 @@ export default function QuickInfo() {
                     <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Book Now
                     </Button>
-                    <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10" onClick={handleAddToCart} disabled={isAddingToCart}>
+                    <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Add to Cart
                     </Button>
                 </div>

@@ -12,10 +12,10 @@ import QuickInfo from './components/quickInfo';
 import useExperienceId from '@/hooks/useActivityId';
 import Layout from '@/components/layout';
 import Gallery from './components/gallery';
-import { Progress } from "@radix-ui/react-progress";
 import QuickInfoFloatingButton from "./components/quickInfoFloatingButton";
 import { CustomBreadcrumb } from "@/components/ui/custom-breadcrumb";
 import { useBreadcrumb } from "@/hooks/useBreadcrumb";
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ExperienceDetail() {
     const { data, isLoading, error } = useExperienceId();
@@ -45,11 +45,32 @@ export default function ExperienceDetail() {
         };
     }, []);
 
+    {/* Skeleton Loading */}
     if (isLoading) {
         return (
-            <div className="container mx-auto items-center justify-center">
-                <Progress value={progress} className="w-[60%]" />
-            </div>
+            <Layout>
+                <div className="p-2 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
+                    <div className="max-w-7xl px-4 md:mx-auto">
+                        <Skeleton className="w-[60%] h-8 mb-4" />
+                        <Skeleton className="w-[80%] h-6 mb-2" />
+                        <Skeleton className="w-[90%] h-6 mb-2" />
+                        <Skeleton className="w-[70%] h-6 mb-2" />
+                        <Skeleton className="w-[60%] h-6 mb-2" />
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+                            <div className="lg:col-span-2 space-y-8">
+                                <Skeleton className="w-full h-64 mb-4" />
+                                <Skeleton className="w-full h-32 mb-4" />
+                                <Skeleton className="w-full h-32 mb-4" />
+                                <Skeleton className="w-full h-32 mb-4" />
+                                <Skeleton className="w-full h-32 mb-4" />
+                            </div>
+                            <div className="hidden lg:block">
+                                <Skeleton className="w-full h-64 mb-4" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Layout>
         );
     }
 
@@ -76,9 +97,9 @@ export default function ExperienceDetail() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
                         {/* Main Content */}
-                        <div className="lg:col-span-2 space-y-8">
+                        <div className="lg:col-span-2 space-y-4 md:space-y-8">
                             {/* Gallery */}
                             <Gallery />
 

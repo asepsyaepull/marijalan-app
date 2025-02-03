@@ -9,6 +9,7 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { CustomBreadcrumb } from '@/components/ui/custom-breadcrumb';
 import { useBreadcrumb } from '@/hooks/useBreadcrumb';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ExperiencePage() {
     const { data: experiences, isLoading, error } = useExperience();
@@ -16,8 +17,37 @@ export default function ExperiencePage() {
     const [searchQuery, setSearchQuery] = useState('');
     const breadcrumbItems = useBreadcrumb();
 
+    {/* Skeleton Loading */}
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <Layout>
+                <section className="p-4 md:p-8 lg:p-10 space-y-4 md:space-y-8 lg:space-y-10">
+                    <div className="max-w-7xl px-4 mx-auto">
+                        <div className="space-y-8">
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                <div className="space-y-2">
+                                    <Skeleton className="h-8 w-48" />
+                                    <Skeleton className="h-4 w-96" />
+                                </div>
+                                <div className="w-full md:max-w-md lg:max-w-lg mb-12">
+                                    <Skeleton className="h-12 w-full" />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap gap-3">
+                                {[...Array(5)].map((_, index) => (
+                                    <Skeleton key={index} className="h-10 w-24 rounded-full" />
+                                ))}
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                {[...Array(8)].map((_, index) => (
+                                    <Skeleton key={index} className="h-64 w-full" />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </Layout>
+        );
     }
 
     if (error) {

@@ -54,7 +54,7 @@ export default function QuickInfoFloatingButton() {
     }
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 shadow-lg border-t border-gray-200 dark:border-gray-700">
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 py-4 shadow-lg border-t border-gray-200 dark:border-gray-700">
             <div className="flex flex-col justify-between space-y-2">
                 {/* Price */}
                 <div>
@@ -70,14 +70,14 @@ export default function QuickInfoFloatingButton() {
                     <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Book Now
                     </Button>
-                    <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10" onClick={handleAddToCart} disabled={isAddingToCart}>
+                    <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600" onClick={handleAddToCart} disabled={isAddingToCart}>
                         Add to Cart
                     </Button>
                 </div>
             </div>
 
             <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
-                <AlertDialogContent>
+                <AlertDialogContent className="max-w- rounded-md">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Login Required</AlertDialogTitle>
                         <AlertDialogDescription>

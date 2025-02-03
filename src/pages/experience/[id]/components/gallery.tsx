@@ -40,7 +40,7 @@ export default function Gallery() {
     };
 
     return (
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative rounded-md md:rounded-lg overflow-hidden">
             <div className="aspect-[16/9] relative">
                 {loading && <Skeleton className="w-full h-full" />}
                 <Image
@@ -57,7 +57,7 @@ export default function Gallery() {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white rounded-full"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white hover:text-white rounded-full"
                     onClick={previousImage}
                 >
                     <ChevronLeft className="h-6 w-6" />
@@ -65,7 +65,7 @@ export default function Gallery() {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white rounded-full"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white hover:text-white rounded-full"
                     onClick={nextImage}
                 >
                     <ChevronRight className="h-6 w-6" />
@@ -87,7 +87,7 @@ export default function Gallery() {
                             setLoading(true);
                             setImageError(false);
                         }}
-                        className={`relative aspect-[16/9] rounded-lg overflow-hidden ${currentImage === index ? 'ring-2 ring-orange-500' : ''}`}
+                        className={`relative aspect-[16/9] rounded-sm md:rounded-lg overflow-hidden ${currentImage === index ? 'ring-2 ring-orange-500' : ''}`}
                     >
                         {loading && <Skeleton className="w-full h-full" />}
                         <Image
