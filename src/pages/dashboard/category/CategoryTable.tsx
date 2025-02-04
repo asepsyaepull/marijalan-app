@@ -21,6 +21,20 @@ interface CategoryTableProps {
     data: Category[];
 }
 
+const ImageCell: React.FC<{ imageUrl: string; alt: string }> = ({ imageUrl, alt }) => {
+    const [imgError, setImgError] = useState(false);
+    return (
+        <Image
+            src={imgError ? "/default-image.png" : imageUrl}
+            alt={alt}
+            width={150}
+            height={80}
+            className="object-cover rounded"
+            onError={() => setImgError(true)}
+        />
+    );
+};
+
 const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
     // Sort data by updatedAt in descending order
     const sortedData = [...data].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
@@ -30,19 +44,9 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
         {
             accessorKey: "imageUrl",
             header: "Image",
-            cell: ({ row }) => {
-                const [imgError, setImgError] = useState(false);
-                return (
-                    <Image
-                        src={imgError ? "/default-image.png" : row.original.imageUrl}
-                        alt={row.original.name}
-                        width={150}
-                        height={80}
-                        className="object-cover rounded"
-                        onError={() => setImgError(true)}
-                    />
-                );
-            },
+            cell: ({ row }) => (
+                <ImageCell imageUrl={row.original.imageUrl} alt={row.original.name} />
+            ),
         },
         {
             accessorKey: "name",

@@ -19,25 +19,29 @@ interface PromoContentProps {
     data: Promo[];
 }
 
+const ImageCell: React.FC<{ imageUrl: string; title: string }> = ({ imageUrl, title }) => {
+    const [imgError, setImgError] = useState(false);
+    return (
+        <Image
+            src={imgError ? "/default-image.png" : imageUrl}
+            alt={title}
+            width={150}
+            height={80}
+            className="object-cover rounded"
+            onError={() => setImgError(true)}
+        />
+    );
+};
+
 const PromoTable: React.FC<PromoContentProps> = ({ data }) => {
     // Definisikan kolom-kolom untuk tabel
     const columns: ColumnDef<Promo>[] = [
         {
             accessorKey: "imageUrl",
             header: "Image",
-            cell: ({ row }) => {
-                const [imgError, setImgError] = useState(false);
-                return (
-                    <Image
-                        src={imgError ? "/default-image.png" : row.original.imageUrl}
-                        alt={row.original.title}
-                        width={150}
-                        height={80}
-                        className="object-cover rounded"
-                        onError={() => setImgError(true)}
-                    />
-                );
-            },
+            cell: ({ row }) => (
+                <ImageCell imageUrl={row.original.imageUrl} title={row.original.title} />
+            ),
         },
         {
             accessorKey: "title",
