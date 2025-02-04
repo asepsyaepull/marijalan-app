@@ -53,25 +53,38 @@ const EditPromo = () => {
     }
   }, [data]);
 
+  const formatNumberWithPeriods = (value: string) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+    if (id === "promo_discount_price" || id === "minimum_claim_price") {
+      if (!/^\d*\.?\d*$/.test(value.replace(/\./g, ""))) return; // Ensure only numeric values
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value.replace(/\./g, ""), // Store numeric value without periods
+      }));
+      e.target.value = formatNumberWithPeriods(value.replace(/\./g, "")); // Format with periods
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
 
-      if (file.size > 5 * 1024 * 1024) {
+      if (file.size > 1 * 1024 * 1024) {
         toast({
           variant: "destructive",
           title: "Error",
-          description: "File size should not exceed 5MB",
+          description: "File size should not exceed 1MB",
         });
         e.target.value = "";
         return;
@@ -168,6 +181,29 @@ const EditPromo = () => {
               </div>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="picture" className="text-right">
+                    Picture
+                  </Label>
+                  <div className="col-span-3">
+                    <Input
+                      id="picture"
+                      type="file"
+                      onChange={handleFileChange}
+                      accept="image/*"
+                    />
+                    {uploadProgress > 0 && uploadProgress < 100 && (
+                      <div className="mt-2 h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-blue-500 transition-all duration-300"
+                          style={{ width: `${uploadProgress}%` }}
+                        />
+                      </div>
+                    )}
+                    <p className="text-sm text-gray-500 mt-1">Max size: 1MB</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="title" className="text-right">
                     Title
                   </Label>
@@ -234,8 +270,8 @@ const EditPromo = () => {
                   <div className="col-span-3">
                     <Input
                       id="promo_discount_price"
-                      type="number"
-                      value={formData.promo_discount_price}
+                      type="text"
+                      value={formatNumberWithPeriods(formData.promo_discount_price)}
                       onChange={handleInputChange}
                       placeholder="Enter discount amount"
                       required
@@ -250,8 +286,8 @@ const EditPromo = () => {
                   <div className="col-span-3">
                     <Input
                       id="minimum_claim_price"
-                      type="number"
-                      value={formData.minimum_claim_price}
+                      type="text"
+                      value={formatNumberWithPeriods(formData.minimum_claim_price)}
                       onChange={handleInputChange}
                       placeholder="Enter minimum purchase amount"
                       required
@@ -259,28 +295,6 @@ const EditPromo = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="picture" className="text-right">
-                    Picture
-                  </Label>
-                  <div className="col-span-3">
-                    <Input
-                      id="picture"
-                      type="file"
-                      onChange={handleFileChange}
-                      accept="image/*"
-                    />
-                    {uploadProgress > 0 && uploadProgress < 100 && (
-                      <div className="mt-2 h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-blue-500 transition-all duration-300"
-                          style={{ width: `${uploadProgress}%` }}
-                        />
-                      </div>
-                    )}
-                    <p className="text-sm text-gray-500 mt-1">Max size: 5MB</p>
-                  </div>
-                </div>
 
                 <div className="flex justify-end gap-4 mt-6">
                   <Button
