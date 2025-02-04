@@ -62,6 +62,7 @@ const DeletePromoAlert: React.FC<DeleteButtonProps> = ({
         onSuccess?.();
         refreshBanner();
         onSuccess?.();
+        window.location.reload(); // Reload the page after successful deletion
         return true;
       }
 
@@ -95,8 +96,9 @@ const DeletePromoAlert: React.FC<DeleteButtonProps> = ({
     <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
       <AlertDialogTrigger asChild>
         <Button
+          variant="outline"
           size="icon"
-          className=" text-red-500 hover:text-red-700 hover:bg-red-50"
+          className="border-red-500 bg-red-50 text-red-500 hover:text-red-700 hover:bg-red-100"
         >
           <Trash2 className="h-4 w-4" />
         </Button>

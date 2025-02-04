@@ -62,6 +62,7 @@ const DeleteActivityAlert: React.FC<DeleteButtonProps> = ({
         onSuccess?.();
         refreshActivity();
         onSuccess?.();
+        window.location.reload(); // Reload the page after successful deletion
         return true;
       }
 
