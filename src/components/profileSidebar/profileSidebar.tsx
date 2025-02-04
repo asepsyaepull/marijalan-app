@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Settings, FileText, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Instagram, Facebook, Twitter } from 'lucide-react';
+import { RiUserSettingsLine, RiFileList3Line, RiFileTextLine } from "react-icons/ri";
 import { useUser } from '@/context/UserContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
@@ -16,7 +17,7 @@ export default function ProfileSidebar() {
     const currentPath = router.pathname;
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 space-y-6">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 space-y-6 sticky top-24">
             {/* Profile Info */}
             <div className="flex flex-col items-center space-y-4">
                 <div className="relative w-20 h-20 rounded-full overflow-hidden">
@@ -44,21 +45,21 @@ export default function ProfileSidebar() {
                     href="/profile"
                     className={`flex items-center gap-3 p-2 rounded-lg ${currentPath === '/profile' ? 'bg-orange-50 text-orange-500 dark:bg-gray-700' : 'hover:bg-orange-50 dark:hover:bg-gray-700'}`}
                 >
-                    <Settings className="w-5 h-5" />
+                    <RiUserSettingsLine className="w-5 h-5" />
                     <span>Profile Settings</span>
                 </Link>
                 <Link
                     href="/orders"
                     className={`flex items-center gap-3 p-2 rounded-lg ${currentPath === '/orders' ? 'bg-orange-50 text-orange-500 dark:bg-gray-700' : 'hover:bg-orange-50 dark:hover:bg-gray-700'}`}
                 >
-                    <FileText className="w-5 h-5" />
+                    <RiFileList3Line className="w-5 h-5" />
                     <span>My Orders</span>
                 </Link>
                 <Link
                     href="/terms"
                     className={`flex items-center gap-3 p-2 rounded-lg ${currentPath === '/terms' ? 'bg-orange-50 text-orange-500 dark:bg-gray-700' : 'hover:bg-orange-50 dark:hover:bg-gray-700'}`}
                 >
-                    <FileText className="w-5 h-5" />
+                    <RiFileTextLine className="w-5 h-5" />
                     <span>Terms & Conditions</span>
                 </Link>
                 <LogoutButton
