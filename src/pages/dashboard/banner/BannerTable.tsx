@@ -21,6 +21,20 @@ interface BannerTableProps {
     data: Banner[];
 }
 
+const ImageCell: React.FC<{ imageUrl: string; name: string }> = ({ imageUrl, name }) => {
+    const [imgError, setImgError] = useState(false);
+    return (
+        <Image
+            src={imgError ? "/default-image.png" : imageUrl}
+            alt={name}
+            width={150}
+            height={80}
+            className="object-cover rounded"
+            onError={() => setImgError(true)}
+        />
+    );
+};
+
 const BannerTable: React.FC<BannerTableProps> = ({ data }) => {
     // Sort data by updatedAt in descending order
     const sortedData = [...data].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
@@ -30,19 +44,9 @@ const BannerTable: React.FC<BannerTableProps> = ({ data }) => {
         {
             accessorKey: "imageUrl",
             header: "Image",
-            cell: ({ row }) => {
-                const [imgError, setImgError] = useState(false);
-                return (
-                    <Image
-                        src={imgError ? "/default-image.png" : row.original.imageUrl}
-                        alt={row.original.name}
-                        width={150}
-                        height={80}
-                        className="object-cover rounded"
-                        onError={() => setImgError(true)}
-                    />
-                );
-            },
+            cell: ({ row }) => (
+                <ImageCell imageUrl={row.original.imageUrl} name={row.original.name} />
+            ),
         },
         {
             accessorKey: "name",
