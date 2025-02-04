@@ -11,7 +11,7 @@ export interface UrlImage {
     url: string;
 }
 
-export interface ExperienceItem {
+export interface ActivityItem {
     id: string;
     category: Category;
     imageUrls: string[];
@@ -29,7 +29,7 @@ export interface ExperienceItem {
 }
 
 const useActivityId = () => {
-    const [data, setData] = useState<ExperienceItem | null>(null);
+    const [data, setData] = useState<ActivityItem | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 

@@ -10,7 +10,7 @@ export interface CategoryItem {
     updatedAt: string;
 }
 
-export interface ExperienceItem {
+export interface ActivityItem {
     id: string;
     category: CategoryItem;
     imageUrls: string[];
@@ -32,11 +32,11 @@ export interface ExperienceItem {
 interface ApiResponse {
     status: string;
     message: string;
-    data: ExperienceItem[];
+    data: ActivityItem[];
 }
 
 const useActivity = () => {
-    const [data, setData] = useState<ExperienceItem[]>([]);
+    const [data, setData] = useState<ActivityItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
