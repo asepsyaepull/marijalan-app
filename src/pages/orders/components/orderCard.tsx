@@ -21,6 +21,10 @@ const getStatusColor = (status: string) => {
     }
 };
 
+const capitalizeStatus = (status: string) => {
+    return status.charAt(0).toUpperCase() + status.slice(1);
+};
+
 export default function OrderCard({ id }: { id: string }) {
     const { data, isLoading, error } = useGetTransactions();
     const [imageError, setImageError] = useState(false);
@@ -65,7 +69,7 @@ export default function OrderCard({ id }: { id: string }) {
                                 <div className="flex md:flex-row justify-between md:items-center gap-4 mt-4 md:mt-0">
                                 <p className="text-sm text-gray-500">{invoiceId}</p>
                                     <Badge className={`${getStatusColor(status)} block md:hidden`}>
-                                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                                        {capitalizeStatus(status)}
                                     </Badge>
                                 </div>
                                 <h3 className="font-medium text-gray-900 dark:text-white mt-1">{transaction_items[0].title}</h3>
@@ -76,7 +80,7 @@ export default function OrderCard({ id }: { id: string }) {
 
                             <div className="flex flex-col gap-8 items-end h-full">
                                 <Badge className={`${getStatusColor(status)} hidden md:block`}>
-                                    {status}
+                                    {capitalizeStatus(status)}
                                 </Badge>
                                 <span className="text-lg font-bold text-orange-500">
                                     {quantity} x Rp{transaction_items[0].price.toLocaleString()}
