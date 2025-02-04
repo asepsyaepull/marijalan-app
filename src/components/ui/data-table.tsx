@@ -118,7 +118,8 @@ export function DataTable<TData, TValue>({
         </div>
         <div className="flex items-center space-x-2">
           <Button
-            className="text-black"
+            variant={table.getState().pagination.pageIndex === 0 ? "ghost" : "outline"}
+            className="border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -126,7 +127,8 @@ export function DataTable<TData, TValue>({
             Previous
           </Button>
           <Button
-            className="text-black"
+            variant={table.getState().pagination.pageIndex === table.getPageCount() - 1 ? "ghost" : "outline"}
+            className="border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
