@@ -44,11 +44,11 @@ const UploadProofPaymentDialog = ({
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
 
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 1 * 1024 * 1024) { // Updated file size limit to 1MB
                 toast({
                     variant: "destructive",
                     title: "Error",
-                    description: "File size should not exceed 5MB",
+                    description: "File size should not exceed 1MB",
                 });
                 e.target.value = "";
                 return;
@@ -141,7 +141,7 @@ const UploadProofPaymentDialog = ({
                                     onChange={handleFileChange}
                                     accept="image/*"
                                 />
-                                <p className="text-sm text-gray-500 mt-1">Max size: 5MB</p>
+                                <p className="text-sm text-gray-500 mt-1">Max size: 1MB</p>
                             </div>
                         </div>
                     </div>
