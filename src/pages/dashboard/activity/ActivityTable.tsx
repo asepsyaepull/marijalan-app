@@ -18,24 +18,28 @@ interface Activity {
     city: string;
 }
 
+const ImageCell = ({ imageUrl, title }: { imageUrl: string; title: string }) => {
+    const [imgError, setImgError] = useState(false);
+    return (
+        <Image
+            src={imgError ? "/default-image.png" : imageUrl}
+            alt={title}
+            width={150}
+            height={80}
+            className="object-cover rounded"
+            onError={() => setImgError(true)}
+        />
+    );
+};
+
 // Define columns
 const columns: ColumnDef<Activity>[] = [
     {
         accessorKey: "imageUrls",
         header: "Image",
-        cell: ({ row }) => {
-            const [imgError, setImgError] = useState(false);
-            return (
-                <Image
-                    src={imgError ? "/default-image.png" : row.original.imageUrls[0]}
-                    alt={row.original.title}
-                    width={150}
-                    height={80}
-                    className="object-cover rounded"
-                    onError={() => setImgError(true)}
-                />
-            );
-        },
+        cell: ({ row }) => (
+            <ImageCell imageUrl={row.original.imageUrls[0]} title={row.original.title} />
+        ),
     },
     {
         accessorKey: "title",
