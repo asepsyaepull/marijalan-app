@@ -99,7 +99,8 @@ const DeleteActivityAlert: React.FC<DeleteButtonProps> = ({
       <AlertDialogTrigger asChild>
         <Button
           size="icon"
-          className=" text-red-500 hover:text-red-700 hover:bg-red-50"
+          variant="outline"
+          className="border-red-500 bg-red-50 text-red-500 hover:text-red-700 hover:bg-red-100"
         >
           <Trash2 className="h-4 w-4" />
         </Button>
