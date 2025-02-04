@@ -1,4 +1,3 @@
-import { DataTable } from "@/components/ui/data-table";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
