@@ -24,10 +24,10 @@ interface FormData {
   title: string;
   description: string;
   imageUrls: string[];
-  price: number;
-  price_discount: number;
-  rating: number;
-  total_reviews: number;
+  price: number | string;
+  price_discount: string;
+  rating: string;
+  total_reviews: string;
   facilities: string;
   address: string;
   province: string;
@@ -48,10 +48,10 @@ const EditActivity = () => {
     title: "",
     description: "",
     imageUrls: [],
-    price: 0,
-    price_discount: 0,
-    rating: 0,
-    total_reviews: 0,
+    price: "",
+    price_discount: "",
+    rating: "",
+    total_reviews: "",
     facilities: "",
     address: "",
     province: "",
@@ -67,10 +67,10 @@ const EditActivity = () => {
         title: data.title || "",
         description: data.description || "",
         imageUrls: data.imageUrls || [],
-        price: data.price || 0,
-        price_discount: data.price_discount || 0,
-        rating: data.rating || 0,
-        total_reviews: data.total_reviews || 0,
+        price: data.price || "",
+        price_discount: data.price_discount?.toString() || "",
+        rating: data.rating?.toString() || "",
+        total_reviews: data.total_reviews?.toString() || "",
         facilities: data.facilities || "",
         address: data.address || "",
         province: data.province || "",
@@ -81,12 +81,34 @@ const EditActivity = () => {
     }
   }, [data]);
 
+  const formatPrice = (value: string) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: type === "number" ? Number(value) : value,
-    }));
+    if (id === "price" || id === "price_discount") {
+      if (isNaN(Number(value.replace(/\./g, "")))) {
+        return;
+      }
+      setFormData((prev) => ({
+        ...prev,
+        [id]: formatPrice(value.replace(/\./g, "")),
+      }));
+    } else if (id === "rating" || id === "total_reviews") {
+      if (isNaN(Number(value))) {
+        return;
+      }
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: type === "number" ? Number(value) : value,
+      }));
+    }
   };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -183,6 +205,10 @@ const EditActivity = () => {
 
     const success = await editActivity(data.id, {
       ...formData,
+      price: Number(formData.price),
+      price_discount: Number(formData.price_discount),
+      rating: Number(formData.rating),
+      total_reviews: Number(formData.total_reviews),
       imageUrls: finalImageUrls,
     });
 
@@ -318,7 +344,7 @@ const EditActivity = () => {
                     </div>
                   )}
                   <p className="text-sm text-gray-500">
-                    Max size: 5MB per image
+                    Max size: 1MB
                   </p>
                 </div>
               </div>
@@ -360,11 +386,10 @@ const EditActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="price"
-                    type="number"
+                    type="text"
                     value={formData.price}
                     onChange={handleInputChange}
                     placeholder="Enter price"
-                    min={0}
                     required
                   />
                 </div>
@@ -377,11 +402,10 @@ const EditActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="price_discount"
-                    type="number"
+                    type="text"
                     value={formData.price_discount}
                     onChange={handleInputChange}
                     placeholder="Enter discount price"
-                    min={0}
                     required
                   />
                 </div>
@@ -394,13 +418,12 @@ const EditActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="rating"
-                    type="number"
+                    type="text"
                     value={formData.rating}
                     onChange={handleInputChange}
-                    placeholder="Enter rating (0-5)"
-                    min={0}
-                    max={5}
-                    step={0.1}
+                    placeholder="Enter rating (1-5)"
+                    min={1}
+                    max={5} 
                     required
                   />
                 </div>
@@ -413,11 +436,10 @@ const EditActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="total_reviews"
-                    type="number"
+                    type="text"
                     value={formData.total_reviews}
                     onChange={handleInputChange}
                     placeholder="Enter total reviews"
-                    min={0}
                     required
                   />
                 </div>
@@ -507,7 +529,8 @@ const EditActivity = () => {
               <div className="flex justify-end gap-4 mt-6">
                 <Button
                   type="button"
-                  variant="default"
+                  variant="outline"
+                  className="text-orange-500 border-orange-500 hover:bg-orange-100 hover:text-orange-600"
                   onClick={handleCancel}
                   disabled={isLoading}
                 >
