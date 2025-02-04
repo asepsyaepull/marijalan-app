@@ -49,11 +49,11 @@ const EditCategory = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
 
-      if (file.size > 5 * 1024 * 1024) {
+      if (file.size > 1 * 1024 * 1024) {
         toast({
           variant: "destructive",
           title: "Error",
-          description: "File size should not exceed 5MB",
+          description: "File size should not exceed 1MB",
         });
         e.target.value = "";
         return;
@@ -119,21 +119,23 @@ const EditCategory = () => {
               <Skeleton className="h-[300px] w-full mb-6" />
             ) : (
               <div className="rounded-lg overflow-hidden mb-6">
-                <Image
-                  src={
-                    formData.imageUrl ||
-                    data?.imageUrl ||
-                    "https://placehold.co/600x400/svg"
-                  }
-                  alt={formData.name || data?.name || "Category Image"}
-                  className="w-full h-[300px] object-cover"
-                  onError={(e) => {
-                    const img = e.target as HTMLImageElement;
-                    img.src = "https://placehold.co/600x400/svg";
-                  }}
-                  layout="fill"
-                  objectFit="cover"
-                />
+                <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
+                  <Image
+                    src={
+                      formData.imageUrl ||
+                      data?.imageUrl ||
+                      "https://placehold.co/600x400/svg"
+                    }
+                    alt={formData.name || data?.name || "Category Image"}
+                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = "https://placehold.co/600x400/svg";
+                    }}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
               </div>
             )}
 
@@ -180,7 +182,7 @@ const EditCategory = () => {
                           />
                         </div>
                       )}
-                      <p className="text-sm text-gray-500 mt-1">Max size: 5MB</p>
+                      <p className="text-sm text-gray-500 mt-1">Max size: 1MB</p>
                     </>
                   )}
                 </div>
