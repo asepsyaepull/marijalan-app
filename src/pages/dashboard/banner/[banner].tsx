@@ -49,11 +49,11 @@ const EditBanner = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
 
-      if (file.size > 5 * 1024 * 1024) {
+      if (file.size > 1 * 1024 * 1024) {
         toast({
           variant: "destructive",
           title: "Error",
-          description: "File size should not exceed 5MB",
+          description: "File size should not exceed 1MB",
         });
         e.target.value = "";
         return;
@@ -120,7 +120,7 @@ const EditBanner = () => {
                   src={
                     formData.imageUrl ||
                     data?.imageUrl ||
-                    "https://placehold.co/600x400/svg"
+                    "/default-image.png"
                   }
                   alt={formData.name || data?.name || "Default Banner Name"}
                   className="w-full h-[300px] object-cover"
@@ -128,7 +128,7 @@ const EditBanner = () => {
                   height={400}
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
-                    img.src = "https://placehold.co/600x400/svg";
+                    img.src = "/default-image.png";
                   }}
                 />
               </div>
@@ -168,14 +168,15 @@ const EditBanner = () => {
                         />
                       </div>
                     )}
-                    <p className="text-sm text-gray-500 mt-1">Max size: 5MB</p>
+                    <p className="text-sm text-gray-500 mt-1">Max size: 1MB</p>
                   </div>
                 </div>
 
                 <div className="flex justify-end gap-4 mt-6">
                   <Button
                     type="button"
-                    className="text-black"
+                    variant={isLoading ? "ghost" : "outline"}
+                    className="text-orange-500 border-orange-500 hover:bg-orange-500/10 hover:text-orange-600"
                     onClick={handleCancel}
                     disabled={isLoading}
                   >
