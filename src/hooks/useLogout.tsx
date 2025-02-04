@@ -16,10 +16,6 @@ const useLogout = () => {
         window.location.reload();
     };
 
-    // const directHome = () => {
-    //     window.location.href = "/";
-    // }
-
     const handleLogout = async () => {
         setIsLoading(true);
 
