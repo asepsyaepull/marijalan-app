@@ -13,6 +13,7 @@ import UploadProofPaymentDialog from "./components/uploadProof"
 import { useState } from "react"
 import { CustomBreadcrumb } from "@/components/ui/custom-breadcrumb"
 import { useBreadcrumb } from "@/hooks/useBreadcrumb"
+import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
 
 export default function OrderDetail() {
     const router = useRouter();
@@ -21,6 +22,7 @@ export default function OrderDetail() {
     const [selectedTransactionId, setSelectedTransactionId] = useState<string>("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [imageError, setImageError] = useState(false);
+    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const breadcrumbItems = useBreadcrumb();
 
     const handleBack = () => {
@@ -37,6 +39,14 @@ export default function OrderDetail() {
             navigator.clipboard.writeText(data.payment_method.virtual_account_number);
             alert("Account number copied to clipboard");
         }
+    };
+
+    const handleImageClick = () => {
+        setIsImageModalOpen(true);
+    };
+
+    const closeImageModal = () => {
+        setIsImageModalOpen(false);
     };
 
     if (isLoading) {
@@ -76,6 +86,7 @@ export default function OrderDetail() {
 
     const totalPayment = data.transaction_items.reduce((acc, item) => acc + (item.quantity * item.price_discount), 0);
     const isPending = data.status.toLowerCase() === "pending";
+    const hasUploadedProof = !!data.proofPaymentUrl;
 
     return (
         <Layout>
@@ -142,13 +153,14 @@ export default function OrderDetail() {
                                                 fill
                                                 className={`object-cover transition-transform ${imageError ? 'object-none bg-gray-100' : ''}`}
                                                 onError={() => setImageError(true)}
+                                                onClick={handleImageClick}
                                             />
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Action Buttons */}
-                                {isPending && (
+                                {isPending && !hasUploadedProof && (
                                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                                         <CancelButton
                                             transactionId={data.id}
@@ -174,6 +186,25 @@ export default function OrderDetail() {
                     </div>
                 </div>
             </div>
+
+            {/* Image Preview Modal */}
+            {data.proofPaymentUrl && (
+                <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
+                    <DialogOverlay className="fixed inset-0 bg-black/25" />
+                    <DialogContent className="bg-white p-6 rounded-lg">
+                        <Image
+                            src={data.proofPaymentUrl}
+                            alt="Uploaded Payment Proof"
+                            width={500}
+                            height={500}
+                            className="object-cover"
+                        />
+                        <Button onClick={closeImageModal} className="mt-4">
+                            Close
+                        </Button>
+                    </DialogContent>
+                </Dialog>
+            )}
         </Layout>
     );
 }
