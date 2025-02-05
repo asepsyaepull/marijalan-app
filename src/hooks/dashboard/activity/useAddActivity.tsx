@@ -16,10 +16,10 @@ interface AddActivityPayload {
   title: string;
   description: string;
   imageUrls: string[];
-  price: number;
-  price_discount: number;
-  rating: number;
-  total_reviews: number;
+  price: string;
+  price_discount: string;
+  rating: string;
+  total_reviews: string;
   facilities: string;
   address: string;
   province: string;
@@ -42,10 +42,10 @@ const useAddActivity = () => {
     title: "",
     description: "",
     imageUrls: [],
-    price: 0,
-    price_discount: 0,
-    rating: 0,
-    total_reviews: 0,
+    price: "",
+    price_discount: "",
+    rating: "",
+    total_reviews: "",
     facilities: "",
     address: "",
     province: "",
@@ -54,12 +54,26 @@ const useAddActivity = () => {
     pictureFiles: [],
   });
 
+  const formatNumberWithDot = (value: string) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: type === "number" ? Number(value) : value,
-    }));
+    if (id === "price" || id === "price_discount" || id === "rating" || id === "total_reviews") {
+      if (!/^\d*$/.test(value.replace(/\./g, ""))) return; // Only allow numbers
+      if (id === "rating" && Number(value) > 5) return; // Max rating value is 5
+      const formattedValue = formatNumberWithDot(value.replace(/\./g, ""));
+      setFormData((prev) => ({
+        ...prev,
+        [id]: formattedValue,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: type === "number" ? Number(value) : value,
+      }));
+    }
   };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

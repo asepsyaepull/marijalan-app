@@ -15,10 +15,10 @@ interface EditActivityPayload {
   title: string;
   description: string;
   imageUrls: string[];
-  price: number;
-  price_discount: number;
-  rating: number;
-  total_reviews: number;
+  price: string;
+  price_discount: string;
+  rating: string;
+  total_reviews: string;
   facilities: string;
   address: string;
   province: string;

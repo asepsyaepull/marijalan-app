@@ -36,7 +36,7 @@ const useActivityId = () => {
     const router = useRouter();
     const { id } = router.query;
 
-    const getExperienceById = async (id: string) => {
+    const getActivityList = async (id: string) => {
         setIsLoading(true);
         setError(null);
 
@@ -66,7 +66,7 @@ const useActivityId = () => {
 
     useEffect(() => {
         if (router.isReady && id) {
-            getExperienceById(id as string);
+            getActivityList(id as string);
         }
     }, [router.isReady, id]);
 

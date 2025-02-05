@@ -16,8 +16,9 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import useCategory from "@/hooks/useCategory";
-import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
-import Image from "next/image"; // Import Image component
+import { Skeleton } from "@/components/ui/skeleton"; 
+import Image from "next/image"; 
+import { Loader2 } from "lucide-react";
 
 interface FormData {
   categoryId: string;
@@ -62,6 +63,7 @@ const EditActivity = () => {
 
   useEffect(() => {
     if (data) {
+      console.log("Fetched data:", data);
       setFormData({
         categoryId: data.category.id || "",
         title: data.title || "",
@@ -80,6 +82,11 @@ const EditActivity = () => {
       });
     }
   }, [data]);
+
+  useEffect(() => {
+    console.log("Form data:", formData); // Log form data
+    
+  }, [formData]);
 
   const formatPrice = (value: string) => {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -205,10 +212,10 @@ const EditActivity = () => {
 
     const success = await editActivity(data.id, {
       ...formData,
-      price: Number(formData.price),
-      price_discount: Number(formData.price_discount),
-      rating: Number(formData.rating),
-      total_reviews: Number(formData.total_reviews),
+      price: formData.price.toString(),
+      price_discount: formData.price_discount.toString(),
+      rating: formData.rating.toString(),
+      total_reviews: formData.total_reviews.toString(),
       imageUrls: finalImageUrls,
     });
 
@@ -539,7 +546,7 @@ const EditActivity = () => {
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <div className="flex items-center gap-2">
-                      <span className="animate-spin">⚪</span>
+                      <span className="animate-spin"><Loader2 /></span>
                       Saving...
                     </div>
                   ) : (

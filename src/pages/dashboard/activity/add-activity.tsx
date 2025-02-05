@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import useCategory from "@/hooks/useCategory";
 import Image from "next/image";
+import { Loader2 } from "lucide-react";
 
 const AddActivity = () => {
   const router = useRouter();
@@ -34,6 +35,7 @@ const AddActivity = () => {
   const handleCancel = () => {
     router.push("/dashboard/activity");
   };
+
 
   return (
     <DashboardLayout>
@@ -160,7 +162,7 @@ const AddActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="price"
-                    type="number"
+                    type="text"
                     value={formData.price}
                     onChange={handleInputChange}
                     placeholder="Enter price"
@@ -176,7 +178,7 @@ const AddActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="price_discount"
-                    type="number"
+                    type="text"
                     value={formData.price_discount}
                     onChange={handleInputChange}
                     placeholder="Enter discount price"
@@ -192,10 +194,9 @@ const AddActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="rating"
-                    type="number"
-                    min="0"
-                    max="5"
-                    step="0.1"
+                    type="text"
+                    min={0}
+                    max={5}
                     value={formData.rating}
                     onChange={handleInputChange}
                     placeholder="Enter rating (0-5)"
@@ -211,8 +212,7 @@ const AddActivity = () => {
                 <div className="col-span-3">
                   <Input
                     id="total_reviews"
-                    type="number"
-                    min="0"
+                    type="text"
                     value={formData.total_reviews}
                     onChange={handleInputChange}
                     placeholder="Enter total reviews"
@@ -309,7 +309,7 @@ const AddActivity = () => {
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <div className="flex items-center gap-2">
-                      <span className="animate-spin">⚪</span>
+                      <span className="animate-spin"><Loader2 /></span>
                       Saving...
                     </div>
                   ) : (
