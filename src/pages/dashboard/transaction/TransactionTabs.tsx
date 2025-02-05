@@ -10,16 +10,7 @@ type TransactionTabsProps = {
     onSearch: (value: { invoice: string; title: string }) => void;
 };
 
-const TransactionTabs = ({ activeTab, onTabChange, onSearch }: TransactionTabsProps) => {
-    const handleSearch = (value: string) => {
-        const searchTerms = value.split(' ');
-        const searchParams = {
-            invoice: searchTerms[0] || '',
-            title: searchTerms.slice(1).join(' ') || ''
-        };
-        onSearch(searchParams);
-    };
-
+const TransactionTabs = ({ activeTab, onTabChange }: TransactionTabsProps) => {
     return (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="flex flex-wrap gap-3">
