@@ -49,14 +49,28 @@ const useAddPromo = () => {
     pictureFile: null,
   });
 
+  const formatNumberWithDot = (value: string) => {
+    return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+
+    if ((id === "minimum_claim_price" || id === "promo_discount_price") && isNaN(Number(value))) {
+      if (!/^\d*$/.test(value.replace(/\./g, ""))) return; // Only allow numbers
+      const formattedValue = formatNumberWithDot(value.replace(/\./g, ""));
+      setFormData((prev) => ({
+        ...prev,
+        [id]: formattedValue,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

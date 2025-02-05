@@ -7,6 +7,7 @@ import useAddPromo from "@/hooks/dashboard/promo/useAddPromo";
 import { useRouter } from "next/router";
 import React from "react";
 import Image from "next/image";
+import { Loader2 } from "lucide-react";
 
 const AddPromo = () => {
   const router = useRouter();
@@ -116,7 +117,7 @@ const AddPromo = () => {
                 <div className="col-span-3">
                   <Input
                     id="promo_discount_price"
-                    type="number"
+                    type="text"
                     value={formData.promo_discount_price}
                     onChange={handleInputChange}
                     placeholder="Enter discount amount"
@@ -132,7 +133,7 @@ const AddPromo = () => {
                 <div className="col-span-3">
                   <Input
                     id="minimum_claim_price"
-                    type="number"
+                    type="text"
                     value={formData.minimum_claim_price}
                     onChange={handleInputChange}
                     placeholder="Enter minimum purchase amount"
@@ -178,7 +179,7 @@ const AddPromo = () => {
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <div className="flex items-center gap-2">
-                      <span className="animate-spin">⚪</span>
+                      <span className="animate-spin"><Loader2/></span>
                       Saving...
                     </div>
                   ) : (
