@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const tabs = ['All', 'Pending', 'Success', 'Cancelled'];
+const tabs = ['All', 'Pending', 'Success', 'Cancelled', 'Failed'];
 
 type OrderTabsProps = {
   activeTab: string;
