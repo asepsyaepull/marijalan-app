@@ -58,10 +58,10 @@ const useRegister = () => {
             setTimeout(() => {
                 router.push("/login");
             }, 2000);
-        } catch (e: any) {
+        } catch (e: unknown) {
             setSuccess(false);
-            const errorMessage = e.response?.data?.message ||
-                e.response?.data?.errors[0]?.message ||
+            const errorMessage = ((e as { response?: { data?: { message?: string; errors?: { message?: string }[] } } }).response?.data?.message ||
+                (e as { response?: { data?: { message?: string; errors?: { message?: string }[] } } }).response?.data?.errors?.[0]?.message) ??
                 "An error occurred";
             setError(errorMessage);
             toast({
