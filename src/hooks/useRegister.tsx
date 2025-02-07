@@ -2,6 +2,7 @@ import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import { useToast } from "./use-toast";
 
 const useRegister = () => {
     const [success, setSuccess] = useState(false);
@@ -9,6 +10,7 @@ const useRegister = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
+    const { toast } = useToast(); 
 
     const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -20,6 +22,11 @@ const useRegister = () => {
 
         if (password !== passwordRepeat) {
             setError("Passwords do not match");
+            toast({
+                variant: "destructive",
+                title: "Registration Failed",
+                description: "Passwords do not match",
+            }); 
             setIsLoading(false);
             return;
         }
@@ -31,7 +38,7 @@ const useRegister = () => {
             passwordRepeat: passwordRepeat,
             role: formData.get("role"),
             profilePictureUrl:
-                "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+                "/user-default.jpg",
             phoneNumber: formData.get("phoneNumber"),
         };
 
@@ -44,17 +51,24 @@ const useRegister = () => {
 
             setSuccess(true);
             setError("");
+            toast({
+                title: "Registration Successful",
+                description: "You have been registered successfully.",
+            });
             setTimeout(() => {
                 router.push("/login");
             }, 2000);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
             setSuccess(false);
-            setError(
-                e.response?.data?.message ||
+            const errorMessage = e.response?.data?.message ||
                 e.response?.data?.errors[0]?.message ||
-                "An error occurred"
-            );
+                "An error occurred";
+            setError(errorMessage);
+            toast({
+                variant: "destructive",
+                title: "Registration Failed",
+                description: errorMessage,
+            }); // Show error toast
         } finally {
             setIsLoading(false);
         }
