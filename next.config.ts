@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "travel-journal-api-bootcamp.do.dibimbing.id", // Sesuaikan dengan domain gambar Anda
+        hostname: "travel-journal-api-bootcamp.do.dibimbing.id",
         port: "",
         pathname: "/**",
       },
