@@ -12,25 +12,25 @@ const footerSections: FooterSection[] = [
     {
         title: 'Company',
         links: [
-            { label: 'About us', href: '/about' },
-            { label: 'Gallery', href: '/gallery' },
-            { label: 'Who we works', href: '/team' },
+            { label: 'About us', href: '/' },
+            { label: 'Gallery', href: '/' },
+            { label: 'Who we works', href: '/' },
         ],
     },
     {
         title: 'Quick links',
         links: [
-            { label: 'Destination', href: '/destination' },
-            { label: 'Promo', href: '/promo' },
-            { label: 'Become Member', href: '/membership' },
+            { label: 'Experience', href: '/experience' },
+            { label: 'Promos', href: '/promos' },
+            { label: 'Become Member', href: '/register' },
         ],
     },
     {
         title: 'More',
         links: [
-            { label: 'Customer Support', href: '/support' },
-            { label: 'Terms & Conditions', href: '/terms' },
-            { label: 'Privacy Policy', href: '/privacy' },
+            { label: 'Customer Support', href: '/' },
+            { label: 'Terms & Conditions', href: '/' },
+            { label: 'Privacy Policy', href: '/' },
         ],
     },
 ];
