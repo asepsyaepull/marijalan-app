@@ -48,6 +48,22 @@ export default function QuickInfo() {
         }
     };
 
+    const handleBookNow = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!user) {
+            e.preventDefault();
+            setIsAlertOpen(true);
+        } else {
+            try {
+                if (data) {
+                    await addToCart(data.id);
+                    router.push('/cart');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    };
+
     {/* Skeleton Loading */}
     if (isLoading) {
         return (
@@ -111,7 +127,7 @@ export default function QuickInfo() {
 
                 {/* Action Buttons */}
                 <div className="space-y-3">
-                    <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleAddToCart} disabled={isAddingToCart}>
+                    <Button className="w-full bg-orange-500 hover:bg-orange-500/90 text-white" onClick={handleBookNow} disabled={isAddingToCart}>
                         Book Now
                     </Button>
                     <Button variant="outline" className="w-full border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600" onClick={handleAddToCart} disabled={isAddingToCart}>
