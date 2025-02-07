@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Instagram, Facebook, Twitter } from 'lucide-react';
-import { RiUserSettingsLine, RiFileList3Line, RiFileTextLine } from "react-icons/ri";
+import { RiUserSettingsLine, RiFileList3Line } from "react-icons/ri";
 import { useUser } from '@/context/UserContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
@@ -54,13 +54,6 @@ export default function ProfileSidebar() {
                 >
                     <RiFileList3Line className="w-5 h-5" />
                     <span>My Orders</span>
-                </Link>
-                <Link
-                    href="/terms"
-                    className={`flex items-center gap-3 p-2 rounded-lg ${currentPath === '/terms' ? 'bg-orange-50 text-orange-500 dark:bg-gray-700' : 'hover:bg-orange-50 dark:hover:bg-gray-700'}`}
-                >
-                    <RiFileTextLine className="w-5 h-5" />
-                    <span>Terms & Conditions</span>
                 </Link>
                 <LogoutButton
                     className="flex text-md items-center gap-3 p-3 rounded-lg hover:text-red-700 hover:bg-orange-50 dark:hover:bg-gray-700" />
