@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { LogOut, Loader2 } from "lucide-react"
+import { LogOut, Loader2, LucideLayoutDashboard } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -27,7 +27,7 @@ import {
 import { useUser } from "@/context/UserContext"
 import { Skeleton } from "@/components/ui/skeleton"
 import useLogout from "@/hooks/useLogout"
-import { RiFileList3Line, RiFileTextLine, RiUser3Line } from "react-icons/ri";
+import { RiFileList3Line, RiUser3Line } from "react-icons/ri";
 
 export default function UserNav() {
     const { user, loading } = useUser()
@@ -91,10 +91,12 @@ export default function UserNav() {
                             <RiFileList3Line className="mr-2 h-4 w-4" />
                             <span>My Orders</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleNavigation("/settings")} className="hover:cursor-pointer">
-                            <RiFileTextLine className="mr-2 h-4 w-4" />
-                            <span>Terms & Condition</span>
-                        </DropdownMenuItem>
+                        {user?.role === "admin" && (
+                            <DropdownMenuItem onClick={() => handleNavigation("/dashboard")} className="hover:cursor-pointer">
+                                <LucideLayoutDashboard className="mr-2 h-4 w-4" />
+                                <span>Dashboard</span>
+                            </DropdownMenuItem>
+                        )}
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="text-red-600 focus:text-red-600 hover:cursor-pointer" onClick={handleLogoutClick}>
