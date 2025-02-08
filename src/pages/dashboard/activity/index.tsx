@@ -13,10 +13,10 @@ const ActivityDashboard = () => {
 
   return (
     <DashboardLayout>
-      <div className="p-4">
+      <div className="p-4 sm:p-6">
         <div>
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Activity Management</h1>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <h1 className="text-2xl font-bold mb-4 sm:mb-0">Activity Management</h1>
             <Link href="/dashboard/activity/add-activity">
               <Button className="flex items-center gap-2">
                 <Plus className="h-4 w-4" />

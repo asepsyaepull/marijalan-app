@@ -26,7 +26,7 @@ const ImageCell = ({ imageUrl, title }: { imageUrl: string; title: string }) => 
             alt={title}
             width={150}
             height={80}
-            className="object-cover rounded"
+            className="object-cover rounded w-full sm:w-auto"
             onError={() => setImgError(true)}
         />
     );
@@ -44,6 +44,9 @@ const columns: ColumnDef<Activity>[] = [
     {
         accessorKey: "title",
         header: "Name",
+        cell: ({ row }) => (
+            <div className="truncate max-w-xs sm:max-w-none">{row.original.title}</div>
+        ),
     },
     {
         accessorKey: "category.name",
