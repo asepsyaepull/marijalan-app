@@ -84,7 +84,8 @@ export default function OrderDetail() {
 
     if (!data) return <div>Order Data not Found</div>;
 
-    const totalPayment = data.transaction_items.reduce((acc, item) => acc + (item.quantity * item.price_discount), 0);
+    const totalPayment = data.transaction_items
+        .reduce((acc, item) => acc + (item.quantity * item.price), 0);
     const isPending = data.status.toLowerCase() === "pending";
     const hasUploadedProof = !!data.proofPaymentUrl;
 
