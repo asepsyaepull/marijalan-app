@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import Image from "next/image"; // Import Image component
 
 const ITEMS_PER_PAGE = 10;
 
@@ -91,12 +92,14 @@ const UsersDashboard = () => {
                     currentData.map((userList) => (
                       <TableRow key={userList.id}>
                         <TableCell>
-                          <img
+                          <Image
                             src={
                               userList.profilePictureUrl ||
                               "/user-default.jpg"
                             }
                             alt={userList.name}
+                            width={80}
+                            height={80}
                             className="w-20 h-20 object-cover rounded-full"
                             onError={(e) => {
                               const img = e.target as HTMLImageElement;
