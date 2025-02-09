@@ -62,7 +62,7 @@ const UpdateRoleDialog: React.FC<UpdateRoleDialogProps> = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Update User Role</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to update this user's role from {currentRole} to {selectedRole}?
+            Are you sure you want to update this users role from {currentRole} to {selectedRole}?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <Select value={selectedRole} onValueChange={setSelectedRole}>
