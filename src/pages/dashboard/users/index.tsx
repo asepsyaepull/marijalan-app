@@ -15,7 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import Image from "next/image"; // Import Image component
+import Image from "next/image"; 
 
 const ITEMS_PER_PAGE = 10;
 
@@ -24,6 +24,7 @@ const UsersDashboard = () => {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [imgError, setImgError] = useState<{ [key: string]: boolean }>({});
 
   const updateUserRole = UseUpdateRole();
 
@@ -93,18 +94,12 @@ const UsersDashboard = () => {
                       <TableRow key={userList.id}>
                         <TableCell>
                           <Image
-                            src={
-                              userList.profilePictureUrl ||
-                              "/user-default.jpg"
-                            }
+                            src={imgError[userList.id] ? "/default-image.png" : userList.profilePictureUrl}
                             alt={userList.name}
                             width={80}
                             height={80}
                             className="w-20 h-20 object-cover rounded-full"
-                            onError={(e) => {
-                              const img = e.target as HTMLImageElement;
-                              img.src = "/user-default.jpg";
-                            }}
+                            onError={() => setImgError((prev) => ({ ...prev, [userList.id]: true }))}
                           />
                         </TableCell>
                         <TableCell className="font-medium">
