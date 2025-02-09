@@ -113,12 +113,11 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between px-2">
         <div className="flex-1 text-sm text-muted-foreground">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
         <div className="flex items-center space-x-2">
           <Button
-            variant={table.getState().pagination.pageIndex === 0 ? "ghost" : "outline"}
+            variant="outline"
             className="border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600"
             size="sm"
             onClick={() => table.previousPage()}
@@ -127,7 +126,7 @@ export function DataTable<TData, TValue>({
             Previous
           </Button>
           <Button
-            variant={table.getState().pagination.pageIndex === table.getPageCount() - 1 ? "ghost" : "outline"}
+            variant="outline"
             className="border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600"
             size="sm"
             onClick={() => table.nextPage()}
