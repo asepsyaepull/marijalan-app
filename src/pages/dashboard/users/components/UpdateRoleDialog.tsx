@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -49,55 +49,50 @@ const UpdateRoleDialog: React.FC<UpdateRoleDialogProps> = ({
   };
 
   return (
-    <div className="flex justify-end gap-4">
-      <Select value={selectedRole} onValueChange={setSelectedRole}>
-        <SelectTrigger id={`role-${userId}`} className="w-[120px]">
-          <SelectValue placeholder="Select role" />
-        </SelectTrigger>
-        <SelectContent position="popper">
-          <SelectItem value="user">User</SelectItem>
-          <SelectItem value="admin">Admin</SelectItem>
-        </SelectContent>
-      </Select>
-
-      <AlertDialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-        <AlertDialogTrigger asChild>
-          <Button
-            variant="default"
-            size="icon"
-            disabled={selectedRole === currentRole} // Disable if no change
+    <AlertDialog open={isDialogOpen} onOpenChange={setDialogOpen}>
+      <AlertDialogTrigger asChild>
+        <Button
+          variant="outline"
+          className="border-orange-500 text-orange-500 hover:bg-orange-500/10 hover:text-orange-600" 
+          size="icon">
+          <Pencil className="h-4 w-4" />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Update User Role</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure you want to update this user's role from {currentRole} to {selectedRole}?
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <Select value={selectedRole} onValueChange={setSelectedRole}>
+          <SelectTrigger id={`role-${userId}`} className="w-full">
+            <SelectValue placeholder="Select role" />
+          </SelectTrigger>
+          <SelectContent position="popper">
+            <SelectItem value="user">User</SelectItem>
+            <SelectItem value="admin">Admin</SelectItem>
+          </SelectContent>
+        </Select>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleUpdate}
+            disabled={isLoading || selectedRole === currentRole}
+            className="bg-orange-500 hover:bg-orange-600"
           >
-            <Save className="h-4 w-4" />
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Update User Role</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to update this users role from {currentRole}{" "}
-              to {selectedRole}?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleUpdate}
-              disabled={isLoading || selectedRole === currentRole}
-              className="bg-blue-500 hover:bg-blue-600"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  Updating...
-                </>
-              ) : (
-                "Update Role"
-              )}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                Updating...
+              </>
+            ) : (
+              "Update Role"
+            )}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 
