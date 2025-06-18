@@ -1,8 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Marijalan App
+
+Marijalan is a travel and tourism platform that helps users discover, plan, and book their perfect trip experiences in Indonesia. The application connects travelers with local guides, attractions, and accommodations to create memorable journeys.
+
+## About the Project
+
+Marijalan (which means "Let's Go" in Javanese) aims to promote local tourism in Indonesia by:
+
+- Connecting travelers with authentic local experiences
+- Supporting small tourism businesses and local guides
+- Providing comprehensive information about destinations
+- Offering a seamless booking experience for accommodations and activities
+
+## Features
+
+- **Destination Discovery**: Browse popular destinations with detailed information
+- **Tour Packages**: Explore curated tour packages with flexible options
+- **Local Guides**: Connect with knowledgeable local guides
+- **Booking System**: Easy reservation and payment processing
+- **User Reviews**: Authentic feedback from fellow travelers
+- **Personalized Recommendations**: Get suggestions based on your preferences
+
+## Technologies Used
+
+- Next.js for frontend development
+- TypeScript for type safety
+- Tailwind CSS for styling
+- NextAuth.js for authentication
+- Prisma for database management
+- PostgreSQL for data storage
+- Vercel for deployment
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
+
+```bash
+git clone https://github.com/asepsyaepull/marijalan-app.git
+cd marijalan-app
+```
+
+Install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -14,27 +59,22 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Environment Setup
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Create a `.env.local` file in the root directory with the following variables:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```
+DATABASE_URL="your-database-connection-string"
+NEXTAUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.
