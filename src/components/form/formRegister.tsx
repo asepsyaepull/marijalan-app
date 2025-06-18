@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Eye, EyeOff, User, Users } from 'lucide-react';
-import { Card } from '../ui/card';
 import useRegister from '@/hooks/useRegister';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/router';
@@ -16,7 +15,6 @@ export default function RegisterForm() {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setpasswordRepeat] = useState('');
     const [phone, setPhone] = useState('');
-    const [selectedRole, setSelectedRole] = useState('user'); // Default role set to 'user'
     const router = useRouter()
 
 
