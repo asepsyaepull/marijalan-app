@@ -16,7 +16,7 @@ export default function RegisterForm() {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setpasswordRepeat] = useState('');
     const [phone, setPhone] = useState('');
-    const [selectedRole, setSelectedRole] = useState('');
+    const [selectedRole, setSelectedRole] = useState('user'); // Default role set to 'user'
     const router = useRouter()
 
 
@@ -41,7 +41,7 @@ export default function RegisterForm() {
                 </div>
 
                 <form onSubmit={handleRegister} className="space-y-4">
-                    <div className="space-y-2">
+                    {/* <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Looking for?</label>
                         <div className="flex items-center space-x-4">
                             <Card className={`w-full p-4 ${selectedRole === 'user' ? 'border-orange-400 bg-orange-50' : 'border-gray-400'}`}>
@@ -79,7 +79,7 @@ export default function RegisterForm() {
                                 </label>
                             </Card>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-800 dark:text-white">Email Address</label>
                         <Input

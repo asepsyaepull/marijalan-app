@@ -36,7 +36,7 @@ const useRegister = () => {
             email: formData.get("email"),
             password: password,
             passwordRepeat: passwordRepeat,
-            role: formData.get("role"),
+            role: "user",
             profilePictureUrl:
                 "/user-default.jpg",
             phoneNumber: formData.get("phoneNumber"),
