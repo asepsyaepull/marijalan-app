@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Eye, EyeOff, User, Users } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import useRegister from '@/hooks/useRegister';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/router';
